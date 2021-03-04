@@ -16,11 +16,12 @@ namespace Bapers
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             //add all the possible windows here::
+            
             Login loginWindow = new Login();
-            //loginWindow.Show();
-
+            loginWindow.Show();
+            
             DatabaseChecker dbWindow = new DatabaseChecker();
-            dbWindow.Show();
+            //dbWindow.Show();
 
 
         }

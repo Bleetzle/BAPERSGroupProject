@@ -22,7 +22,49 @@ namespace Bapers
     {
         public Login()
         {
+                
             InitializeComponent();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        
+        private void login_Click(object sender, RoutedEventArgs e)
+        {
+            credentialChecker(username_txtBox.Text, password_txtBox.Password);
+            //variables passed from username and password textbox
+
+
+        }
+
+        private void credentialChecker(string username, string password)
+        {
+            bool isfound = false;
+            //fucntion used to verify credentials
+            if (username == "admin" && password == "pass")
+            {
+                isfound = true;
+            }
+            //code for searching database for the username and password
+
+            
+            if (isfound)
+            {
+                GUI.receptionist receptionistwindow = new GUI.receptionist();
+                receptionistwindow.Show();
+                this.Close();
+                //account found, switch to the account portal
+                
+            }
+            else{
+                //show error message
+                System.Windows.Forms.MessageBox.Show("Error, Account not found");
+
+
+            }
         }
     }
 }
