@@ -61,6 +61,14 @@
     <Compile Include="Database\DatabaseChecker.xaml.cs">
       <DependentUpon>DatabaseChecker.xaml</DependentUpon>
     </Compile>
+    <Page Include="GUI\accNotFound.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\createAcc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\Login.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,6 +78,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Database\DatabaseConnector.cs" />
+    <Compile Include="GUI\accNotFound.xaml.cs">
+      <DependentUpon>accNotFound.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\createAcc.xaml.cs">
+      <DependentUpon>createAcc.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Login.xaml.cs">
       <DependentUpon>Login.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -82,10 +96,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\searchAcc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GUI\receptionist.xaml.cs">
       <DependentUpon>receptionist.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\searchAcc.xaml.cs">
+      <DependentUpon>searchAcc.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

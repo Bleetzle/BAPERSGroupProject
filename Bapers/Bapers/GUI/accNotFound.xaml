@@ -1,0 +1,15 @@
+﻿<Window x:Class="Bapers.GUI.accNotFound"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bapers.GUI"
+        mc:Ignorable="d"
+        Title="accNotFound" Height="327" Width="699" Background="#FFDDB1A1">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Height="130" Margin="16,25,0,0" TextWrapping="Wrap" Text="Account not found, Would you like to create a new account?" VerticalAlignment="Top" Width="661" FontSize="48" TextAlignment="Center"/>
+        <Button x:Name="back_btn" Content="Change Details" HorizontalAlignment="Left" Height="45" Margin="435,200,0,0" VerticalAlignment="Top" Width="175" Click="change_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Button x:Name="back_btn_Copy" Content="Create Account" HorizontalAlignment="Left" Height="45" Margin="70,200,0,0" VerticalAlignment="Top" Width="175" Click="createAcc_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+
+    </Grid>
+</Window>

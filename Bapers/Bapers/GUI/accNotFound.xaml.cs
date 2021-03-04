@@ -15,32 +15,27 @@ using System.Windows.Shapes;
 namespace Bapers.GUI
 {
     /// <summary>
-    /// Interaction logic for receptionist.xaml
+    /// Interaction logic for accNotFound.xaml
     /// </summary>
-    public partial class receptionist : Window
+    public partial class accNotFound : Window
     {
-        public receptionist()
+        public accNotFound()
         {
             InitializeComponent();
         }
 
-        private void logOut_Click(object sender, RoutedEventArgs e)
-        {
-            Login loginWindow = new Login();
-            loginWindow.Show();
-            this.Close();
-        }
-
-        private void searchAcc_click(object sender, RoutedEventArgs e)
+        private void change_Click(object sender, RoutedEventArgs e)
         {
             searchAcc searchaccWindow = new searchAcc();
             searchaccWindow.Show();
             this.Close();
         }
 
-        private void addPay_click(object sender, RoutedEventArgs e)
+        private void createAcc_Click(object sender, RoutedEventArgs e)
         {
-
+            createAcc createaccWindow = new createAcc();
+            createaccWindow.Show();
+            this.Close();
         }
     }
 }

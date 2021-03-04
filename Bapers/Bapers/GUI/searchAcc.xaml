@@ -1,0 +1,22 @@
+﻿<Window x:Class="Bapers.GUI.searchAcc"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bapers.GUI"
+        mc:Ignorable="d"
+        Title="searchAcc" Height="637" Width="969" Background="#FFE4DCCF">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Search Account" VerticalAlignment="Top" Margin="20,21,0,0" Height="39" Width="254" FontFamily="Global Serif" FontSize="36"/>
+        <TextBox x:Name="firstname_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="545" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBox x:Name="surname_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="545" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBox x:Name="telephone_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="545" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBlock Margin="145,102,681,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="First Name"/><Run Text=" "/><Run Text=": "/></TextBlock>
+        <TextBlock Margin="145,136,681,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Surn"/><Run Text="ame"/><Run Text=" "/><Run Text=": "/></TextBlock>
+        <TextBlock Margin="110,171,681,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Telephone No."/><Run Text=" "/><Run Text=": "/></TextBlock>
+        <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="845,545,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="45,545,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Button x:Name="search_btn" Content="SEARCH" HorizontalAlignment="Left" Height="25" Margin="760,215,0,0" VerticalAlignment="Top" Width="80" Click="search_click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+
+    </Grid>
+</Window>
