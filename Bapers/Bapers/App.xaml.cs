@@ -13,5 +13,16 @@ namespace Bapers
     /// </summary>
     public partial class App : Application
     {
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            //add all the possible windows here::
+            Login loginWindow = new Login();
+            //loginWindow.Show();
+
+            DatabaseChecker dbWindow = new DatabaseChecker();
+            dbWindow.Show();
+
+
+        }
     }
 }

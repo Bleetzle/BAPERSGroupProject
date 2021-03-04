@@ -86,5 +86,18 @@ namespace Bapers
         public void Restore()
         {
         }
+
+
+
+        //TEMPORARY
+
+        public bool checkConnection()
+        {
+           
+            CloseConnection();
+            return OpenConnection();
+        }
+
+
     }
 }
