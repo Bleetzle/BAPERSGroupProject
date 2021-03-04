@@ -35,6 +35,4 @@ public class Login {
         frame.setResizable(true);
         frame.setLocationRelativeTo(null);
     }
-
-
 }
