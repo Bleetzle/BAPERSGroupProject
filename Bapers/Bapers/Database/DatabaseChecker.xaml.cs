@@ -30,7 +30,8 @@ namespace Bapers
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("" + db.checkConnection());
+            db.Query(dataGrid,"SELECT * FROM Job");
+            
         }
     }
 }

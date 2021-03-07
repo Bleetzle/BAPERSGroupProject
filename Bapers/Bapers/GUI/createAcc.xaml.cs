@@ -31,12 +31,16 @@ namespace Bapers.GUI
 
         private void logOut_Click(object sender, RoutedEventArgs e)
         {
-
+           
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
         {
 
         }
+
+
+
+
     }
 }

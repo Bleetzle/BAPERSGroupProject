@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bapers.GUI;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -18,11 +19,13 @@ namespace Bapers
             //add all the possible windows here::
             
             Login loginWindow = new Login();
-            loginWindow.Show();
-            
-            DatabaseChecker dbWindow = new DatabaseChecker();
-            //dbWindow.Show();
+            //loginWindow.Show();
 
+            createAcc accCreation = new createAcc();
+            //accCreation.Show();
+
+            DatabaseChecker dbWindow = new DatabaseChecker();
+            dbWindow.Show();
 
         }
     }

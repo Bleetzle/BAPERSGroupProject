@@ -1,16 +1,15 @@
-﻿using System.Windows;
+﻿using System;
+using System.Data;
+using System.Windows;
+using System.Windows.Controls;
 using MySql.Data.MySqlClient;
 
 namespace Bapers
 {
-    class DatabaseConnector
+    class DatabaseConnector 
     {
         private MySqlConnection connection;
-        private string server;
-        private string database;
-        private string username;
-        private string password;
-
+       
         public DatabaseConnector()
         {
             Initialise();
@@ -19,10 +18,11 @@ namespace Bapers
 
         private void Initialise()
         {
-            server = "localhost";
-            database = "BAPERS";
-            username = "root";
-            password = "password123";
+
+            string server = "localhost";
+            string database = "BAPERS";
+            string username = "root";
+            string password = "password123";
 
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "USERNAME=" + username + ";" + "PASSWORD=" + password;
@@ -67,9 +67,34 @@ namespace Bapers
             }
         }
 
-        public void Insert()
+        //runs a query
+        public void Query(DataGrid dg, string q)
         {
+            DataTable dataTable = new DataTable();
+
+            try
+            { 
+                MySqlCommand cmd = new MySqlCommand(q, connection);
+                
+                if (this.OpenConnection() == true)
+                {
+                    using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
+                    {
+                        da.Fill(dataTable);
+                    }
+                    dg.DataContext = dataTable.DefaultView;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("An error occurred {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
         }
+
 
         public void Update()
         {
@@ -93,7 +118,6 @@ namespace Bapers
 
         public bool checkConnection()
         {
-           
             CloseConnection();
             return OpenConnection();
         }
