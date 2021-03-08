@@ -1,15 +1,23 @@
 ﻿using System;
 using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using MySql.Data.MySqlClient;
+using System.Diagnostics;
 
 namespace Bapers
 {
     class DatabaseConnector 
     {
         private MySqlConnection connection;
-       
+        private string server = "localhost";
+        private string database = "BAPERS";
+        private string username = "root";
+        private string password = "password123";
+
+
         public DatabaseConnector()
         {
             Initialise();
@@ -19,10 +27,10 @@ namespace Bapers
         private void Initialise()
         {
 
-            string server = "localhost";
-            string database = "BAPERS";
-            string username = "root";
-            string password = "password123";
+            server = "localhost";
+            database = "BAPERS";
+            username = "root";
+            password = "password123";
 
             string connectionString;
             connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "USERNAME=" + username + ";" + "PASSWORD=" + password;
@@ -68,7 +76,7 @@ namespace Bapers
         }
 
         //runs a query
-        public void Query(DataGrid dg, string q)
+        public void Select(DataGrid dg, string q)
         {
             DataTable dataTable = new DataTable();
 
@@ -96,32 +104,98 @@ namespace Bapers
         }
 
 
-        public void Update()
+        public void InQuery(string q)
         {
-        }
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(q, connection);
 
-        public void Delete()
-        {
+                if (this.OpenConnection() == true)
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("An error occurred {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
         }
 
         public void Backup()
         {
+            try
+            {
+                DateTime time = DateTime.Now;
+                int year = time.Year;
+                int month = time.Month;
+                int day = time.Day;
+                int hour = time.Hour;
+                int minute = time.Minute;
+                int second = time.Second;
+                int millisecond = time.Millisecond;
+
+                string path; 
+                path = @"C:\\DatabaseBackups\\MySqlBackup" + year + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + second + "-" + millisecond + ".sql";
+                StreamWriter file = new StreamWriter(path);
+
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = @"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysqldump.exe";
+                psi.RedirectStandardInput = false;
+                psi.RedirectStandardOutput = true;
+                psi.Arguments = string.Format(@"-u{0} -p{1} -h{2} {3}", username, password, server, database);
+                psi.UseShellExecute = false;
+
+                Process process = Process.Start(psi);
+                string output;
+                output = process.StandardOutput.ReadToEnd();
+                file.WriteLine(output);
+                process.WaitForExit();
+
+
+                file.Close();
+                process.Close();
+                
+                MessageBox.Show("Backup Success!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("Error, unable to Backup. {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        public void Restore()
+        //made it so then we can just use a search and select function to senf throught the rest of the name that is unkown to the user
+        public void Restore(string p)
         {
+            try
+            {
+                string path = @"C:\\DatabaseBackups\\MySqlBackup" + p + ".sql";
+                StreamReader file = new StreamReader(path);
+                string input = file.ReadToEnd();
+                file.Close();
+
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = @"C:\\Program Files\\MySQL\\MySQL Server 8.0\\bin\\mysql.exe";
+                psi.RedirectStandardInput = true;
+                psi.RedirectStandardOutput = false;
+                psi.Arguments = string.Format(@"-u{0} -p{1} -h{2} {3}", username, password, server, database);
+                psi.UseShellExecute = false;
+
+                Process process = Process.Start(psi);
+                process.StandardInput.WriteLine(input);
+                process.StandardInput.Close();
+                process.WaitForExit();
+                process.Close();
+                MessageBox.Show("Restore Success!");
+            }
+            catch (IOException ex)
+            {
+                MessageBox.Show(string.Format("Error, unable to Restore. \n Backup with that filename does not exist. \n {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
-
-
-
-        //TEMPORARY
-
-        public bool checkConnection()
-        {
-            CloseConnection();
-            return OpenConnection();
-        }
-
 
     }
 }

@@ -30,8 +30,9 @@ namespace Bapers
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            db.Query(dataGrid,"SELECT * FROM Job");
-            
+            // db.Select(dataGrid,"SELECT * FROM Job");
+            //db.Backup();
+            db.Restore("2021-3-8-14-13-35-750");
         }
     }
 }
