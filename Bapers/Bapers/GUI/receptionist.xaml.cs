@@ -40,7 +40,16 @@ namespace Bapers.GUI
 
         private void addPay_click(object sender, RoutedEventArgs e)
         {
+            payment paymentWindow = new payment();
+            paymentWindow.Show();
+            this.Close();
+        }
 
+        private void createAcc_click(object sender, RoutedEventArgs e)
+        {
+            createAcc createaccWindow = new createAcc();
+            createaccWindow.Show();
+            this.Close();
         }
     }
 }

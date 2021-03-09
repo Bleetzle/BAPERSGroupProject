@@ -9,8 +9,9 @@
     <Grid x:Name="logout_btn">
         <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="782,474,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <TextBlock HorizontalAlignment="Left" Height="44" Margin="31,35,0,0" TextWrapping="Wrap" Text="Welcome Receptionist" VerticalAlignment="Top" Width="334" FontFamily="Global Serif" FontSize="36"/>
-        <Button x:Name="login_btn_Copy" Content="Search Account" Height="56" Margin="307,196,306,0" VerticalAlignment="Top" Click="searchAcc_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
-        <Button x:Name="login_btn_Copy1" Content="Add Payment" Height="56" Margin="307,268,306,0" VerticalAlignment="Top" Click="addPay_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
+        <Button x:Name="search_btn" Content="Search Account" Height="56" Margin="307,236,306,0" VerticalAlignment="Top" Click="searchAcc_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
+        <Button x:Name="addPay_btn" Content="Add Payment" Height="56" Margin="307,308,306,0" VerticalAlignment="Top" Click="addPay_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
+        <Button x:Name="createAcc_btn" Content="Create Account" Height="56" Margin="307,160,306,0" VerticalAlignment="Top" Click="createAcc_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
 
     </Grid>
 </Window>

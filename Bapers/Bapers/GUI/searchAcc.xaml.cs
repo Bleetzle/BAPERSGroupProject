@@ -45,14 +45,16 @@ namespace Bapers.GUI
 
         private void search_click(object sender, RoutedEventArgs e)
         {
-            bool isfound = false;
+            bool isfound = true;
             //The code for searching the db for the account goes here
 
 
 
             if (isfound)
-            {   
-
+            {
+                accountFound accountfoundwindow = new accountFound();
+                accountfoundwindow.Show();
+                this.Close();
             }
             else {
                 accNotFound accnotfoundWindow = new accNotFound();

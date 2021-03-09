@@ -1,0 +1,15 @@
+﻿<Window x:Class="Bapers.GUI.accountFound"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bapers.GUI"
+        mc:Ignorable="d"
+        Title="accountFound" Height="312" Width="709" Background="#FFD4DDA1">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Height="130" Margin="16,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="661" FontSize="48" TextAlignment="Center"><Run Text="Account"/><Run Text=" "/><Run Text="found, "/><Run Text="Would you like to "/><Run Text="add"/><Run Text=" "/><Run Text="jobs"/><Run Text="?"/></TextBlock>
+        <Button x:Name="no_btn" Content="No" HorizontalAlignment="Left" Height="45" Margin="435,200,0,0" VerticalAlignment="Top" Width="175" Click="no_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="24" Foreground="Black"/>
+        <Button x:Name="yes_btn" Content="Yes" HorizontalAlignment="Left" Height="45" Margin="70,200,0,0" VerticalAlignment="Top" Width="175" Click="yes_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="24" Foreground="Black"/>
+
+    </Grid>
+</Window>

@@ -15,25 +15,13 @@ using System.Windows.Shapes;
 namespace Bapers.GUI
 {
     /// <summary>
-    /// Interaction logic for createAcc.xaml
+    /// Interaction logic for addJobs.xaml
     /// </summary>
-    public partial class createAcc : Window
+    public partial class addJobs : Window
     {
-        public createAcc()
+        public addJobs()
         {
             InitializeComponent();
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void logOut_Click(object sender, RoutedEventArgs e)
-        {
-            Login loginWindow = new Login();
-            loginWindow.Show();
-            this.Close();
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
@@ -43,15 +31,25 @@ namespace Bapers.GUI
             this.Close();
         }
 
-        private void create_Click(object sender, RoutedEventArgs e)
+        private void logOut_Click(object sender, RoutedEventArgs e)
         {
-            //code for creating a new account goes here
-
-
-            //after account created..
-            accountCreated_popup accountCreated_Popup_window = new accountCreated_popup();
-            accountCreated_Popup_window.Show();
+            Login loginWindow = new Login();
+            loginWindow.Show();
             this.Close();
+        }
+
+        private void addJob_Click(object sender, RoutedEventArgs e)
+        {
+            //code for adding job into the database goes here
+
+            //also update the box of the jobs added
+            System.Windows.Forms.MessageBox.Show("Job has been added successfully");
+
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
     }
 }

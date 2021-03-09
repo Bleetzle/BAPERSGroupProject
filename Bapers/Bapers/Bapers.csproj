@@ -65,6 +65,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\accountCreated_popup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\accountFound.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\addJobs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\createAcc.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -81,6 +93,15 @@
     <Compile Include="GUI\accNotFound.xaml.cs">
       <DependentUpon>accNotFound.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\accountCreated_popup.xaml.cs">
+      <DependentUpon>accountCreated_popup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\accountFound.xaml.cs">
+      <DependentUpon>accountFound.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\addJobs.xaml.cs">
+      <DependentUpon>addJobs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\createAcc.xaml.cs">
       <DependentUpon>createAcc.xaml</DependentUpon>
     </Compile>
@@ -89,6 +110,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Database\DatabaseChecker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\payment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -102,6 +127,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\payment.xaml.cs">
+      <DependentUpon>payment.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\receptionist.xaml.cs">
       <DependentUpon>receptionist.xaml</DependentUpon>
     </Compile>

@@ -17,15 +17,16 @@ namespace Bapers
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             //add all the possible windows here::
-            
+            //GUI.payment paymentwindow = new GUI.payment();
+            //paymentwindow.Show();
             Login loginWindow = new Login();
-            //loginWindow.Show();
+            loginWindow.Show();
 
             createAcc accCreation = new createAcc();
             //accCreation.Show();
 
-            DatabaseChecker dbWindow = new DatabaseChecker();
-            dbWindow.Show();
+            //DatabaseChecker dbWindow = new DatabaseChecker();
+            //dbWindow.Show();
 
         }
     }
