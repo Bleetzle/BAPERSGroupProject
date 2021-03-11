@@ -25,7 +25,7 @@ namespace Bapers
             createAcc accCreation = new createAcc();
             //accCreation.Show();
 
-            //DatabaseChecker dbWindow = new DatabaseChecker();
+            DatabaseChecker dbWindow = new DatabaseChecker();
             //dbWindow.Show();
 
         }

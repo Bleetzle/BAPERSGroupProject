@@ -75,7 +75,7 @@ namespace Bapers
             }
         }
 
-        //runs a query
+        //runs a query and fills in a grid
         public void Select(DataGrid dg, string q)
         {
             DataTable dataTable = new DataTable();
@@ -101,6 +101,32 @@ namespace Bapers
             {
                 this.CloseConnection();
             }
+        }
+
+        //runs a query and returns true or false based on if the query finds data
+        public bool Check(string q)
+        {
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(q, connection);
+                
+                if (this.OpenConnection() == true)
+                {
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    if (reader.HasRows)
+                        return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("An error occurred {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                this.CloseConnection();
+                
+            }
+            return false;
         }
 
 

@@ -19,6 +19,8 @@ namespace Bapers.GUI
     /// </summary>
     public partial class searchAcc : Window
     {
+        DatabaseConnector db = new DatabaseConnector();
+
         public searchAcc()
         {
             InitializeComponent();
@@ -45,10 +47,25 @@ namespace Bapers.GUI
 
         private void search_click(object sender, RoutedEventArgs e)
         {
-            bool isfound = true;
-            //The code for searching the db for the account goes here
+            //check if any of the inputs are empty
+            if (firstname_txtBox.Text.Equals("") || surname_txtBox.Text.Equals("") ||telephone_txtBox.Text.Equals(""))
+            {
+                MessageBox.Show("Please fill in all boxes!");
+                return;
+            }
 
+            //constructs a query based on the inputs
+            string query = 
+                " SELECT *" +
+                " FROM Customer" +
+                " WHERE first_name = \"" + firstname_txtBox.Text + "\"" +
+                " AND last_name = \"" + surname_txtBox.Text + "\"" +
+                " AND phone_number = \"" + telephone_txtBox.Text + "\"" +
+                ";"
+                ;
 
+            //checks if the data for the given query exists
+            bool isfound = db.Check(query);
 
             if (isfound)
             {
