@@ -19,6 +19,8 @@ namespace Bapers.GUI
     /// </summary>
     public partial class createAcc : Window
     {
+        DatabaseConnector db = new DatabaseConnector();
+
         public createAcc()
         {
             InitializeComponent();
@@ -45,8 +47,31 @@ namespace Bapers.GUI
 
         private void create_Click(object sender, RoutedEventArgs e)
         {
-            //code for creating a new account goes here
 
+            if (firstname_txtBox.Text.Equals("") || surname_txtBox.Text.Equals("")||telephone_txtBox.Text.Equals("")||compName_txtBox.Text.Equals("")||address_txtBox.Text.Equals(""))
+            {
+                MessageBox.Show("Please fill in all areas!");
+                return;
+            }
+
+
+            string accNum = db.SelectSingle("SELECT MAX(account_number) FROM Customer;");
+            int num = ( int.Parse( accNum.Substring(3) ) ) + 1;
+
+
+            string query =
+                "INSERT INTO Customer (account_number, first_name, last_name,phone_number, company_name, address, customer_status)" +
+                "VALUES ( " + 
+                "\"ACC" + num + "\"," +
+                "\"" + firstname_txtBox.Text + "\"," +
+                "\"" + surname_txtBox.Text + "\", " +
+                "\"" + telephone_txtBox.Text + "\", " +
+                "\"" + compName_txtBox.Text + "\", " +
+                "\"" + address_txtBox.Text + "\", " +
+                " \"standard\"" +
+                ");";
+
+            db.InQuery(query);
 
             //after account created..
             accountCreated_popup accountCreated_Popup_window = new accountCreated_popup();

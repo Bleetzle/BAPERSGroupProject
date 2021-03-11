@@ -103,6 +103,32 @@ namespace Bapers
             }
         }
 
+        //runs a query and fills in a grid
+        public string SelectSingle(string q)
+        {
+            string value = " ";
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(q, connection);
+
+                if (this.OpenConnection() == true)
+                {
+                    value = cmd.ExecuteScalar().ToString();
+              
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("An error occurred {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+            return value;
+        }
+
+
         //runs a query and returns true or false based on if the query finds data
         public bool Check(string q)
         {
@@ -129,7 +155,7 @@ namespace Bapers
             return false;
         }
 
-
+        //runs a query to insert data into the database
         public void InQuery(string q)
         {
             try
