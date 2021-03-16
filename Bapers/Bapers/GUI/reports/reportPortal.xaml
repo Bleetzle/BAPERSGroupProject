@@ -1,0 +1,17 @@
+﻿<Window x:Class="Bapers.GUI.reports.reportPortal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bapers.GUI.reports"
+        mc:Ignorable="d"
+        Title="reportPortal" Height="557" Width="899" Background="#FFE4DCCF">
+    <Grid>
+        <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="782,474,-70,-80" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <TextBlock HorizontalAlignment="Left" Height="44" Margin="40,30,0,0" TextWrapping="Wrap" Text="Report Portal" VerticalAlignment="Top" Width="334" FontFamily="Global Serif" FontSize="36"/>
+        <Button x:Name="individualP_btn" Content="Individual Performance Report" Height="56" Margin="208,236,216,0" VerticalAlignment="Top" Click="individualP_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
+        <Button x:Name="summP_btn" Content="Summary Performance Report" Height="56" Margin="208,308,216,0" VerticalAlignment="Top" Click="summP_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
+        <Button x:Name="individual_btn" Content="Individual Report" Height="56" Margin="208,160,216,0" VerticalAlignment="Top" Click="individual_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
+
+    </Grid>
+</Window>

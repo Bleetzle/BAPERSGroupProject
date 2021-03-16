@@ -1,0 +1,24 @@
+﻿<Window x:Class="Bapers.GUI.reports.individual"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Bapers.GUI.reports"
+        mc:Ignorable="d"
+        Title="individual" Height="467" Width="954" Background="#FFE4DCCF">
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="20,21,0,0" Height="39" Width="330" FontFamily="Global Serif" FontSize="36" Text="Individual Report"/>
+        <TextBox x:Name="accountNum_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBox x:Name="timespan_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBox x:Name="startDate_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBlock Margin="30,102,666,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Account Num"/><Run Text="b"/><Run Text="er"/><Run Text=" :"/></TextBlock>
+        <TextBlock Margin="145,136,666,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Text="Timespan :"/>
+        <TextBlock Margin="110,171,666,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Text="Start date :"/>
+        <TextBlock Margin="110,221,666,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Auto Generate"/><Run Text=" :"/></TextBlock>
+        <CheckBox x:Name="autoGen_checkbox" Content="" HorizontalAlignment="Left" Margin="315,230,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.352,0" Checked="CheckBox_Checked" FontSize="6"/>
+        <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="830,385,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Button x:Name="viewReport_btn" Content="View Report" HorizontalAlignment="Left" Height="40" Margin="387,265,0,0" VerticalAlignment="Top" Width="158" Click="viewReport_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
+        <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="45,385,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+
+    </Grid>
+</Window>

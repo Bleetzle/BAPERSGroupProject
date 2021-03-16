@@ -61,23 +61,23 @@
     <Compile Include="Database\DatabaseChecker.xaml.cs">
       <DependentUpon>DatabaseChecker.xaml</DependentUpon>
     </Compile>
-    <Page Include="GUI\accNotFound.xaml">
+    <Page Include="GUI\receptionist\accNotFound.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\accountCreated_popup.xaml">
+    <Page Include="GUI\receptionist\accountCreated_popup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\accountFound.xaml">
+    <Page Include="GUI\receptionist\accountFound.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\addJobs.xaml">
+    <Page Include="GUI\receptionist\addJobs.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\createAcc.xaml">
+    <Page Include="GUI\receptionist\createAcc.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -90,19 +90,19 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Database\DatabaseConnector.cs" />
-    <Compile Include="GUI\accNotFound.xaml.cs">
+    <Compile Include="GUI\receptionist\accNotFound.xaml.cs">
       <DependentUpon>accNotFound.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\accountCreated_popup.xaml.cs">
+    <Compile Include="GUI\receptionist\accountCreated_popup.xaml.cs">
       <DependentUpon>accountCreated_popup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\accountFound.xaml.cs">
+    <Compile Include="GUI\receptionist\accountFound.xaml.cs">
       <DependentUpon>accountFound.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\addJobs.xaml.cs">
+    <Compile Include="GUI\receptionist\addJobs.xaml.cs">
       <DependentUpon>addJobs.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\createAcc.xaml.cs">
+    <Compile Include="GUI\receptionist\createAcc.xaml.cs">
       <DependentUpon>createAcc.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\Login.xaml.cs">
@@ -113,28 +113,70 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\payment.xaml">
+    <Page Include="GUI\receptionist\payment.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\receptionist.xaml">
+    <Page Include="GUI\receptionist\receptionist.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\searchAcc.xaml">
+    <Page Include="GUI\receptionist\searchAcc.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\reports\individual.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\reports\individualPeformance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\reports\reportPortal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\reports\summaryPerformace.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\reports\viewReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\shiftManager\shiftManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GUI\payment.xaml.cs">
+    <Compile Include="GUI\receptionist\payment.xaml.cs">
       <DependentUpon>payment.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\receptionist.xaml.cs">
+    <Compile Include="GUI\receptionist\receptionist.xaml.cs">
       <DependentUpon>receptionist.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\searchAcc.xaml.cs">
+    <Compile Include="GUI\receptionist\searchAcc.xaml.cs">
       <DependentUpon>searchAcc.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\reports\individual.xaml.cs">
+      <DependentUpon>individual.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\reports\individualPeformance.xaml.cs">
+      <DependentUpon>individualPeformance.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\reports\reportPortal.xaml.cs">
+      <DependentUpon>reportPortal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\reports\summaryPerformace.xaml.cs">
+      <DependentUpon>summaryPerformace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\reports\viewReport.xaml.cs">
+      <DependentUpon>viewReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\shiftManager\shiftManager.xaml.cs">
+      <DependentUpon>shiftManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
