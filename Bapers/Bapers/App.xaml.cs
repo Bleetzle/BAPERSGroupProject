@@ -33,8 +33,8 @@ namespace Bapers
             //GUI.officeManager.officeManagerPortal officeManagerWindow = new GUI.officeManager.officeManagerPortal();
             //officeManagerWindow.Show();
 
-            GUI.technician.technicianPortal technicianPortalWindow = new GUI.technician.technicianPortal();
-            technicianPortalWindow.Show();
+            //GUI.technician.technicianPortal technicianPortalWindow = new GUI.technician.technicianPortal();
+            //technicianPortalWindow.Show();
 
 
             createAcc accCreation = new createAcc();
