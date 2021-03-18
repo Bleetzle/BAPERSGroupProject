@@ -22,7 +22,7 @@ namespace Bapers
 
 
             Login loginWindow = new Login();
-            loginWindow.Show();
+            //loginWindow.Show();
 
             //GUI.reports.reportPortal reportPortalWindow = new GUI.reports.reportPortal();
             //reportPortalWindow.Show();
@@ -38,7 +38,7 @@ namespace Bapers
 
 
             createAcc accCreation = new createAcc();
-            //accCreation.Show();
+            accCreation.Show();
 
             DatabaseChecker dbWindow = new DatabaseChecker();
             //dbWindow.Show();

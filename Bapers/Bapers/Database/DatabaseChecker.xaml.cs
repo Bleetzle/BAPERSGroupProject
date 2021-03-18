@@ -28,9 +28,10 @@ namespace Bapers
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            db.Select(dataGrid,"SELECT * FROM Job");
+            string jobID = "J20934565";
+            await db.Select(dataGrid,"SELECT * FROM Job WHERE job_number = @val0", jobID);
             //db.Backup();
             //db.Restore("2021-3-8-14-13-35-750");
         }

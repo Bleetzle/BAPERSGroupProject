@@ -6,17 +6,13 @@ using System.Windows;
 using System.Windows.Controls;
 using MySql.Data.MySqlClient;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace Bapers
 {
     class DatabaseConnector 
     {
         private MySqlConnection connection;
-        private string server = "localhost";
-        private string database = "BAPERS";
-        private string username = "root";
-        private string password = "password123";
-
 
         public DatabaseConnector()
         {
@@ -26,14 +22,7 @@ namespace Bapers
 
         private void Initialise()
         {
-
-            server = "localhost";
-            database = "BAPERS";
-            username = "root";
-            password = "password123";
-
-            string connectionString;
-            connectionString = "SERVER=" + server + ";" + "DATABASE=" + database + ";" + "USERNAME=" + username + ";" + "PASSWORD=" + password;
+            string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["BAPERS"].ConnectionString;
             connection = new MySqlConnection(connectionString);
         }
 
@@ -75,24 +64,31 @@ namespace Bapers
             }
         }
 
+
         //runs a query and fills in a grid
-        public void Select(DataGrid dg, string q)
+        public async Task Select(DataGrid dg, string q, params object[] vals)
         {
             DataTable dataTable = new DataTable();
 
             try
             { 
                 MySqlCommand cmd = new MySqlCommand(q, connection);
-                
+
+                for (int i = 0; i < vals.Length; i++)
+                {
+                  cmd.Parameters.AddWithValue($"@val{i}", vals[i]);
+                }
+
                 if (this.OpenConnection() == true)
                 {
                     using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
                     {
-                        da.Fill(dataTable);
+                        await da.FillAsync(dataTable);
                     }
                     dg.DataContext = dataTable.DefaultView;
                 }
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show(string.Format("An error occurred {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -103,18 +99,18 @@ namespace Bapers
             }
         }
 
-        //runs a query and fills in a grid
-        public string SelectSingle(string q)
+        //runs a query and selects a single item
+        public async Task<string> SelectSingle(string q)
         {
-            string value = " ";
+            string value = "";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(q, connection);
 
                 if (this.OpenConnection() == true)
                 {
-                    value = cmd.ExecuteScalar().ToString();
-              
+                    var val = await cmd.ExecuteScalarAsync();
+                    value = val.ToString();
                 }
             }
             catch (Exception ex)
@@ -155,16 +151,25 @@ namespace Bapers
             return false;
         }
 
+
+
+
+
         //runs a query to insert data into the database
-        public void InQuery(string q)
+        public async Task InQuery(string q, params object[] vals)
         {
             try
-            {
+            { 
                 MySqlCommand cmd = new MySqlCommand(q, connection);
+                
+                for (int i = 0; i < vals.Length; i++)
+                {
+                    cmd.Parameters.AddWithValue($"@val{i}", vals[i]);
+                }
 
                 if (this.OpenConnection() == true)
                 {
-                    cmd.ExecuteNonQuery();
+                   await cmd.ExecuteNonQueryAsync();
                 }
             }
             catch (Exception ex)
@@ -177,10 +182,21 @@ namespace Bapers
             }
         }
 
+
+
+
+
+
+
         public void Backup()
         {
             try
             {
+                string username = System.Configuration.ConfigurationManager.AppSettings.Get("USERNAME");
+                string password = System.Configuration.ConfigurationManager.AppSettings.Get("PASSWORD");
+                string server = System.Configuration.ConfigurationManager.AppSettings.Get("SERVER");
+                string database = System.Configuration.ConfigurationManager.AppSettings.Get("DATABASE");
+
                 DateTime time = DateTime.Now;
                 int year = time.Year;
                 int month = time.Month;
@@ -224,6 +240,11 @@ namespace Bapers
         {
             try
             {
+                string username = System.Configuration.ConfigurationManager.AppSettings.Get("USERNAME");
+                string password = System.Configuration.ConfigurationManager.AppSettings.Get("PASSWORD");
+                string server = System.Configuration.ConfigurationManager.AppSettings.Get("SERVER");
+                string database = System.Configuration.ConfigurationManager.AppSettings.Get("DATABASE");
+
                 string path = @"C:\\DatabaseBackups\\MySqlBackup" + p + ".sql";
                 StreamReader file = new StreamReader(path);
                 string input = file.ReadToEnd();
