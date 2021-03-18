@@ -20,10 +20,10 @@ namespace Bapers
             //GUI.payment paymentwindow = new GUI.payment();
             //paymentwindow.Show();
             Login loginWindow = new Login();
-            loginWindow.Show();
+            //loginWindow.Show();
 
             createAcc accCreation = new createAcc();
-            //accCreation.Show();
+            accCreation.Show();
 
             DatabaseChecker dbWindow = new DatabaseChecker();
             //dbWindow.Show();

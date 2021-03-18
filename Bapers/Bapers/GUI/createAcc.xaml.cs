@@ -45,7 +45,7 @@ namespace Bapers.GUI
             this.Close();
         }
 
-        private void create_Click(object sender, RoutedEventArgs e)
+        private async void create_Click(object sender, RoutedEventArgs e)
         {
 
             if (firstname_txtBox.Text.Equals("") || surname_txtBox.Text.Equals("")||telephone_txtBox.Text.Equals("")||compName_txtBox.Text.Equals("")||address_txtBox.Text.Equals(""))
@@ -55,23 +55,16 @@ namespace Bapers.GUI
             }
 
 
-            string accNum = db.SelectSingle("SELECT MAX(account_number) FROM Customer;");
+            string accNum = await db.SelectSingle("SELECT MAX(account_number) FROM Customer;");
+
             int num = ( int.Parse( accNum.Substring(3) ) ) + 1;
 
 
-            string query =
-                "INSERT INTO Customer (account_number, first_name, last_name,phone_number, company_name, address, customer_status)" +
-                "VALUES ( " + 
-                "\"ACC" + num + "\"," +
-                "\"" + firstname_txtBox.Text + "\"," +
-                "\"" + surname_txtBox.Text + "\", " +
-                "\"" + telephone_txtBox.Text + "\", " +
-                "\"" + compName_txtBox.Text + "\", " +
-                "\"" + address_txtBox.Text + "\", " +
-                " \"standard\"" +
-                ");";
-
-            db.InQuery(query);
+           await db.InQuery(
+                "INSERT INTO Customer (account_number, first_name, last_name, phone_number, company_name, address, customer_status)" +
+                "VALUES (@val0, @val1, @val2, @val3, @val4, @val5, @val6)"
+                ,"ACC" + num, firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text, compName_txtBox.Text, address_txtBox.Text, "standard"
+                );
 
             //after account created..
             accountCreated_popup accountCreated_Popup_window = new accountCreated_popup();
