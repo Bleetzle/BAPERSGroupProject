@@ -19,8 +19,17 @@ namespace Bapers
             //add all the possible windows here::
             //GUI.payment paymentwindow = new GUI.payment();
             //paymentwindow.Show();
+
+
             Login loginWindow = new Login();
             //loginWindow.Show();
+
+            //GUI.reports.reportPortal reportPortalWindow = new GUI.reports.reportPortal();
+            //reportPortalWindow.Show();
+
+            //GUI.shiftManager.shiftManager shiftManagerWindow = new GUI.shiftManager.shiftManager();
+            //shiftManagerWindow.Show();
+
 
             createAcc accCreation = new createAcc();
             accCreation.Show();
