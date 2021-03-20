@@ -19,14 +19,10 @@ namespace Bapers.GUI.officeManager
     /// </summary>
     public partial class createUser : Window
     {
+        DatabaseConnector db = new DatabaseConnector();
         public createUser()
         {
             InitializeComponent();
-        }
-
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
         }
 
         private void logOut_Click(object sender, RoutedEventArgs e)
@@ -44,9 +40,60 @@ namespace Bapers.GUI.officeManager
             this.Close();
         }
 
-        private void changeDiscount_Click(object sender, RoutedEventArgs e)
+        private async void createAccount_Click(object sender, RoutedEventArgs e)
         {
+            bool shiftChecked = false;
+            string shift_type = "Day Shift 1";
+            string location = null;
+            RadioButton typeItem = (RadioButton)role_Dropdown.SelectedItem;
 
+            if ((bool)day_checkBox.IsChecked || (bool)night_checkBox.IsChecked)
+            {
+                shiftChecked = true;
+            }
+
+            if (username_txtBox.Text.Equals("") || 
+                password_txtBox.Text.Equals("") || 
+                firstname_txtBox.Text.Equals("") || 
+                typeItem.Content.ToString().Equals("null") || 
+                lastname_txtBox.Text.Equals("") || 
+                !shiftChecked)
+            {
+                MessageBox.Show("Please fill in all areas");
+                return;
+            }
+
+            //if (role_Dropdown.SelectedItem.Equals("Techinician"))
+            //{
+            //    if (location_txtBox.Text.Equals(""))
+            //    {
+            //        MessageBox.Show("Please fill in all areas");
+            //        return;
+            //    }else
+            //    {
+            //        location = location_txtBox.Text;
+            //    }
+            //}
+                 
+            if (firstname_txtBox.Text.Equals("Night"))
+                shift_type = "Night Shift 1";
+            
+            await db.InQuery( 
+                "INSERT INTO staff (first_name, last_name, role, shift_type, location) " +
+                "VALUES (@val0, @val1, @val2, @val3, @val4)",
+                firstname_txtBox.Text, lastname_txtBox.Text, typeItem.Content.ToString(), shift_type, location
+                );
+            await db.InQuery(
+                "INSERT INTO users (username, pass, UserID) " +
+                "VALUES (@val0, @val1, " +
+                    "(SELECT staff_ID " +
+                    "FROM staff " +
+                    "WHERE first_name = @val2 " +
+                    "AND last_name = @val3) " +
+                    ")",
+                username_txtBox.Text, db.StringToHash(password_txtBox.Text), firstname_txtBox.Text, lastname_txtBox.Text
+                );
+            MessageBox.Show("Account created successfully");
         }
     }
 }

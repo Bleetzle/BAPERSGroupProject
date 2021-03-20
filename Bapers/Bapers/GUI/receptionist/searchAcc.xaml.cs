@@ -45,7 +45,7 @@ namespace Bapers.GUI
             this.Close();
         }
 
-        private void search_click(object sender, RoutedEventArgs e)
+        private async void search_click(object sender, RoutedEventArgs e)
         {
             //check if any of the inputs are empty
             if (firstname_txtBox.Text.Equals("") || surname_txtBox.Text.Equals("") ||telephone_txtBox.Text.Equals(""))
@@ -55,17 +55,16 @@ namespace Bapers.GUI
             }
 
             //constructs a query based on the inputs
-            string query = 
+            //checks if the data for the given query exists
+            bool isfound = await db.Check(
                 " SELECT *" +
                 " FROM Customer" +
-                " WHERE first_name = \"" + firstname_txtBox.Text + "\"" +
-                " AND last_name = \"" + surname_txtBox.Text + "\"" +
-                " AND phone_number = \"" + telephone_txtBox.Text + "\"" +
+                " WHERE first_name = @val0" +
+                " AND last_name = @val1" +
+                " AND phone_number =@val2 " +
                 ";"
-                ;
-
-            //checks if the data for the given query exists
-            bool isfound = db.Check(query);
+                , firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text
+                );
 
             if (isfound)
             {

@@ -30,15 +30,15 @@ namespace Bapers
             //GUI.shiftManager.shiftManager shiftManagerWindow = new GUI.shiftManager.shiftManager();
             //shiftManagerWindow.Show();
 
-            //GUI.officeManager.officeManagerPortal officeManagerWindow = new GUI.officeManager.officeManagerPortal();
-            //officeManagerWindow.Show();
+            GUI.officeManager.officeManagerPortal officeManagerWindow = new GUI.officeManager.officeManagerPortal();
+            officeManagerWindow.Show();
 
             //GUI.technician.technicianPortal technicianPortalWindow = new GUI.technician.technicianPortal();
             //technicianPortalWindow.Show();
 
 
             createAcc accCreation = new createAcc();
-            accCreation.Show();
+            //accCreation.Show();
 
             DatabaseChecker dbWindow = new DatabaseChecker();
             //dbWindow.Show();

@@ -20,6 +20,7 @@ namespace Bapers
     /// </summary>
     public partial class Login : Window
     {
+        DatabaseConnector db = new DatabaseConnector();
         public Login()
         {
                 
@@ -40,31 +41,30 @@ namespace Bapers
 
         }
 
-        private void credentialChecker(string username, string password)
+        private async void credentialChecker(string username, string password)
         {
             bool isfound = false;
-            //fucntion used to verify credentials
-            if (username == "admin" && password == "pass")
-            {
-                isfound = true;
-            }
             //code for searching database for the username and password
 
-            
+            isfound = await db.Check("SELECT * FROM users WHERE username = @val0 AND pass = @val1", username_txtBox.Text, db.StringToHash(password_txtBox.Password));
+
+            //need to change this to also store the information of whos logged in
             if (isfound)
             {
                 GUI.receptionist receptionistwindow = new GUI.receptionist();
                 receptionistwindow.Show();
                 this.Close();
                 //account found, switch to the account portal
-                
             }
             else{
                 //show error message
-                System.Windows.Forms.MessageBox.Show("Error, Account not found");
-
-
+                System.Windows.Forms.MessageBox.Show("Account not found, Please check details are correct");
             }
         }
+
+
+
+
+
     }
 }

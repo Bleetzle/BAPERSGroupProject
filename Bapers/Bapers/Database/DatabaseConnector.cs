@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using MySql.Data.MySqlClient;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace Bapers
 {
@@ -99,7 +101,7 @@ namespace Bapers
             }
         }
 
-        //runs a query and selects a single item
+        //runs a query and selects a single item -- slightly quicker to run than the first method as there is no grid
         public async Task<string> SelectSingle(string q)
         {
             string value = "";
@@ -125,18 +127,24 @@ namespace Bapers
         }
 
 
-        //runs a query and returns true or false based on if the query finds data
-        public bool Check(string q)
+        ///runs a query and returns true or false based on if the query finds data 
+        ///does not return the data found, just ot chek if a table search exists before searching or it, 
+        ///takes more tiem if they exists and less time if they dont exist
+        public async Task<bool> Check(string q, params object[] vals)
         {
             try
             {
                 MySqlCommand cmd = new MySqlCommand(q, connection);
-                
+
+                for (int i = 0; i < vals.Length; i++)
+                {
+                    cmd.Parameters.AddWithValue($"@val{i}", vals[i]);
+                }
+
                 if (this.OpenConnection() == true)
                 {
-                    MySqlDataReader reader = cmd.ExecuteReader();
-                    if (reader.HasRows)
-                        return true;
+                    var reader = await cmd.ExecuteReaderAsync();
+                    return reader.HasRows;
                 }
             }
             catch (Exception ex)
@@ -146,12 +154,24 @@ namespace Bapers
             finally
             {
                 this.CloseConnection();
-                
             }
             return false;
         }
 
+        //method to hash a given string using a hashing algorithm
+        public string StringToHash(string input)
+        {
+            StringBuilder hash = new StringBuilder();
+            MD5CryptoServiceProvider md5Provider = new MD5CryptoServiceProvider();
 
+            byte[] bytes = md5Provider.ComputeHash(new UTF8Encoding().GetBytes(input));
+
+            foreach(byte b in bytes)
+            {
+                hash.Append(b.ToString("x2"));
+            }
+            return hash.ToString();
+        }
 
 
 
@@ -181,12 +201,6 @@ namespace Bapers
                 this.CloseConnection();
             }
         }
-
-
-
-
-
-
 
         public void Backup()
         {

@@ -20,7 +20,7 @@
         <TextBox x:Name="queryDescription_textBox" HorizontalAlignment="Left" Height="151" Margin="245,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="520" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
         <TextBlock Margin="35,191,562,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Query Description"/><Run Text=" :"/></TextBlock>
         <Rectangle x:Name="queryResults_box" Fill="#FFACACAC" HorizontalAlignment="Left" Height="225" Margin="55,460,0,0" Stroke="Black" VerticalAlignment="Top" Width="685"/>
-        <Button x:Name="refresh_btn" Content="" HorizontalAlignment="Left" Margin="690,460,0,0" VerticalAlignment="Top" Width="50" Height="45" Click="refresh_click">
+        <Button x:Name="refresh_btn" Content="" HorizontalAlignment="Left" Margin="690,640,0,0" VerticalAlignment="Top" Width="50" Height="45" Click="refresh_click">
             <Button.Background>
                 <ImageBrush ImageSource="Refresh_icon.png"/>
             </Button.Background>

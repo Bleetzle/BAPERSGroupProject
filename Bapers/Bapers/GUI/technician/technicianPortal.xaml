@@ -7,12 +7,6 @@
         mc:Ignorable="d"
         Title="technicianPortal" Height="492" Width="769" Background="#FFE4DCCF">
     <Grid>
-        <Rectangle x:Name="currentJobs_box" Fill="#FFACACAC" HorizontalAlignment="Left" Height="225" Margin="55,35,0,0" Stroke="Black" VerticalAlignment="Top" Width="685"/>
-        <Button x:Name="refresh_btn" Content="" HorizontalAlignment="Left" Margin="690,35,0,0" VerticalAlignment="Top" Width="50" Height="45" Click="refresh_click">
-            <Button.Background>
-                <ImageBrush ImageSource="Refresh_icon.png"/>
-            </Button.Background>
-        </Button>
         <TextBox x:Name="jobID_txtBox" HorizontalAlignment="Left" Height="25" Margin="200,290,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
         <TextBox x:Name="taskNumber_txtBox" HorizontalAlignment="Left" Height="25" Margin="200,325,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="360" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
         <TextBlock Margin="45,286,582,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Job ID"/><Run Text=" :"/></TextBlock>
@@ -23,7 +17,22 @@
                 <ImageBrush ImageSource="msg.png"/>
             </Button.Background>
         </Button>
+        <DataGrid x:Name="tasksGrid" ItemsSource = "{Binding}" HorizontalAlignment="Left" Height="230" Margin="39,25,0,0" VerticalAlignment="Top" Width="701" RenderTransformOrigin="0.5,0.5" Background="#FFACACAC">
+            <DataGrid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="0.164"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="-2.275"/>
+                </TransformGroup>
+            </DataGrid.RenderTransform>
+        </DataGrid>
         <Button x:Name="completeTask_btn" Content="Complete Task" HorizontalAlignment="Left" Height="25" Margin="420,360,0,0" VerticalAlignment="Top" Width="140" Click="complete_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Button x:Name="refresh_btn" Content="" HorizontalAlignment="Left" Margin="690,208,0,0" VerticalAlignment="Top" Width="50" Height="45" Click="refresh_click">
+            <Button.Background>
+                <ImageBrush ImageSource="Refresh_icon.png"/>
+            </Button.Background>
+        </Button>
 
     </Grid>
 </Window>
