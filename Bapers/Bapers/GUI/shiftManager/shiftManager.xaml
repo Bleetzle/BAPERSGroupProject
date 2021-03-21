@@ -8,7 +8,7 @@
         Title="shiftManager" Height="450" Width="800" Background="#FFE4DCCF">
     <Grid>
         <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="690,370,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
-        <TextBlock HorizontalAlignment="Left" Height="44" Margin="40,30,0,0" TextWrapping="Wrap" Text="Report Portal" VerticalAlignment="Top" Width="334" FontFamily="Global Serif" FontSize="36"/>
+        <TextBlock HorizontalAlignment="Left" Height="44" Margin="40,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="334" FontFamily="Global Serif" FontSize="36"><Run Text="Shift Manager"/><Run Text=" Portal"/></TextBlock>
         <Button x:Name="report_btn" Content="Create report" Height="56" Margin="190,214,230,0" VerticalAlignment="Top" Click="report_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
         <Button x:Name="reception_btn" Content="Receptionist Portal" Height="56" Margin="190,138,230,0" VerticalAlignment="Top" Click="reception_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
 

@@ -63,17 +63,18 @@ namespace Bapers.GUI.officeManager
                 return;
             }
 
-            //if (typeItem.Content.ToString().Equals("Techinician"))
-            //{
-            //    if (location_txtBox.Text.Equals(""))
-            //    {
-            //        MessageBox.Show("Please fill in all areas");
-            //        return;
-            //    }else
-            //    {
-            //        location = location_txtBox.Text;
-            //    }
-            //}
+            if (typeItem.Content.ToString().Equals("Techinician"))
+            {
+                if (location_txtBox.Text.Equals(""))
+                {
+                    MessageBox.Show("Please fill in all areas");
+                    return;
+                }
+                else
+                {
+                    location = location_txtBox.Text;
+                }
+            }
 
             if (firstname_txtBox.Text.Equals("Night"))
                 shift_type = "Night Shift 1";

@@ -22,6 +22,14 @@ namespace Bapers.GUI
         public receptionist()
         {
             InitializeComponent();
+            if (myVariables.myStack.Count ==0)
+            {
+                back_btn.Visibility = Visibility.Hidden;           
+            }
+            else
+            {
+                back_btn.Visibility = Visibility.Visible;
+            }
         }
 
         private void logOut_Click(object sender, RoutedEventArgs e)
@@ -49,6 +57,25 @@ namespace Bapers.GUI
         {
             createAcc createaccWindow = new createAcc();
             createaccWindow.Show();
+            this.Close();
+        }
+
+        private void back_Click(object sender, RoutedEventArgs e)
+        {
+            switch (myVariables.myStack.Pop())
+            {
+                case "Shift Manager":
+                    shiftManager.shiftManager shiftManagerWindow = new shiftManager.shiftManager();
+                    shiftManagerWindow.Show();
+                    break;
+                case "Office Manager":
+                    officeManager.officeManagerPortal officeManagerWindow = new officeManager.officeManagerPortal();
+                    officeManagerWindow.Show();
+                    break;
+                default:
+                    MessageBox.Show("Something went wrong, History not found");
+                    break;
+            }
             this.Close();
         }
     }

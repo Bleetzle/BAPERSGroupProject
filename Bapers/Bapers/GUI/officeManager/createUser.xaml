@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bapers.GUI.officeManager"
         mc:Ignorable="d"
-        Title="createUser" Height="472" Width="949" Background="#FFE4DCCF">
+        Title="createUser" Height="532" Width="949" Background="#FFE4DCCF">
     <Grid>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="20,21,0,0" Height="39" Width="460" FontFamily="Global Serif" FontSize="36" Text="Create User Account"/>
         <TextBox x:Name="username_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,105,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
@@ -14,13 +14,13 @@
         <TextBlock Margin="145,136,661,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Password"/><Run Text=" :"/></TextBlock>
         <TextBlock Margin="110,171,661,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Role"/><Run Text=" :"/></TextBlock>
         <TextBlock Margin="110,204,661,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="First "/><Run Text="Name"/><Run Text=" :"/></TextBlock>
-        <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="830,385,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
-        <Button x:Name="createAccount_btn" Content="Create Account" HorizontalAlignment="Left" Height="40" Margin="364,353,0,0" VerticalAlignment="Top" Width="208" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold" Click="createAccount_Click"/>
-        <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="45,385,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="830,435,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Button x:Name="createAccount_btn" Content="Create Account" HorizontalAlignment="Left" Height="40" Margin="375,385,0,0" VerticalAlignment="Top" Width="208" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold" Click="createAccount_Click"/>
+        <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="45,435,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <TextBox x:Name="firstname_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
-        <TextBlock Margin="112,282,659,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Shift"/><Run Text=" :"/></TextBlock>
-        <CheckBox x:Name="day_checkBox" Content="Day" HorizontalAlignment="Left" Margin="322,292,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="night_checkBox" Content="Night" HorizontalAlignment="Left" Margin="412,292,0,0" VerticalAlignment="Top"/>
+        <TextBlock Margin="110,328,661,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Shift"/><Run Text=" :"/></TextBlock>
+        <CheckBox x:Name="day_checkBox" Content="Day" HorizontalAlignment="Left" Margin="320,338,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="night_checkBox" Content="Night" HorizontalAlignment="Left" Margin="410,338,0,0" VerticalAlignment="Top"/>
         <ComboBox x:Name="role_Dropdown" HorizontalAlignment="Left" Margin="295,175,0,0" VerticalAlignment="Top" Width="435">
             <RadioButton x:Name="receptionist_radiobtn" Content="Receptionist" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <RadioButton x:Name="officeMan_radiobtn" Content="Office Manager" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -29,6 +29,8 @@
         </ComboBox>
         <TextBlock Margin="110,244,661,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Last N"/><Run Text="ame"/><Run Text=" :"/></TextBlock>
         <TextBox x:Name="lastname_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBlock Margin="110,287,661,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="L"/><Run Text="ocation"/><Run Text=" :"/></TextBlock>
+        <TextBox x:Name="location_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,291,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
 
     </Grid>
 </Window>

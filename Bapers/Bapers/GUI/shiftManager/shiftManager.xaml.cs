@@ -21,6 +21,7 @@ namespace Bapers.GUI.shiftManager
     {
         public shiftManager()
         {
+            myVariables.myStack.Push("Shift Manager");
             InitializeComponent();
         }
 

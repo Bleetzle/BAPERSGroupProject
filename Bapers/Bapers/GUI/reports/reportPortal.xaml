@@ -5,13 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bapers.GUI.reports"
         mc:Ignorable="d"
-        Title="reportPortal" Height="557" Width="899" Background="#FFE4DCCF">
+        Title="reportPortal" Height="432" Width="899" Background="#FFE4DCCF">
     <Grid>
-        <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="782,474,-70,-80" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="782,350,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <TextBlock HorizontalAlignment="Left" Height="44" Margin="40,30,0,0" TextWrapping="Wrap" Text="Report Portal" VerticalAlignment="Top" Width="334" FontFamily="Global Serif" FontSize="36"/>
-        <Button x:Name="individualP_btn" Content="Individual Performance Report" Height="56" Margin="208,236,216,0" VerticalAlignment="Top" Click="individualP_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
-        <Button x:Name="summP_btn" Content="Summary Performance Report" Height="56" Margin="208,308,216,0" VerticalAlignment="Top" Click="summP_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
-        <Button x:Name="individual_btn" Content="Individual Report" Height="56" Margin="208,160,216,0" VerticalAlignment="Top" Click="individual_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
+        <TextBox x:Name="timespan_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBox x:Name="startDate_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBlock Margin="30,102,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Report Type"/><Run Text=" :"/></TextBlock>
+        <TextBlock Margin="145,171,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Text="Timespan :"/>
+        <TextBlock Margin="110,206,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Text="Start date :"/>
+        <TextBlock Margin="110,246,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Auto Generate"/><Run Text=" :"/></TextBlock>
+        <CheckBox x:Name="autoGen_checkbox" Content="" HorizontalAlignment="Left" Margin="315,255,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.352,0" Checked="CheckBox_Checked" FontSize="6"/>
+        <Button x:Name="viewReport_btn" Content="View Report" HorizontalAlignment="Left" Height="40" Margin="387,285,0,0" VerticalAlignment="Top" Width="158" Click="viewReport_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
+        <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="45,350,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <TextBox x:Name="userId_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697" Visibility="Hidden"/>
+        <TextBlock x:Name="userId_txt" Margin="30,137,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Visibility="Hidden"><Run Text="User Id"/><Run Text=" :"/></TextBlock>
+        <ComboBox x:Name="reportType_comboBox" HorizontalAlignment="Left" Margin="295,109,0,0" VerticalAlignment="Top" Width="435" SelectionChanged="ComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" IsReadOnly="True" Cursor="Hand">
+            <RadioButton x:Name="individual_radioBtn" Content="Individual" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="individual_Checked" Unchecked="individual_unchekced" Width="425"/>
+            <RadioButton x:Name="individualPerformance_radioBtn" Content="Individual Performance" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="RadioButton_Checked" Width="425"/>
+            <RadioButton x:Name="summaryPerformance_radioBtn" Content="Summary Performance" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="RadioButton_Checked" Width="425"/>
+        </ComboBox>
 
     </Grid>
 </Window>

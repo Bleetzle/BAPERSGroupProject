@@ -24,6 +24,7 @@ namespace Bapers
         DatabaseConnector db = new DatabaseConnector();
         public Login()
         {
+            myVariables.myStack.Clear();
             InitializeComponent();
         }
 
@@ -32,7 +33,7 @@ namespace Bapers
 
         }
 
-        
+
         private void login_Click(object sender, RoutedEventArgs e)
         {
             credentialChecker(username_txtBox.Text, password_txtBox.Password);
@@ -60,24 +61,32 @@ namespace Bapers
                 myVariables.role = role;
 
                 //check user roles upon logging in
-                switch (role) {
+                switch (role)
+                {
                     case "Receptionist":
                         GUI.receptionist receptionistwindow = new GUI.receptionist();
                         receptionistwindow.Show();
-                        this.Close();
                         break;
                     case "Technician":
                         GUI.technician.technicianPortal technicianWindow = new GUI.technician.technicianPortal();
                         technicianWindow.Show();
-                        this.Close();
+                        break;
+                    case "Shift Manager":
+                        GUI.shiftManager.shiftManager shiftManagerWindow = new GUI.shiftManager.shiftManager();
+                        shiftManagerWindow.Show();
+                        break;
+                    case "Office Manager":
+                        GUI.officeManager.officeManagerPortal officeManagerWindow = new GUI.officeManager.officeManagerPortal();
+                        officeManagerWindow.Show();
                         break;
                     default:
                         MessageBox.Show("Something went wrong, no role assigned to user");
                         break;
                 }
-                                //account found, switch to the account portal
+                //account found, switch to the account portal
             }
-            else{
+            else
+            {
                 //show error message
                 System.Windows.Forms.MessageBox.Show("Account not found, Please check details are correct");
             }

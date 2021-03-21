@@ -22,36 +22,81 @@ namespace Bapers.GUI.reports
         public reportPortal()
         {
             InitializeComponent();
+            if (myVariables.myStack.Count == 0)
+            {
+                back_btn.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                back_btn.Visibility = Visibility.Visible;
+            }
         }
 
- 
-
-        private void individual_click(object sender, RoutedEventArgs e)
-        {
-            individual individualWindow = new individual();
-            individualWindow.Show();
-            this.Close();
-        }
-
-        private void individualP_click(object sender, RoutedEventArgs e)
-        {
-            individualPeformance individualPeformanceWindow = new individualPeformance();
-            individualPeformanceWindow.Show();
-            this.Close();
-        }
-
-        private void summP_click(object sender, RoutedEventArgs e)
-        {
-            summaryPerformace summaryPerformaceWindow = new summaryPerformace();
-            summaryPerformaceWindow.Show();
-            this.Close();
-        }
 
         private void logOut_Click(object sender, RoutedEventArgs e)
         {
             Login loginWindow = new Login();
             loginWindow.Show();
             this.Close();
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void individual_Checked(object sender, RoutedEventArgs e)
+        {
+            userId_txt.Visibility = Visibility.Visible;
+            userId_txtBox.Visibility = Visibility.Visible;
+        }
+
+        private void individual_unchekced(object sender, RoutedEventArgs e)
+        {
+            userId_txt.Visibility = Visibility.Hidden;
+            userId_txtBox.Visibility = Visibility.Hidden;
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void viewReport_Click(object sender, RoutedEventArgs e)
+        {
+            viewReport viewReportWindow = new viewReport();
+            viewReportWindow.Show();
+            this.Close();
+        }
+
+        private void back_Click(object sender, RoutedEventArgs e)
+        {
+            switch (myVariables.myStack.Pop())
+            {
+                case "Shift Manager":
+                    shiftManager.shiftManager shiftManagerWindow = new shiftManager.shiftManager();
+                    shiftManagerWindow.Show();
+                    break;
+                case "Office Manager":
+                    officeManager.officeManagerPortal officeManagerWindow = new officeManager.officeManagerPortal();
+                    officeManagerWindow.Show();
+                    break;
+                default:
+                    MessageBox.Show("Something went wrong, History not found");
+                    break;
+            }
+            this.Close();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        //selecttion sometimes doesnt happen depending on where the radio button is pressed. 
+        //note tell prince about this
         }
     }
 }

@@ -28,7 +28,7 @@
             </DataGrid.RenderTransform>
         </DataGrid>
         <Button x:Name="completeTask_btn" Content="Complete Task" HorizontalAlignment="Left" Height="25" Margin="420,360,0,0" VerticalAlignment="Top" Width="140" Click="complete_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
-        <Button x:Name="refresh_btn" Content="" HorizontalAlignment="Left" Margin="690,208,0,0" VerticalAlignment="Top" Width="50" Height="45" Click="refresh_click">
+        <Button x:Name="refresh_btn" Content="" HorizontalAlignment="Left" Margin="575,290,0,0" VerticalAlignment="Top" Width="50" Height="45" Click="refresh_click">
             <Button.Background>
                 <ImageBrush ImageSource="Refresh_icon.png"/>
             </Button.Background>

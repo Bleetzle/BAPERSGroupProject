@@ -12,6 +12,7 @@
         <Button x:Name="search_btn" Content="Search Account" Height="56" Margin="307,236,306,0" VerticalAlignment="Top" Click="searchAcc_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
         <Button x:Name="addPay_btn" Content="Add Payment" Height="56" Margin="307,308,306,0" VerticalAlignment="Top" Click="addPay_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
         <Button x:Name="createAcc_btn" Content="Create Account" Height="56" Margin="307,160,306,0" VerticalAlignment="Top" Click="createAcc_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
+        <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="31,474,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
 
     </Grid>
 </Window>

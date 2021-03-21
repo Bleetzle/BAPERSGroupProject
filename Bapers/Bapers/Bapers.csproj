@@ -164,19 +164,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\reports\individual.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\reports\individualPeformance.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="GUI\reports\reportPortal.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\reports\summaryPerformace.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -207,17 +195,8 @@
     <Compile Include="GUI\receptionist\searchAcc.xaml.cs">
       <DependentUpon>searchAcc.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\reports\individual.xaml.cs">
-      <DependentUpon>individual.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\reports\individualPeformance.xaml.cs">
-      <DependentUpon>individualPeformance.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GUI\reports\reportPortal.xaml.cs">
       <DependentUpon>reportPortal.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\reports\summaryPerformace.xaml.cs">
-      <DependentUpon>summaryPerformace.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\reports\viewReport.xaml.cs">
       <DependentUpon>viewReport.xaml</DependentUpon>

@@ -21,6 +21,7 @@ namespace Bapers.GUI.officeManager
     {
         public officeManagerPortal()
         {
+            myVariables.myStack.Push("Office Manager");
             InitializeComponent();
         }
 
@@ -57,6 +58,16 @@ namespace Bapers.GUI.officeManager
             Login loginwindow = new Login();
             loginwindow.Show();
             this.Close();
+        }
+
+        private void backup_click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void restore_click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

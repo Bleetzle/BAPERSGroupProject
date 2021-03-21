@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Bapers
 {
-    public static class myVariables
+    public class myVariables
     {
         public static string role = "";
         public static string currJobID = "";
-
+        public static Stack<string> myStack = new Stack<string>();
+       
     }
 }
