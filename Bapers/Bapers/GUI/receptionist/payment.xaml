@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="payment" Height="777" Width="894" Background="#FFE4DCCF">
     <Grid>
+        <DataGrid x:Name="paymentGrid" HorizontalAlignment="Left" Height="240" Margin="70,375,0,0" VerticalAlignment="Top" Width="750"/>
         <TextBox x:Name="jobID_txtBox" HorizontalAlignment="Left" Height="25" Margin="300,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="460" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
         <TextBlock Margin="150,92,601,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="Job Id"/><Run Text=" "/><Run Text=": "/></TextBlock>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="20,21,0,0" Height="39" Width="254" FontFamily="Global Serif" FontSize="36" Text="Payment"/>
@@ -22,9 +23,7 @@
         <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="796,695,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="15,695,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <Button x:Name="addPayment_btn" Content="Add Payment" HorizontalAlignment="Left" Height="40" Margin="590,310,0,0" VerticalAlignment="Top" Width="170" Click="addPayment_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
-        <Rectangle Fill="#FF918F8B" HorizontalAlignment="Left" Height="240" Margin="70,375,0,0" Stroke="Black" VerticalAlignment="Top" Width="750"/>
-        <Button x:Name="Pay_btn" Content="Pay" HorizontalAlignment="Left" Height="40" Margin="475,650,0,0" VerticalAlignment="Top" Width="90" Click="pay_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
-        <Button x:Name="addJobs_btn" Content="Add Jobs" HorizontalAlignment="Left" Height="40" Margin="275,650,0,0" VerticalAlignment="Top" Width="170" Click="addJobs_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
+        <Button x:Name="Pay_btn" Content="Pay" HorizontalAlignment="Left" Height="40" Margin="389,646,0,0" VerticalAlignment="Top" Width="90" Click="pay_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
 
     </Grid>
 </Window>

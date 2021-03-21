@@ -231,6 +231,7 @@
     <Compile Include="GUI\technician\technicianPortal.xaml.cs">
       <DependentUpon>technicianPortal.xaml</DependentUpon>
     </Compile>
+    <Compile Include="myVariables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -102,17 +102,23 @@ namespace Bapers
         }
 
         //runs a query and selects a single item -- slightly quicker to run than the first method as there is no grid
-        public async Task<string> SelectSingle(string q)
+        public async Task<string> SelectSingle(string q, params object[] vals)
         {
-            string value = "";
+            string value = "null";
             try
             {
                 MySqlCommand cmd = new MySqlCommand(q, connection);
 
+                for (int i = 0; i < vals.Length; i++)
+                {
+                    cmd.Parameters.AddWithValue($"@val{i}", vals[i]);
+                }
+
                 if (this.OpenConnection() == true)
                 {
                     var val = await cmd.ExecuteScalarAsync();
-                    value = val.ToString();
+                    if (val != null)
+                        value = val.ToString();
                 }
             }
             catch (Exception ex)
