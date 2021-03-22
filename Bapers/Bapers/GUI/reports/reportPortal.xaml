@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="reportPortal" Height="432" Width="899" Background="#FFE4DCCF">
     <Grid>
-        <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="782,350,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Button x:Name="logout_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="782,350,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <TextBlock HorizontalAlignment="Left" Height="44" Margin="40,30,0,0" TextWrapping="Wrap" Text="Report Portal" VerticalAlignment="Top" Width="334" FontFamily="Global Serif" FontSize="36"/>
         <TextBox x:Name="timespan_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,175,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
         <TextBox x:Name="startDate_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
@@ -20,10 +20,10 @@
         <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="45,350,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <TextBox x:Name="userId_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697" Visibility="Hidden"/>
         <TextBlock x:Name="userId_txt" Margin="30,137,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Visibility="Hidden"><Run Text="User Id"/><Run Text=" :"/></TextBlock>
-        <ComboBox x:Name="reportType_comboBox" HorizontalAlignment="Left" Margin="295,109,0,0" VerticalAlignment="Top" Width="435" SelectionChanged="ComboBox_SelectionChanged" IsSynchronizedWithCurrentItem="False" IsReadOnly="True" Cursor="Hand">
-            <RadioButton x:Name="individual_radioBtn" Content="Individual" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="individual_Checked" Unchecked="individual_unchekced" Width="425"/>
-            <RadioButton x:Name="individualPerformance_radioBtn" Content="Individual Performance" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="RadioButton_Checked" Width="425"/>
-            <RadioButton x:Name="summaryPerformance_radioBtn" Content="Summary Performance" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="RadioButton_Checked" Width="425"/>
+        <ComboBox x:Name="reportType_comboBox" HorizontalAlignment="Left" Margin="295,109,0,0" VerticalAlignment="Top" Width="435" IsSynchronizedWithCurrentItem="True" Cursor="Hand">
+            <RadioButton x:Name="individual_radioBtn" Content="Individual" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="individual_Checked" Width="425"/>
+            <RadioButton x:Name="individualPerformance_radioBtn" Content="Individual Performance" HorizontalAlignment="Left" VerticalAlignment="Top" Width="425"/>
+            <RadioButton x:Name="summaryPerformance_radioBtn" Content="Summary Performance" HorizontalAlignment="Left" VerticalAlignment="Top" Width="425"/>
         </ComboBox>
 
     </Grid>

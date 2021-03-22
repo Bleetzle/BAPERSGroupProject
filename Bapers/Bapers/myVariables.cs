@@ -10,6 +10,8 @@ namespace Bapers
     {
         public static string role = "";
         public static string currJobID = "";
+        
+        //stack to store page history
         public static Stack<string> myStack = new Stack<string>();
        
     }

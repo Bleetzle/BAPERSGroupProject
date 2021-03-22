@@ -21,7 +21,7 @@
         <TextBlock Margin="110,328,661,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Shift"/><Run Text=" :"/></TextBlock>
         <CheckBox x:Name="day_checkBox" Content="Day" HorizontalAlignment="Left" Margin="320,338,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="night_checkBox" Content="Night" HorizontalAlignment="Left" Margin="410,338,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="role_Dropdown" HorizontalAlignment="Left" Margin="295,175,0,0" VerticalAlignment="Top" Width="435">
+        <ComboBox x:Name="role_Dropdown" HorizontalAlignment="Left" Margin="295,175,0,0" VerticalAlignment="Top" Width="435" Cursor="Hand" IsSynchronizedWithCurrentItem="True">
             <RadioButton x:Name="receptionist_radiobtn" Content="Receptionist" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <RadioButton x:Name="officeMan_radiobtn" Content="Office Manager" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             <RadioButton x:Name="shiftMan_radiobtn" Content="Shift Manager" HorizontalAlignment="Left" VerticalAlignment="Top"/>

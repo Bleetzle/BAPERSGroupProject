@@ -51,7 +51,7 @@ namespace Bapers.GUI.officeManager
             {
                 shiftChecked = true;
             }
-
+            //check if any area is empty
             if (username_txtBox.Text.Equals("") || 
                 password_txtBox.Text.Equals("") || 
                 firstname_txtBox.Text.Equals("") || 
@@ -63,7 +63,8 @@ namespace Bapers.GUI.officeManager
                 return;
             }
 
-            if (typeItem.Content.ToString().Equals("Techinician"))
+            //check if the location is empty, only done if technician as ther other roles do not hava a location
+            if (typeItem.Content.ToString().Equals("Technician"))
             {
                 if (location_txtBox.Text.Equals(""))
                 {

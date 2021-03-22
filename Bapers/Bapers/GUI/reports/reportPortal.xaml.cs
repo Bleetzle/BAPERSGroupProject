@@ -64,7 +64,16 @@ namespace Bapers.GUI.reports
 
         private void viewReport_Click(object sender, RoutedEventArgs e)
         {
-            viewReport viewReportWindow = new viewReport();
+            RadioButton typeItem = (RadioButton)reportType_comboBox.SelectedItem;
+            var val = "Summary Performance";
+
+            //if (typeItem.Content.ToString().Equals("null") || timespan_txtBox.Text.Equals("") || startDate_txtBox.Text.Equals(""))
+            //{
+            //    MessageBox.Show("Please fill in all areas");
+            //    return;
+            //}
+
+            viewReport viewReportWindow = new viewReport(val, userId_txtBox.Text, timespan_txtBox.Text, startDate_txtBox.Text);
             viewReportWindow.Show();
             this.Close();
         }

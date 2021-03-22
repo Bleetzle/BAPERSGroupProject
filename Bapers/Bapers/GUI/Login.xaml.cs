@@ -47,9 +47,6 @@ namespace Bapers
                 MessageBox.Show("Please fill in all areas");
                 return;
             }
-
-
-            bool isfound = false;
             //code for searching database for the username and password
 
             var num = await db.SelectSingle("SELECT userID FROM users WHERE username = @val0 AND pass = @val1", username_txtBox.Text, db.StringToHash(password_txtBox.Password));

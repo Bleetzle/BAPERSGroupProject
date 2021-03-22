@@ -5,7 +5,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using MySql.Data.MySqlClient;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Text;
 using System.Security.Cryptography;
@@ -208,7 +207,7 @@ namespace Bapers
             }
         }
 
-        public void Backup()
+        public void Backup(string path)
         {
             try
             {
@@ -226,8 +225,7 @@ namespace Bapers
                 int second = time.Second;
                 int millisecond = time.Millisecond;
 
-                string path; 
-                path = @"C:\\DatabaseBackups\\MySqlBackup" + year + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + second + "-" + millisecond + ".sql";
+                path += @"\\MySqlBackup" + year + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + second + "-" + millisecond + ".sql";
                 StreamWriter file = new StreamWriter(path);
 
                 ProcessStartInfo psi = new ProcessStartInfo();
@@ -256,7 +254,7 @@ namespace Bapers
         }
 
         //made it so then we can just use a search and select function to senf throught the rest of the name that is unkown to the user
-        public void Restore(string p)
+        public void Restore(string path)
         {
             try
             {
@@ -265,7 +263,6 @@ namespace Bapers
                 string server = System.Configuration.ConfigurationManager.AppSettings.Get("SERVER");
                 string database = System.Configuration.ConfigurationManager.AppSettings.Get("DATABASE");
 
-                string path = @"C:\\DatabaseBackups\\MySqlBackup" + p + ".sql";
                 StreamReader file = new StreamReader(path);
                 string input = file.ReadToEnd();
                 file.Close();
