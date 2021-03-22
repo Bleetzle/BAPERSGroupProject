@@ -64,16 +64,13 @@ namespace Bapers.GUI.reports
 
         private void viewReport_Click(object sender, RoutedEventArgs e)
         {
-            RadioButton typeItem = (RadioButton)reportType_comboBox.SelectedItem;
-            var val = "Summary Performance";
+            if (reportType_comboBox.Text.Equals("") || timespan_txtBox.Text.Equals("") || startDate_txtBox.Text.Equals(""))
+            {
+                MessageBox.Show("Please fill in all areas");
+                return;
+            }
 
-            //if (typeItem.Content.ToString().Equals("null") || timespan_txtBox.Text.Equals("") || startDate_txtBox.Text.Equals(""))
-            //{
-            //    MessageBox.Show("Please fill in all areas");
-            //    return;
-            //}
-
-            viewReport viewReportWindow = new viewReport(val, userId_txtBox.Text, timespan_txtBox.Text, startDate_txtBox.Text);
+            viewReport viewReportWindow = new viewReport(reportType_comboBox.Text, userId_txtBox.Text, timespan_txtBox.Text, startDate_txtBox.Text);
             viewReportWindow.Show();
             this.Close();
         }
@@ -106,6 +103,11 @@ namespace Bapers.GUI.reports
         {
         //selecttion sometimes doesnt happen depending on where the radio button is pressed. 
         //note tell prince about this
+        }
+
+        private void onChange(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
         }
     }
 }

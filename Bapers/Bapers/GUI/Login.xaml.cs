@@ -78,8 +78,11 @@ namespace Bapers
                         break;
                     default:
                         MessageBox.Show("Something went wrong, no role assigned to user");
+                        Login loginWindow = new Login();
+                        loginWindow.Show();
                         break;
                 }
+                this.Close();
                 //account found, switch to the account portal
             }
             else

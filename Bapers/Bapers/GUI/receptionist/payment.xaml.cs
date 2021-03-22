@@ -49,8 +49,6 @@ namespace Bapers.GUI
             expDate_txtbox.Visibility = Visibility.Hidden;
             cvc.Visibility = Visibility.Hidden;
             cvc_txtbox.Visibility = Visibility.Hidden;
-
-
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
@@ -69,6 +67,7 @@ namespace Bapers.GUI
 
         private void addPayment_Click(object sender, RoutedEventArgs e)
         {
+
             //code for adding payment details to the databse goes here
         }
 
