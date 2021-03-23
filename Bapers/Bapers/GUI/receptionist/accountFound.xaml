@@ -7,9 +7,10 @@
         mc:Ignorable="d"
         Title="accountFound" Height="312" Width="709" Background="#FFD4DDA1">
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Height="130" Margin="16,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="661" FontSize="48" TextAlignment="Center"><Run Text="Account"/><Run Text=" "/><Run Text="found, "/><Run Text="Would you like to "/><Run Text="add"/><Run Text=" "/><Run Text="jobs"/><Run Text="?"/></TextBlock>
-        <Button x:Name="no_btn" Content="No" HorizontalAlignment="Left" Height="45" Margin="435,200,0,0" VerticalAlignment="Top" Width="175" Click="no_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="24" Foreground="Black"/>
-        <Button x:Name="yes_btn" Content="Yes" HorizontalAlignment="Left" Height="45" Margin="70,200,0,0" VerticalAlignment="Top" Width="175" Click="yes_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="24" Foreground="Black"/>
+        <TextBlock HorizontalAlignment="Left" Height="130" Margin="16,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="661" FontSize="48" TextAlignment="Center"><Run Text="Account"/><Run Text=" "/><Run Text="found, "/><Run Text="Would you like to "/><Run Text="add"/><Run Text=" "/><Run Text="jobs"/><Run Text=" or add payment"/><Run Text="?"/></TextBlock>
+        <Button x:Name="no_btn" Content="Cancel" HorizontalAlignment="Left" Height="45" Margin="460,200,0,0" VerticalAlignment="Top" Width="175" Click="no_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="24" Foreground="Black"/>
+        <Button x:Name="yes_btn" Content="Add jobs" HorizontalAlignment="Left" Height="45" Margin="70,200,0,0" VerticalAlignment="Top" Width="175" Click="yes_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="24" Foreground="Black"/>
+        <Button x:Name="addPayment_btn" Content="Add payment" HorizontalAlignment="Left" Height="45" Margin="265,200,0,0" VerticalAlignment="Top" Width="175" Click="payment_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="24" Foreground="Black"/>
 
     </Grid>
 </Window>

@@ -37,5 +37,12 @@ namespace Bapers.GUI
             addjobswindow.Show();
             this.Close();
         }
+
+        private void payment_Click(object sender, RoutedEventArgs e)
+        {
+            payment paymentWindow = new payment();
+            paymentWindow.Show();
+            this.Close();
+        }
     }
 }
