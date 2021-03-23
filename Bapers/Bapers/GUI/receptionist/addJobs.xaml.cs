@@ -118,8 +118,22 @@ namespace Bapers.GUI
                 await db.InQuery("INSERT INTO Job_Tasks VALUES (@val0, @val1, @val2, @val3, @val4 )", "J" + num, taskid, null, null, null);
             }
 
-            //System.Windows.Forms.MessageBox.Show("Job has been added successfully");
+            //populate the table on the page
+            await db.Select(jobsGrid,
+                "SELECT job_number, job_priority, deadline, job_status, special_instructions " +
+                "FROM Job " +
+                "WHERE job_number = @val0 " +
+                "UNION  " +
+                "SELECT coalesce(NULL, '*'), coalesce(NULL, 'Task'), coalesce(NULL, 'Description'), coalesce(NULL, 'Price(£)'), coalesce(NULL, ' ') " +
+                "UNION " +
+                "SELECT coalesce(NULL, '*'), Taskstask_id, task_description, price, coalesce(NULL, ' ') " +
+                "FROM Job_Tasks, tasks " +
+                "WHERE Jobjob_number = @val0 " +
+                "AND Taskstask_id = task_id; "
+                , "J" + num);
 
+            System.Windows.Forms.MessageBox.Show("Job has been added successfully");
+            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

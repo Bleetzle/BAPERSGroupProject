@@ -20,7 +20,7 @@
         <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="45,350,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <TextBox x:Name="userId_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697" Visibility="Hidden"/>
         <TextBlock x:Name="userId_txt" Margin="30,137,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Visibility="Hidden"><Run Text="User Id"/><Run Text=" :"/></TextBlock>
-        <ComboBox x:Name="reportType_comboBox" HorizontalAlignment="Left" Margin="295,109,0,0" VerticalAlignment="Top" Width="435" IsSynchronizedWithCurrentItem="True" Cursor="Hand" IsDropDownOpen="True" DataContextChanged="onChange">
+        <ComboBox x:Name="reportType_comboBox" HorizontalAlignment="Left" Margin="295,109,0,0" VerticalAlignment="Top" Width="435" IsSynchronizedWithCurrentItem="True" Cursor="Hand" DataContextChanged="onChange">
             <RadioButton x:Name="individual_radioBtn" Content="Individual" HorizontalAlignment="Left" VerticalAlignment="Top" Checked="individual_Checked" Width="79"/>
             <RadioButton x:Name="individualPerformance_radioBtn" Content="Individual Performance" HorizontalAlignment="Left" VerticalAlignment="Top" Width="148"/>
             <RadioButton x:Name="summaryPerformance_radioBtn" Content="Summary Performance" HorizontalAlignment="Left" VerticalAlignment="Top" Width="144"/>
