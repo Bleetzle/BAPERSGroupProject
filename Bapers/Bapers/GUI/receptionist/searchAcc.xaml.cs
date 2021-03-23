@@ -61,13 +61,32 @@ namespace Bapers.GUI
                 " FROM Customer" +
                 " WHERE first_name = @val0" +
                 " AND last_name = @val1" +
-                " AND phone_number =@val2 " +
+                " AND phone_number = @val2 " +
                 ";"
                 , firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text
                 );
 
             if (isfound)
             {
+                //stores the customer deatails for use in the job adding or payment adding
+                myVariables.currfname = firstname_txtBox.Text;
+                myVariables.currlname = surname_txtBox.Text;
+                myVariables.currnum = telephone_txtBox.Text;
+                myVariables.currvalue = await db.SelectSingle(
+                    "SELECT customer_status " +
+                    "FROM Customer " +
+                    "WHERE first_name = @val0 " +
+                    "AND last_name = @val1 " +
+                    "AND phone_number = @val2 " +
+                    ";", firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text);
+                myVariables.currID = await db.SelectSingle(
+                    "SELECT account_number " +
+                    "FROM Customer " +
+                    "WHERE first_name = @val0 " +
+                    "AND last_name = @val1 " +
+                    "AND phone_number = @val2 " +
+                    ";", firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text);
+
                 accountFound accountfoundwindow = new accountFound();
                 accountfoundwindow.Show();
                 this.Close();

@@ -8,6 +8,8 @@ using MySql.Data.MySqlClient;
 using System.Threading.Tasks;
 using System.Text;
 using System.Security.Cryptography;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Bapers
 {
@@ -100,6 +102,43 @@ namespace Bapers
             }
         }
 
+        //runs a query and fills in a list for the first row of a query
+        public async Task SelectLists(List<string> list, string q)
+        {
+            DataTable dataTable = new DataTable();
+
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(q, connection);
+
+                if (this.OpenConnection() == true)
+                {
+
+                    using (MySqlDataReader dr = (MySqlDataReader)await cmd.ExecuteReaderAsync() )
+                    {
+                        
+                        if (dr.HasRows)
+                        {
+                            while(await dr.ReadAsync())
+                            {
+                                list.Add(dr.GetString(0));   
+                            }
+                        }
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("An error occurred {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+        }
+
+
         //runs a query and selects a single item -- slightly quicker to run than the first method as there is no grid
         public async Task<string> SelectSingle(string q, params object[] vals)
         {
@@ -130,7 +169,6 @@ namespace Bapers
             }
             return value;
         }
-
 
         ///runs a query and returns true or false based on if the query finds data 
         ///does not return the data found, just ot chek if a table search exists before searching or it, 
@@ -177,8 +215,6 @@ namespace Bapers
             }
             return hash.ToString();
         }
-
-
 
         //runs a query to insert data into the database
         public async Task InQuery(string q, params object[] vals)

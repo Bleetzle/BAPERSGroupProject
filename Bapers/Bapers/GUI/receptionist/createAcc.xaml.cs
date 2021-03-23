@@ -53,14 +53,15 @@ namespace Bapers.GUI
                 MessageBox.Show("Please fill in all areas!");
                 return;
             }
+            //need to check it does not exist already
 
 
+            //creates the auto incrementing value for the id
             string accNum = await db.SelectSingle("SELECT MAX(account_number) FROM Customer;");
-
             int num = ( int.Parse( accNum.Substring(3) ) ) + 1;
 
-
-           await db.InQuery(
+            //uses the input and the created id to create a new account
+            await db.InQuery(
                 "INSERT INTO Customer (account_number, first_name, last_name, phone_number, company_name, address, customer_status)" +
                 "VALUES (@val0, @val1, @val2, @val3, @val4, @val5, @val6)"
                 ,"ACC" + num, firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text, compName_txtBox.Text, address_txtBox.Text, "standard"
