@@ -8,19 +8,19 @@
         Title="addJobs" Height="517" Width="800" Background="#FFE4DCCF">
     <Grid>
         <TextBlock x:Name="addJobFor" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="20,21,0,0" Height="44" Width="715" FontFamily="Global Serif" FontSize="36" Text="Add jobs for:"/>
-        <TextBlock Margin="160,80,497,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Tasks"/><Run Text=" "/><Run Text=": "/></TextBlock>
-        <TextBlock Margin="160,114,497,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Deadline"/><Run Text="*"/><Run Text=" "/><Run Text=": "/></TextBlock>
-        <TextBlock Margin="80,148,497,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Special Instructions"/><Run Text=" "/><Run Text=": "/></TextBlock>
-        <ComboBox x:Name="tasks_dropDown" HorizontalAlignment="Left" Height="26" Margin="300,83,0,0" VerticalAlignment="Top" Width="375" Background="{x:Null}" BorderBrush="#FFACACAC" Foreground="Black" IsReadOnly="True" SelectedIndex="0" SelectionChanged="onChange">
+        <TextBlock Margin="104,70,553,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Tasks"/><Run Text=" "/><Run Text=": "/></TextBlock>
+        <TextBlock Margin="104,104,553,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Deadline"/><Run Text="*"/><Run Text=" "/><Run Text=": "/></TextBlock>
+        <TextBlock Margin="24,138,553,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Special Instructions"/><Run Text=" "/><Run Text=": "/></TextBlock>
+        <ComboBox x:Name="tasks_dropDown" HorizontalAlignment="Left" Height="26" Margin="244,73,0,0" VerticalAlignment="Top" Width="375" Background="{x:Null}" BorderBrush="#FFACACAC" Foreground="Black" IsReadOnly="True" SelectedIndex="0" SelectionChanged="onChange">
             <ListBoxItem ContentStringFormat="Select All That Apply:" Content="Please Select:" IsSelected="True" />
         </ComboBox>
-        <TextBox x:Name="specialIn_txtBox" HorizontalAlignment="Left" Height="25" Margin="300,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="375" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBox x:Name="specialIn_txtBox" HorizontalAlignment="Left" Height="78" Margin="244,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="375" TextChanged="TextBox_TextChanged" FontSize="11" FontFamily="Verdana" Background="#FF959697"/>
         <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="690,435,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="20,435,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
-        <Button x:Name="addJob_btn" Content="Add Job" HorizontalAlignment="Left" Height="25" Margin="595,195,0,0" VerticalAlignment="Top" Width="80" Click="addJob_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Button x:Name="addJob_btn" Content="Add Job" HorizontalAlignment="Left" Height="25" Margin="641,195,0,0" VerticalAlignment="Top" Width="80" Click="addJob_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <TextBlock x:Name="jobsAdded" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="40,215,0,0" Height="25" Width="110" FontFamily="Global Serif" FontSize="22" Text="Jobs added:"/>
-        <DatePicker x:Name="deadline_date" HorizontalAlignment="Left" Margin="300,119,0,0" VerticalAlignment="Top" Width="122" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDate="2021-03-22" IsTodayHighlighted="True"/>
-        <ComboBox x:Name="time_dropDown" HorizontalAlignment="Left" Height="24" Margin="455,119,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" BorderBrush="#FFACACAC" Foreground="Black" IsReadOnly="True" SelectedIndex="0" SelectionChanged="onChange">
+        <DatePicker x:Name="deadline_date" HorizontalAlignment="Left" Margin="244,109,0,0" VerticalAlignment="Top" Width="122" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDate="2021-03-22" IsTodayHighlighted="True"/>
+        <ComboBox x:Name="time_dropDown" HorizontalAlignment="Left" Height="24" Margin="399,109,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" BorderBrush="#FFACACAC" Foreground="Black" IsReadOnly="True" SelectedIndex="0" SelectionChanged="onChange">
             <ListBoxItem ContentStringFormat="Select All That Apply:" Content="Time:" IsSelected="True" />
             <ListBoxItem Content="07:00 AM"/>
             <ListBoxItem Content="08:00 AM"/>

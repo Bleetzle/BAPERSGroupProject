@@ -7,23 +7,23 @@
         mc:Ignorable="d"
         Title="payment" Height="777" Width="894" Background="#FFE4DCCF">
     <Grid>
-        <DataGrid x:Name="paymentGrid" HorizontalAlignment="Left" Height="240" Margin="59,372,0,0" VerticalAlignment="Top" Width="750"/>
+        <DataGrid x:Name="paymentGrid" HorizontalAlignment="Left" Height="240" Margin="59,372,0,0" VerticalAlignment="Top" Width="750" Background="#FFACACAC"/>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="20,21,0,0" Height="39" Width="254" FontFamily="Global Serif" FontSize="36" Text="Payment"/>
-        <TextBlock Margin="59,138,612,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text=" Payment Type"/><Run Text=" "/><Run Text=": "/></TextBlock>
-        <TextBlock x:Name="cardType" Margin="139,182,612,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="Card Type"/><Run Text=" "/><Run Text=": "/></TextBlock>
-        <TextBlock x:Name="expDate" Margin="94,223,612,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="Expiry Date "/><Run Text=": "/></TextBlock>
-        <TextBlock x:Name="cvc" Margin="139,267,612,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="CVC"/><Run Text=" "/><Run Text=": "/></TextBlock>
-        <TextBox x:Name="cardType_txtbox" HorizontalAlignment="Left" Height="25" Margin="289,186,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="460" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
-        <TextBox x:Name="expDate_txtbox" HorizontalAlignment="Left" Height="25" Margin="289,227,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="460" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
-        <TextBox x:Name="cvc_txtbox" HorizontalAlignment="Left" Height="25" Margin="289,267,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="460" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBlock Margin="131,138,540,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text=" Payment Type"/><Run Text=" "/><Run Text=": "/></TextBlock>
+        <TextBlock x:Name="cardType" Margin="211,182,540,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="Card Type"/><Run Text=" "/><Run Text=": "/></TextBlock>
+        <TextBlock x:Name="expDate" Margin="166,223,540,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="Expiry Date "/><Run Text=": "/></TextBlock>
+        <TextBlock x:Name="cvc" Margin="211,267,540,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="CVC"/><Run Text=" "/><Run Text=": "/></TextBlock>
+        <TextBox x:Name="cardType_txtbox" HorizontalAlignment="Left" Height="25" Margin="378,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="309" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBox x:Name="expDate_txtbox" HorizontalAlignment="Left" Height="25" Margin="378,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="309" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBox x:Name="cvc_txtbox" HorizontalAlignment="Left" Height="25" Margin="378,264,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="309" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
         <RadioButton x:Name="card_rdioBtn" Content="Card" HorizontalAlignment="Left" Margin="419,142,0,0" VerticalAlignment="Top" Checked="card_Checked" FontFamily="Global Sans Serif" FontSize="22" IsChecked="True"/>
         <RadioButton x:Name="cash_rdioBtn" Content="Cash" HorizontalAlignment="Left" Margin="539,142,0,0" VerticalAlignment="Top" Checked="cash_Checked" FontFamily="Global Sans Serif" FontSize="22"/>
         <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="796,695,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="15,695,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
-        <Button x:Name="addPayment_btn" Content="Add Payment" HorizontalAlignment="Left" Height="40" Margin="579,312,0,0" VerticalAlignment="Top" Width="170" Click="addPayment_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
+        <Button x:Name="addPayment_btn" Content="Add Payment" HorizontalAlignment="Left" Height="40" Margin="626,309,0,0" VerticalAlignment="Top" Width="170" Click="addPayment_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
         <Button x:Name="Pay_btn" Content="Pay" HorizontalAlignment="Left" Height="40" Margin="378,631,0,0" VerticalAlignment="Top" Width="90" Click="pay_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
-        <TextBox x:Name="jobID_txtBox_Copy" HorizontalAlignment="Left" Height="25" Margin="289,93,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="460" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
-        <TextBlock Margin="59,90,612,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="Cust"/><Run Text="o"/><Run Text="mer "/><Run Text="Phone #"/><Run Text=": "/></TextBlock>
+        <TextBox x:Name="jobID_txtBox_Copy" HorizontalAlignment="Left" Height="25" Margin="378,90,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="309" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBlock Margin="59,90,540,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="Cust"/><Run Text="o"/><Run Text="mer "/><Run Text="Phone "/><Run Text="number"/><LineBreak/><Run/><Run Text=": "/></TextBlock>
 
     </Grid>
 </Window>
