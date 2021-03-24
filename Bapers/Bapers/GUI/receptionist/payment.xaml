@@ -25,6 +25,7 @@
         <TextBlock Margin="30,436,640,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text=" Payment Type"/><Run Text=" "/><Run Text=": "/></TextBlock>
         <TextBlock x:Name="cardType" Margin="110,480,640,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="Card Type"/><Run Text=" "/><Run Text=": "/></TextBlock>
         <TextBlock x:Name="expDate" Margin="66,522,640,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="Expiry Date "/><Run Text=": "/></TextBlock>
+        <DatePicker x:Name="expDateCal" HorizontalAlignment="Left" Margin="278,522,0,0" VerticalAlignment="Top" Width="122" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDate="2021-03-22" IsTodayHighlighted="True" Visibility="Visible"/>
         <TextBlock x:Name="cvc" Margin="110,566,640,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="CVC"/><Run Text=" "/><Run Text=": "/></TextBlock>
         <TextBox x:Name="cardType_txtbox" HorizontalAlignment="Left" Height="24" Margin="278,482,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="308" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
         <TextBox x:Name="cvc_txtbox" HorizontalAlignment="Left" Height="26" Margin="278,562,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="308" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
@@ -35,7 +36,6 @@
         <Button x:Name="Pay_btn" Content="Pay" HorizontalAlignment="Left" Height="40" Margin="378,631,0,0" VerticalAlignment="Top" Width="90" Click="pay_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
         <TextBlock Margin="585,404,178,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="Total:"/><Run Text=" "/><Run Text="&#x9;"/><Run Text="£"/><Run Text=" "/></TextBlock>
         <TextBlock x:Name="subTotaltxt" Margin="713,404,77,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right" Text="0.00"/>
-        <DatePicker x:Name="expDateCal" HorizontalAlignment="Left" Margin="278,522,0,0" VerticalAlignment="Top" Width="122" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDate="2021-03-22" IsTodayHighlighted="True"/>
-
+        
     </Grid>
 </Window>

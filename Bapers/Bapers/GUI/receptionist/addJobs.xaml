@@ -20,7 +20,7 @@
         <Button x:Name="addJob_btn" Content="Add Job" HorizontalAlignment="Left" Height="25" Margin="641,195,0,0" VerticalAlignment="Top" Width="80" Click="addJob_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <TextBlock x:Name="jobsAdded" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="40,215,0,0" Height="25" Width="110" FontFamily="Global Serif" FontSize="22" Text="Jobs added:"/>
         <DatePicker x:Name="deadline_date" HorizontalAlignment="Left" Margin="244,109,0,0" VerticalAlignment="Top" Width="122" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDate="2021-03-22" IsTodayHighlighted="True"/>
-        <ComboBox x:Name="time_dropDown" HorizontalAlignment="Left" Height="24" Margin="399,109,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" BorderBrush="#FFACACAC" Foreground="Black" IsReadOnly="True" SelectedIndex="0" SelectionChanged="onChange">
+        <ComboBox x:Name="time_dropDown" HorizontalAlignment="Left" Height="24" Margin="399,109,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" BorderBrush="#FFACACAC" Foreground="Black" IsReadOnly="True" SelectedIndex="0">
             <ListBoxItem ContentStringFormat="Select All That Apply:" Content="Time:" IsSelected="True" />
             <ListBoxItem Content="07:00 AM"/>
             <ListBoxItem Content="08:00 AM"/>

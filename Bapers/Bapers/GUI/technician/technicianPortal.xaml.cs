@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,13 +18,57 @@ namespace Bapers.GUI.technician
     /// <summary>
     /// Interaction logic for technicianPortal.xaml
     /// </summary>
-    public partial class technicianPortal : Window
+    public partial class technicianPortal : Window 
     {
-
         DatabaseConnector db = new DatabaseConnector();
+        string selectedJob = "";
+        string selectedTaskID = "";
+        string selectedTaskTime = "";
+
         public technicianPortal()
         {
             InitializeComponent();
+            PopulateJobs();
+
+        }
+
+
+        private async void PopulateJobs()
+        {
+            await db.Select(jobsGrid,
+                "SELECT DISTINCT(job_Number), job_priority, deadline, special_instructions " +
+                "FROM job, job_tasks " +
+                "WHERE job_number = Jobjob_number " +
+                "AND Staffstaff_ID = @val0"
+                , myVariables.num);
+        }
+        private async void PopulateTasks()
+        {
+            if ((bool)showComplete.IsChecked)
+            {
+                await db.Select(tasksGrid,
+                    "SELECT Taskstask_ID, task_description, start_time, time_taken " +
+                    "FROM Job_Tasks, Tasks, Job " +
+                    "WHERE Taskstask_ID = task_id " +
+                    "AND job_number = @val0 " +
+                    "AND Jobjob_number = job_number " +
+                    "AND job_status != \"Archived\"" +
+                    "AND Staffstaff_ID = @val1 "
+                    , selectedJob, myVariables.num);
+            }
+            else
+            {
+                await db.Select(tasksGrid,
+                    "SELECT Taskstask_ID, task_description, start_time, time_taken " +
+                    "FROM Job_Tasks, Tasks, Job " +
+                    "WHERE Taskstask_ID = task_id " +
+                    "AND job_number = @val0 " +
+                    "AND Jobjob_number = job_number " +
+                    "AND job_status != \"Archived\"" +
+                    "AND Staffstaff_ID = @val1 " +
+                    "AND time_taken is null ; "
+                    , selectedJob, myVariables.num);
+            }
         }
 
         private void logOut_Click(object sender, RoutedEventArgs e)
@@ -31,43 +76,6 @@ namespace Bapers.GUI.technician
             Login loginWindow = new Login();
             loginWindow.Show();
             this.Close();
-        }
-
-        private async void refresh_click(object sender, RoutedEventArgs e)
-        {
-            if (jobID_txtBox.Text.Equals("") || taskNumber_txtBox.Text.Equals(""))
-            {
-                MessageBox.Show("Please fill in all areas");
-                return;
-            }
-
-            if (await db.Check("" +
-                "SELECT * " +
-                "FROM job_Tasks " +
-                "WHERE Jobjob_number = @val0 " +
-                "AND Taskstask_ID = @val1 " +
-                ";"
-                , jobID_txtBox.Text, taskNumber_txtBox.Text)
-                )
-            {
-                await db.Select(tasksGrid,
-                   "SELECT Jobjob_number as JobNumber, Taskstask_ID as TaskID, start_time, NULL AS price " +
-                   "FROM Job_Tasks " +
-                   "WHERE Jobjob_number = @val0 " +
-                   "AND Taskstask_ID = @val1 " +
-                   "UNION " +
-                   "SELECT task_description, location, task_duration, price " +
-                   "FROM Tasks, Job_Tasks " +
-                   "WHERE task_id = @val1 " +
-                   "AND task_id = Taskstask_ID " +
-                   ";"
-                   , jobID_txtBox.Text, taskNumber_txtBox.Text);
-            }
-            else
-            {
-                MessageBox.Show("The Job ID and task number combination canot be found, please check your information");
-            }
-            //refreshes the tasks completed
         }
 
         private void query_click(object sender, RoutedEventArgs e)
@@ -81,13 +89,112 @@ namespace Bapers.GUI.technician
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            //requery
         }
 
-
-        private void complete_Click(object sender, RoutedEventArgs e)
+        private async void start_Click(object sender, RoutedEventArgs e)
         {
-            //when technician completes a task
+            if (!selectedTaskTime.Equals(""))
+            {
+                MessageBoxResult confirmResult = MessageBox.Show("Are you sure you want to override the start time?", "Confirm Overide", MessageBoxButton.YesNo);
+                if (confirmResult == MessageBoxResult.No)
+                    return;
+            }  
+            //sets the start time and sets the time taken to zero
+            await db.InQuery("UPDATE Job_Tasks SET start_time = @val0 WHERE Jobjob_number = @val1 AND Taskstask_ID = @val2;", DateTime.Now.TimeOfDay, selectedJob, selectedTaskID);
+            await db.InQuery("UPDATE Job_Tasks SET time_taken = NULL WHERE Jobjob_number = @val0 AND Taskstask_ID = @val1;", selectedJob, selectedTaskID);
+
+            PopulateTasks();
+            
+            
         }
 
+        private async void complete_Click(object sender, RoutedEventArgs e)
+        {
+            //checks the task was started
+            if (selectedTaskTime.Equals(""))
+            {
+                MessageBox.Show("Please begin the task before setting to complete");
+                return;
+            }
+            //sets the start time
+
+            TimeSpan spent = DateTime.Now - DateTime.Parse(selectedTaskTime);
+            await db.InQuery("UPDATE Job_Tasks SET time_taken = @val0 WHERE Jobjob_number = @val1 AND Taskstask_ID = @val2;", (int)spent.TotalMinutes, selectedJob, selectedTaskID);
+            
+            //check if the job is complete after the completion of the job
+            if (!await db.Check("SELECT * FROM job_tasks WHERE Jobjob_number = @val0 AND time_taken is null;", selectedJob))
+            {
+                //finds data, then nothing else:
+                //task was the last of that job so therfore the job is now complete...
+                await db.InQuery("UPDATE Job SET job_status = \"Completed\" WHERE job_number = @val0;", selectedJob);
+                await db.InQuery("UPDATE Job SET job_completed = @val0 WHERE job_number = @val1;", DateTime.Now, selectedJob);
+            }
+            PopulateTasks();
+
+        }
+
+        private void onJobChange(object sender, SelectedCellsChangedEventArgs e)
+        {
+            foreach (var item in e.AddedCells)
+            {
+                if (item.Column != null)
+                {
+                    string col = item.Column.Header.ToString();
+                    //tmp job num to be able to create the map value
+
+                    //assuming job num always appears before the price
+                    if (col.Equals("job_Number") && item.Column.GetCellContent(item.Item) != null)
+                    {
+                        selectedJob = (item.Column.GetCellContent(item.Item) as TextBlock).Text;
+                        PopulateTasks();
+                    }
+                }
+            }
+        }
+
+        private void onTaskChange(object sender, SelectedCellsChangedEventArgs e)
+        {
+            foreach (var item in e.AddedCells)
+            {
+                if (item.Column != null)
+                {
+                    string col = item.Column.Header.ToString();
+                    //tmp job num to be able to create the map value
+
+                    //assuming id always appears before the price
+                    if (col.Equals("Taskstask_ID") && item.Column.GetCellContent(item.Item) != null)
+                    {
+                        selectedTaskID = (item.Column.GetCellContent(item.Item) as TextBlock).Text;
+                    }
+                    if (col.Equals("start_time") && item.Column.GetCellContent(item.Item) != null)
+                    {
+                        selectedTaskTime = (item.Column.GetCellContent(item.Item) as TextBlock).Text;
+                    }
+                }
+            }
+        }
+
+        private async void searchChanged(object sender, TextChangedEventArgs e)
+        {
+            if (searchbox.Text.Equals(""))
+            {
+                PopulateJobs();
+                return;
+            }
+            await db.Select(jobsGrid,
+                "SELECT DISTINCT(job_Number), job_priority, deadline, special_instructions " +
+                "FROM job, job_tasks " +
+                "WHERE job_number = Jobjob_number " +
+                "AND Staffstaff_ID = @val0 " +
+                "AND job_number = @val1"
+                , myVariables.num, searchbox.Text);
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            PopulateTasks();
+
+        }
     }
 }

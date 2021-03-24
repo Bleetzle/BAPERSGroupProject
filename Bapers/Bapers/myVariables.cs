@@ -17,7 +17,7 @@ namespace Bapers
 
         //user
         public static string role = "";
-        
+        public static string num = "";
         //stack to store page history
         public static Stack<string> myStack = new Stack<string>();
        

@@ -22,13 +22,13 @@ namespace Bapers
 
 
             Login loginWindow = new Login();
-            //loginWindow.Show();
+            loginWindow.Show();
 
             //GUI.reports.reportPortal reportPortalWindow = new GUI.reports.reportPortal();
             //reportPortalWindow.Show();
 
-            GUI.receptionist receptionistwindow = new GUI.receptionist();
-            receptionistwindow.Show();
+            //GUI.receptionist receptionistwindow = new GUI.receptionist();
+            //receptionistwindow.Show();
 
             //addJobs aj = new addJobs();
             //aj.Show();

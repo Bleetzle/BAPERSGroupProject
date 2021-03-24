@@ -241,10 +241,16 @@
     <Resource Include="GUI\CrimsonTechs.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="GUI\technician\Refresh_icon.png" />
+    <Resource Include="GUI\technician\msg.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="GUI\technician\msg.png" />
+    <Resource Include="GUI\technician\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GUI\technician\refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="search.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

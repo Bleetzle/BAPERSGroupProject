@@ -19,9 +19,16 @@ namespace Bapers.GUI.officeManager
     /// </summary>
     public partial class changeCustomer : Window
     {
+        DatabaseConnector db = new DatabaseConnector();
         public changeCustomer()
         {
             InitializeComponent();
+            Populate();
+        }
+
+        private async void Populate()
+        {
+            await db.Select("")
         }
 
 

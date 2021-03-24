@@ -21,15 +21,15 @@
         <TextBlock Margin="110,328,661,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Shift"/><Run Text=" :"/></TextBlock>
         <CheckBox x:Name="day_checkBox" Content="Day" HorizontalAlignment="Left" Margin="320,338,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="night_checkBox" Content="Night" HorizontalAlignment="Left" Margin="410,338,0,0" VerticalAlignment="Top"/>
-        <ComboBox x:Name="role_Dropdown" HorizontalAlignment="Left" Margin="295,175,0,0" VerticalAlignment="Top" Width="435" Cursor="Hand" IsSynchronizedWithCurrentItem="True">
-            <RadioButton x:Name="receptionist_radiobtn" Content="Receptionist" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <RadioButton x:Name="officeMan_radiobtn" Content="Office Manager" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <RadioButton x:Name="shiftMan_radiobtn" Content="Shift Manager" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <RadioButton x:Name="technician_radiobtn" Content="Technician" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ComboBox x:Name="role_Dropdown" HorizontalAlignment="Left" Margin="295,175,0,0" VerticalAlignment="Top" Width="435" Cursor="Hand" IsSynchronizedWithCurrentItem="True" SelectionChanged="onChange" IsReadOnly="True">
+            <ListBoxItem Content="Receptionist"/>
+            <ListBoxItem Content="Office Manager"/>
+            <ListBoxItem Content="Shift Manager"/>
+            <ListBoxItem Content="Technician"/>
         </ComboBox>
         <TextBlock Margin="110,244,661,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Last N"/><Run Text="ame"/><Run Text=" :"/></TextBlock>
         <TextBox x:Name="lastname_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
-        <TextBlock Margin="110,287,661,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="L"/><Run Text="ocation"/><Run Text=" :"/></TextBlock>
+        <TextBlock x:Name="locName" Margin="110,287,661,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="L"/><Run Text="ocation"/><Run Text=" :"/></TextBlock>
         <TextBox x:Name="location_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,291,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
 
     </Grid>
