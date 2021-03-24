@@ -35,6 +35,6 @@
             <ListBoxItem Content="05:00 PM"/>
             <ListBoxItem Content="06:00 PM"/>
         </ComboBox>
-        <DataGrid x:Name="jobsGrid" ItemsSource = "{Binding}" HorizontalAlignment="Left" Height="160" Margin="40,245,0,0" VerticalAlignment="Top" Width="695" Background="#FFACACAC"/>
+        <DataGrid x:Name="jobsGrid" ItemsSource = "{Binding}" HorizontalAlignment="Left" Height="160" Margin="40,245,0,0" VerticalAlignment="Top" Width="695" Background="#FFACACAC" IsReadOnly="True"/>
     </Grid>
 </Window>

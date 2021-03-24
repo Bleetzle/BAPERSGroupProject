@@ -83,24 +83,89 @@ namespace Bapers.GUI
             double minsToComplete = 0f;
             double timeTillDeadline = 0f;
 
+            var tasksCost = new Dictionary<string,float>(); ;
+
             foreach(string s in selectedList)
             {
+                //get the time to complete all tasks
                 var val = await db.SelectSingle("SELECT task_duration FROM Tasks WHERE task_description = @val0;", s);
                 minsToComplete += int.Parse(val);
+
+                //get the cost of each task
+                var val1 = await db.SelectSingle("SELECT task_id FROM Tasks WHERE task_description = @val0;", s);
+                var val2 = await db.SelectSingle("SELECT price FROM Tasks WHERE task_description = @val0;", s);
+                tasksCost.Add(val1, float.Parse(val2));
             }
-
-            timeTillDeadline = (selectedDate - DateTime.Now).TotalMinutes;
-
+            
             //determine if job deadline is less than 6 hour
+            timeTillDeadline = (selectedDate - DateTime.Now).TotalMinutes;
             string urgency = "Normal";
             if (timeTillDeadline - minsToComplete < 360 )
                 urgency = "Urgent";
+            
+            float totalPrice = 0f;
+            switch (await db.SelectSingle(
+                "SELECT discount_plan " +
+                "FROM discount " +
+                "WHERE Customeraccount_number = @val0 " +
+                "AND Customerphone_number = @val1"
+                , myVariables.currID, myVariables.currnum)
+                )
+            {
+                case "Fixed":
+                    //removes the amount from the total cost
+                    foreach (float f in tasksCost.Values)
+                        totalPrice += f;
+                    string val = await db.SelectSingle("SELECT discount_rate FROM fixed_discount WHERE DiscountCustomeraccount_number = @val0", myVariables.currID);
+                    totalPrice -= (totalPrice * float.Parse(val));
+                    break;
+                case "Variable":
+                    //grabs the discount and removes it from each price
+                    foreach (KeyValuePair<string, float> p in tasksCost)
+                    {
+                        string val1 = await db.SelectSingle("SELECT discount_rate FROM variable_discount WHERE DiscountCustomeraccount_number = @val0 AND task_type = @val1", myVariables.currID, p.Key);
+                        tasksCost[p.Key] -= p.Value * float.Parse(val1); 
+                    }
+                    //takes all the discounted prices and adds them together
+                    foreach(float f in tasksCost.Values)
+                        totalPrice += f;
+                    break;
+                case "Flexible":
+                    //grabs the month range from today
+                    var todays_date = DateTime.Now.Date;
+                    var lastmonth_date = todays_date.Subtract(TimeSpan.FromDays(30));
+                    //grabs the money spent by the customer in the last 30 
+                    float monthlyTotal = float.Parse(await db.SelectSingle(
+                        "SELECT SUM(payment_amount) " +
+                        "FROM payment " +
+                        "WHERE Customeraccount_number = @val0 " +
+                        "AND AND Customeraccountphone_number = @val1 " +
+                        "AND payment_date BETWEEN  @val2 AND @val3; "
+                        , myVariables.currID, myVariables.currnum, lastmonth_date, todays_date));
+                    //grab the discount rate based on the monthly discount
+                    float rate = float.Parse(await db.SelectSingle(
+                        "SELECT discount_rate " +
+                        "FROM flexible_discount " +
+                        "WHERE DiscountCustomeraccount_number = @val0 " +
+                        "AND @val1 BETWEEN  lower AND upper; "
+                        , myVariables.currID, lastmonth_date, todays_date));
+                    //uses the rate gotten to apply the discount to the total price
+                    foreach (float f in tasksCost.Values)
+                            totalPrice += f;
+                    totalPrice -= (totalPrice * rate);
+                    break;
+                default:
+                    foreach (float f in tasksCost.Values)
+                        totalPrice += f;
+                    break;
+            }
 
+            
             //create entry in job table
             await db.InQuery(
-            "INSERT INTO Job(job_Number, job_priority, deadline, job_status, special_instructions, job_completed, Customeraccount_number, Customerphone_number) " +
-            "VALUES(@val0, @val1 , @val2, @val3, @val4, @val5, @val6, @val7);"
-            ,"J" + num , urgency, selectedDate, "uncompleted", specialIn_txtBox.Text, null, myVariables.currID, myVariables.currnum);
+            "INSERT INTO Job(job_Number, job_priority, deadline, job_status, special_instructions, job_completed, Customeraccount_number, Customerphone_number, discounted_total) " +
+            "VALUES(@val0, @val1 , @val2, @val3, @val4, @val5, @val6, @val7, @val8);"
+            ,"J" + num , urgency, selectedDate, "uncompleted", specialIn_txtBox.Text, null, myVariables.currID, myVariables.currnum, totalPrice);
 
             //create entries in job_tasks table
             foreach (string s in selectedList)

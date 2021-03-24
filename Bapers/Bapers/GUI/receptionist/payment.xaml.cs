@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,11 +20,31 @@ namespace Bapers.GUI
     /// </summary>
     public partial class payment : Window
     {
+        DatabaseConnector db = new DatabaseConnector();
+        Dictionary<string, float> selectedJobs = new Dictionary<string, float>();
+        float subTotal = 0f;
+
         public payment()
         {
             InitializeComponent();
+
+            //assuming the page is created after searching
+            addpaymentfor.Text += " " + myVariables.currfname + " " + myVariables.currlname;
+            Populate();
+
         }
 
+        private async void Populate()
+        {
+            await db.Select(paymentGrid, 
+                "SELECT job_number as ID, deadline as Deadline, special_instructions as Instructions, job_completed as Status, discounted_total as Price " +
+                "FROM Job " +
+                "WHERE Customeraccount_number = @val0 " +
+                "AND Customerphone_number = @val1 " +
+                "AND job_status = \"Completed\" "+
+                "ORDER BY deadline;"
+                , myVariables.currID, myVariables.currnum);
+        }
 
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -36,7 +57,7 @@ namespace Bapers.GUI
             cardType.Visibility = Visibility.Visible;
             cardType_txtbox.Visibility = Visibility.Visible;
             expDate.Visibility = Visibility.Visible;
-            expDate_txtbox.Visibility = Visibility.Visible;
+            expDateCal.Visibility = Visibility.Visible;
             cvc.Visibility = Visibility.Visible;
             cvc_txtbox.Visibility = Visibility.Visible;
         }
@@ -46,7 +67,7 @@ namespace Bapers.GUI
             cardType.Visibility = Visibility.Hidden;
             cardType_txtbox.Visibility = Visibility.Hidden;
             expDate.Visibility = Visibility.Hidden;
-            expDate_txtbox.Visibility = Visibility.Hidden;
+            expDateCal.Visibility = Visibility.Hidden;
             cvc.Visibility = Visibility.Hidden;
             cvc_txtbox.Visibility = Visibility.Hidden;
         }
@@ -65,21 +86,137 @@ namespace Bapers.GUI
             this.Close();
         }
 
-        private void addPayment_Click(object sender, RoutedEventArgs e)
+        private async void pay_Click(object sender, RoutedEventArgs e)
         {
+            if (selectedJobs.Count == 0)
+            {
+                MessageBox.Show("Please select some jobs to pay for");
+                return;
+            }
 
-            //code for adding payment details to the databse goes here
+            //check if all values are filled in
+            if ((bool)card_rdioBtn.IsChecked)
+            {
+                //check the text boxes
+                if (cardType_txtbox.Text.Equals("")|| !expDateCal.SelectedDate.HasValue || cvc_txtbox.Text.Equals(""))
+                {
+                    MessageBox.Show("Please fill in all details");
+                    return;
+                }
+
+                //create a payment entry for each job
+                foreach (KeyValuePair<string, float> p in selectedJobs)
+                {
+                    //stores the payment for each of the jobs
+                    await db.InQuery(
+                        "INSERT INTO payment (payment_type, payment_amount, Jobjob_number, Customerphone_number, Customeraccount_number, payment_date)" +
+                        "Values (@val0, @val1, @val2, @val3, @val4, @val5)"
+                        , "Card", p.Value, p.Key, myVariables.currnum, myVariables.currID, DateTime.Now.Date);
+                    //gets the payment ID just 
+                    var val = db.SelectSingle(
+                        "SELECT payment_id " +
+                        "FROM payment " +
+                        "WHERE Jobjob_number = @val0"
+                        , p.Key);
+                    //stores the card details
+                    await db.InQuery(
+                        "INSERT INTO card (Paymentpayment_id, card_type, expiry_date, CC4digits)" +
+                        "Values (@val0, @val1, @val2, @val3)"
+                        , val, cardType_txtbox.Text, expDateCal.SelectedDate.Value.Date, cvc_txtbox.Text);
+                    //archives the Jobs
+                    await db.InQuery(
+                        "UPDATE job " +
+                        "SET job_status = 'Archived' " +
+                        "WHERE job_number = @val0; "
+                        , p.Key);
+                }
+
+                MessageBox.Show("Jobs Sucessfully Paid For");
+                //repopulates the tables
+                Populate();
+            }
+            //cash query
+            else
+            {
+                //create a payment entry for each job
+                foreach(KeyValuePair<string,float> p in selectedJobs)
+                {
+                    //stores the payment for each of the jobs
+                    await db.InQuery(
+                        "INSERT INTO payment (payment_type, payment_amount, Jobjob_number, Customerphone_number, Customeraccount_number, payment_date)" +
+                        "Values (@val0, @val1, @val2, @val3, @val4, @val5)"
+                        ,"Cash", p.Value, p.Key, myVariables.currnum, myVariables.currID, DateTime.Now.Date);
+                    //archives the Jobs
+                    await db.InQuery(
+                        "UPDATE job " +
+                        "SET job_status = 'Archived' " +
+                        "WHERE job_number = @val0; "
+                        ,p.Key );
+                }
+
+                MessageBox.Show("Jobs Sucessfully Paid For");
+                //repopulates the tables
+                Populate();
+            }
         }
 
-        private void addJobs_Click(object sender, RoutedEventArgs e)
-        {
-            //first needs to check if customer is a valued or just a normal customer.
-            //if normal make the add jobs turn invisible after one button press
-        }
+        //adds and removes the job number selected by the user toa list
+        private void onChange(object sender, SelectedCellsChangedEventArgs e)
+        {       
+            string tmp = "";
+            float tmp1 = 0f; 
 
-        private void pay_Click(object sender, RoutedEventArgs e)
-        {
-            //to print the reciept to pay
+            foreach (var item in e.AddedCells)
+            {
+                if (item.Column != null)
+                {
+                    string col = item.Column.Header.ToString();
+                    //tmp job num to be able to create the map value
+
+                    //assuming job num always appears before the price
+                    if (col.Equals("ID") && item.Column.GetCellContent(item.Item) != null)
+                    {
+                        tmp = (item.Column.GetCellContent(item.Item) as TextBlock).Text;
+                    }
+                    if (col.Equals("Price") && item.Column.GetCellContent(item.Item) != null)
+                    {
+                        tmp1 = float.Parse((item.Column.GetCellContent(item.Item) as TextBlock).Text);
+                        subTotal += tmp1;
+                    }
+                    //makes sure a job number has been selected before adding to the list
+                    if (!tmp.Equals(""))
+                    {
+                        selectedJobs.Add(tmp, tmp1);
+                        tmp = "";
+                    }
+                }
+            }
+
+            foreach (var item in e.RemovedCells)
+            {
+                if (item.Column != null)
+                {
+                    string col = item.Column.Header.ToString();
+
+                    if (col.Equals("ID") && item.Column.GetCellContent(item.Item) != null)
+                    {
+                        tmp = (item.Column.GetCellContent(item.Item) as TextBlock).Text;
+                    }
+                    if (col.Equals("Price") && item.Column.GetCellContent(item.Item) != null)
+                    {
+                        tmp1 = float.Parse((item.Column.GetCellContent(item.Item) as TextBlock).Text);
+                        subTotal -= tmp1;
+                    }
+                    //makes sure a job number has been deselected before removing to the list
+                    if (!tmp.Equals(""))
+                    {
+                        selectedJobs.Remove(tmp);
+                        tmp = "";
+                    }
+                }
+            }
+
+            subTotaltxt.Text = subTotal.ToString();
         }
     }
 }
