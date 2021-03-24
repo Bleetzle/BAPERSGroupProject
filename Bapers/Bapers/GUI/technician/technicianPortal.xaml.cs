@@ -64,7 +64,7 @@ namespace Bapers.GUI.technician
                     "WHERE Taskstask_ID = task_id " +
                     "AND job_number = @val0 " +
                     "AND Jobjob_number = job_number " +
-                    "AND job_status != \"Archived\"" +
+                    "AND job_status != \"Archived\" " +
                     "AND Staffstaff_ID = @val1 " +
                     "AND time_taken is null ; "
                     , selectedJob, myVariables.num);

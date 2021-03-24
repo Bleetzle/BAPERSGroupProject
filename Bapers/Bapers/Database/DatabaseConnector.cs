@@ -72,7 +72,6 @@ namespace Bapers
         public async Task Select(DataGrid dg, string q, params object[] vals)
         {
             DataTable dataTable = new DataTable();
-
             try
             { 
                 MySqlCommand cmd = new MySqlCommand(q, connection);
@@ -88,6 +87,7 @@ namespace Bapers
                     {
                         await da.FillAsync(dataTable);
                     }
+                    dg.ItemsSource = dataTable.DefaultView;
                     dg.DataContext = dataTable.DefaultView;
                 }
             }
@@ -322,6 +322,7 @@ namespace Bapers
                 MessageBox.Show(string.Format("Error, unable to Restore. \n Backup with that filename does not exist. \n {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
     }
 }

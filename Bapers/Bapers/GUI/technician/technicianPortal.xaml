@@ -47,7 +47,7 @@
         <TextBox x:Name="searchbox" HorizontalAlignment="Left" Height="21" Margin="561,75,0,0" TextWrapping="Wrap" Text="Search..." VerticalAlignment="Top" Width="176" TextChanged="searchChanged"/>
         <Button x:Name="startTask_btn" Content="Start Task" HorizontalAlignment="Left" Height="25" Margin="36,386,0,0" VerticalAlignment="Top" Width="85" Click="start_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" Foreground="Black" FontSize="14"/>
         <Image Margin="540,75,200,365" Source="search.png" Stretch="Fill" OpacityMask="{x:Null}"/>
-        <CheckBox x:Name="showComplete" Content="Show Completed" HorizontalAlignment="Left" Margin="636,215,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Height="14" Width="104" Click="CheckBox_Checked"/>
+        <CheckBox x:Name="showComplete" Content="Show Completed" HorizontalAlignment="Left" Margin="622,215,0,0" VerticalAlignment="Top" Checked="CheckBox_Checked" Height="14" Width="118" Click="CheckBox_Checked"/>
 
     </Grid>
 </Window>

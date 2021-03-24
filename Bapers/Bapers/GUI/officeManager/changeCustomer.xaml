@@ -8,18 +8,18 @@
         Title="changeCustomer" Height="450" Width="800" Background="#FFE4DCCF">
     <Grid>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="10,10,0,0" Height="33" Width="344" FontFamily="Global Serif" FontSize="24"><Run Text="Change "/><Run Text="Customer "/><Run Text="Discount Status"/></TextBlock>
-        <TextBlock x:Name="discount_txt" Margin="-28,191,650,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="16" TextAlignment="Right" RenderTransformOrigin="0.508,1.049"><Run Text="Discount Type"/><Run Text=" :"/></TextBlock>
+        <TextBlock x:Name="discount_txt" Margin="-25,219,647,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="16" TextAlignment="Right" RenderTransformOrigin="0.508,1.049"><Run Text="Discount Type"/><Run Text=" :"/></TextBlock>
         <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="685,370,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
-        <Button x:Name="changeDiscount_btn" Content="Change/Create Discount" HorizontalAlignment="Left" Height="40" Margin="282,310,0,0" VerticalAlignment="Top" Width="268" Click="changeDiscount_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
+        <Button x:Name="changeDiscount_btn" Content="Save" HorizontalAlignment="Left" Height="21" Margin="667,217,0,0" VerticalAlignment="Top" Width="56" Click="saveChanges" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="Black" FontWeight="Bold"/>
         <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="45,370,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
-        <ComboBox x:Name="discount_Dropdown" HorizontalAlignment="Left" Margin="157,191,0,0" VerticalAlignment="Top" Width="435" IsDropDownOpen="True">
-            <RadioButton x:Name="fixed_radiobtn" Content="Fixed" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <RadioButton x:Name="variable_radiobtn" Content="Variable" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            <RadioButton x:Name="flexible_radiobtn" Content="Flexible" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <ComboBox x:Name="discount_Dropdown" HorizontalAlignment="Left" Margin="160,219,0,0" VerticalAlignment="Top" Width="435" SelectionChanged="onDiscountChange">
+            <ListBoxItem Content="Fixed"/>
+            <ListBoxItem Content="Variable"/>
+            <ListBoxItem Content="Flexible"/>
         </ComboBox>
-        <RadioButton x:Name="valued_radioBtn" Content="Valued" HorizontalAlignment="Left" Margin="157,171,0,0" VerticalAlignment="Top" IsChecked="True" Checked="valued_checked"/>
-        <RadioButton x:Name="standard_radioBtn" Content="Standard" HorizontalAlignment="Left" Margin="232,171,0,0" VerticalAlignment="Top" Checked="standard_checked"/>
-        <DataGrid x:Name="jobsGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" SelectedCellsChanged="onJobChange" HorizontalAlignment="Left" Height="70" Margin="36,76,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" IsReadOnly="True">
+        <RadioButton x:Name="valued_radioBtn" Content="Valued" HorizontalAlignment="Left" Margin="160,199,0,0" VerticalAlignment="Top" IsChecked="True" Checked="valued_checked"/>
+        <RadioButton x:Name="standard_radioBtn" Content="Standard" HorizontalAlignment="Left" Margin="235,199,0,0" VerticalAlignment="Top" Checked="standard_checked"/>
+        <DataGrid x:Name="custGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" SelectedCellsChanged="onCustChange" HorizontalAlignment="Left" Height="105" Margin="36,76,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                     Color="#FF7AD18A"/>
@@ -34,6 +34,33 @@
         <TextBlock x:Name="Welcome_Copy" HorizontalAlignment="Left" Height="21" Margin="36,55,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" FontFamily="Global Serif" FontSize="18"><Run Text="C"/><Run Text="ustomers"/><Run Text=":"/></TextBlock>
         <TextBox x:Name="searchbox" HorizontalAlignment="Left" Height="21" Margin="561,55,0,0" TextWrapping="Wrap" Text="Search..." VerticalAlignment="Top" Width="176" TextChanged="searchChanged"/>
         <Image Margin="540,55,231,343" Source="/Bapers;component/search.png" Stretch="Fill" OpacityMask="{x:Null}"/>
+        <TextBlock x:Name="status_txt" Margin="-25,197,647,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="16" TextAlignment="Right" RenderTransformOrigin="0.508,1.049"><Run Text="Account Status"/><Run Text=" :"/></TextBlock>
+        <TextBox x:Name="fixed_txtBox" HorizontalAlignment="Left" Height="21" Margin="160,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" FontSize="16" FontFamily="Verdana" Background="#FF959697" Visibility="Hidden"/>
+        <TextBlock x:Name="fixedtxt" Margin="10,262,647,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="16" TextAlignment="Right" Text="Discount:" Visibility="Hidden"/>
+        <DataGrid x:Name="variGrid"  SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" HorizontalAlignment="Left" Height="90" Margin="36,262,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" Visibility="Hidden">
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                    Color="#FF7AD18A"/>
+            </DataGrid.Resources>
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                </Style>
+            </DataGrid.CellStyle>
+        </DataGrid>
+        <DataGrid x:Name="flexGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" HorizontalAlignment="Left" Height="90" Margin="36,262,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" Visibility="Hidden">
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                    Color="#FF7AD18A"/>
+            </DataGrid.Resources>
+            <DataGrid.CellStyle>
+                <Style TargetType="{x:Type DataGridCell}">
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                </Style>
+            </DataGrid.CellStyle>
+        </DataGrid>
 
     </Grid>
 </Window>
