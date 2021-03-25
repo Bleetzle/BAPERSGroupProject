@@ -106,13 +106,18 @@ namespace Bapers
         }
 
         //runs a query and fills in a list for the first row of a query
-        public async Task SelectLists(List<string> list, string q)
+        public async Task SelectLists(List<string> list, string q, params object[] vals)
         {
             DataTable dataTable = new DataTable();
 
             try
             {
                 MySqlCommand cmd = new MySqlCommand(q, connection);
+
+                for (int i = 0; i < vals.Length; i++)
+                {
+                    cmd.Parameters.AddWithValue($"@val{i}", vals[i]);
+                }
 
                 if (await  this.OpenConnection() == true)
                 {

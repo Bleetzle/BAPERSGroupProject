@@ -37,7 +37,7 @@
         <TextBlock x:Name="status_txt" Margin="-25,197,647,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="16" TextAlignment="Right" RenderTransformOrigin="0.508,1.049"><Run Text="Account Status"/><Run Text=" :"/></TextBlock>
         <TextBox x:Name="fixed_txtBox" HorizontalAlignment="Left" Height="21" Margin="160,262,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" FontSize="16" FontFamily="Verdana" Background="#FF959697" Visibility="Hidden"/>
         <TextBlock x:Name="fixedtxt" Margin="10,262,647,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="16" TextAlignment="Right" Text="Discount:" Visibility="Hidden"/>
-        <DataGrid x:Name="variGrid"  SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" HorizontalAlignment="Left" Height="90" Margin="36,262,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" Visibility="Hidden">
+        <DataGrid x:Name="variGrid"  SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" HorizontalAlignment="Left" Height="90" Margin="36,262,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" Visibility="Hidden" CanUserSortColumns="False" CanUserReorderColumns="False" CanUserAddRows="False">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                     Color="#FF7AD18A"/>
@@ -49,7 +49,7 @@
                 </Style>
             </DataGrid.CellStyle>
         </DataGrid>
-        <DataGrid x:Name="flexGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" HorizontalAlignment="Left" Height="90" Margin="36,262,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" Visibility="Hidden">
+        <DataGrid x:Name="flexGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" HorizontalAlignment="Left" Height="90" Margin="36,262,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" Visibility="Hidden" CanUserReorderColumns="False" CanUserSortColumns="False">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                     Color="#FF7AD18A"/>

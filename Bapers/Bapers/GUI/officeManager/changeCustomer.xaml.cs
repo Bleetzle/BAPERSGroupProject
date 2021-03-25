@@ -29,11 +29,21 @@ namespace Bapers.GUI.officeManager
         {
             InitializeComponent();
             Populate();
+            valued_radioBtn.IsEnabled = false;
+            standard_radioBtn.IsEnabled = false;
+            discount_Dropdown.IsEnabled = false;
+            changeDiscount_btn.IsEnabled = false;
         }
 
         private async void Populate()
         {
             await db.Select(custGrid, "SELECT account_number, first_name, last_name, phone_number, address, company_name FROM Customer");
+
+            await db.Select(variGrid, "SELECT task_id, task_description, COALESCE(NULL, ' ') as discount_rate FROM tasks; ");
+            await db.Select(flexGrid, "SELECT lower, upper, discount_rate " +
+                                            "FROM flexible_discount " +
+                                            "WHERE DiscountCustomeraccount_number IS NULL; "
+                                            );
         }
 
 
@@ -86,13 +96,17 @@ namespace Bapers.GUI.officeManager
         /// <param name="e"></param>
         private async void onCustChange(object sender, SelectedCellsChangedEventArgs e)
         {
-            if (variGrid.ItemsSource != null) {
-                DataTable dt1 = new DataTable();
-                dt1 = ((DataView)variGrid.ItemsSource).ToTable();
-                dt1.Rows.Clear();
-                variGrid.ItemsSource = dt1.DefaultView;
-                variGrid.DataContext = dt1.DefaultView;
+            if (!changeDiscount_btn.IsEnabled)
+            {
+                valued_radioBtn.IsEnabled = true;
+                standard_radioBtn.IsEnabled = true;
+                discount_Dropdown.IsEnabled = true;
+                changeDiscount_btn.IsEnabled = true;
             }
+
+            //requiries the variable discount fird to reset it
+            await db.Select(variGrid, "SELECT task_id, task_description, COALESCE(NULL, ' ') as discount_rate FROM Tasks; ");
+            //resets the values for the fleible discount grid
             if (flexGrid.ItemsSource != null)
             {
                 DataTable dt2 = new DataTable();
@@ -143,7 +157,7 @@ namespace Bapers.GUI.officeManager
                                     case "Flexible":
                                         discount_Dropdown.SelectedIndex = 2;
                                         await db.Select(flexGrid,
-                                            "SELECT band_number, lower, upper, discount_rate " +
+                                            "SELECT  lower, upper, discount_rate " +
                                             "FROM flexible_discount " +
                                             "WHERE DiscountCustomeraccount_number = @val0; "
                                             , selectedAcc);
@@ -199,8 +213,42 @@ namespace Bapers.GUI.officeManager
                 MessageBox.Show("Please select an account and change details to save");
                 return;
             }
+            if ((bool)valued_radioBtn.IsChecked) {
+                switch (discount_Dropdown.Text)
+                {
+                    case "Fixed":
+                        if (fixed_txtBox.Text.Equals(""))
+                        {
+                            MessageBox.Show("Please input a discount value");
+                            return;
+                        }
+                        break;
+                    case "Variable":
+                        foreach (System.Data.DataRowView dr in variGrid.ItemsSource)
+                        {
+                            var str = dr.Row.Field<string>("discount_rate");
+                            if (str.Equals(" "))
+                            {
+                                MessageBox.Show("Please insert missing discount values");
+                                return;
+                            }
+                        }
+                        break;
+                    case "Flexible":
+                        if (flexGrid.Items.Count == 1)
+                        {
+                            MessageBox.Show("Please insert some boundaries");
+                            return;
+                        }
+                        break;
+                    default:
+                        MessageBox.Show("Please Select a discount type");
+                        return;
+                }
+            }
 
-            //save tge account details if changed
+
+            //save the account details if changed
             custGrid.CommitEdit();
             foreach(System.Data.DataRowView dr in custGrid.ItemsSource)
             {
@@ -231,7 +279,6 @@ namespace Bapers.GUI.officeManager
             var disc = await db.SelectSingle("SELECT discount_plan FROM discount WHERE Customeraccount_number = @val0", selectedAcc);
             //delete any discount that could be attached to the customer
 
-            await db.InQuery("DELETE FROM discount WHERE Customeraccount_number = @val0;", selectedAcc);
             //if was originally a valued customer, then will delete the discount attached to that customer
             switch (val)
             {
@@ -266,6 +313,9 @@ namespace Bapers.GUI.officeManager
                 default:
                     break;
             }
+            //after deleting children, delting the parent table
+            await db.InQuery("DELETE FROM discount WHERE Customeraccount_number = @val0;", selectedAcc);
+
 
             if ((bool)standard_radioBtn.IsChecked)
             {
@@ -289,25 +339,28 @@ namespace Bapers.GUI.officeManager
                         foreach (System.Data.DataRowView dr in variGrid.ItemsSource)
                         {
                             await db.InQuery(
-                            "INSERT INTO variable_discount (DiscountCustomeraccount_number, task_type,discount_rate) " +
+                            "INSERT INTO variable_discount (DiscountCustomeraccount_number, task_type, discount_rate) " +
                             "VALUES (@val0, @val1, @val2); "
-                            , dr.Row.Field<string>("DiscountCustomeraccount_number")
-                            , dr.Row.Field<string>("task_type")
-                            , dr.Row.Field<string>("discount_rate")
+                            , selectedAcc
+                            , Int32.Parse(dr.Row.Field<string>("task_id"))
+                            , dr.Row.Field<int>("discount_rate")
                             );
                         }
                         break;
                     case "Flexible":
-                        foreach (System.Data.DataRowView dr in variGrid.ItemsSource)
+                        int bnum = 1;
+                        foreach (System.Data.DataRowView dr in flexGrid.ItemsSource)
                         {
                             await db.InQuery(
-                            "INSERT INTO flexible_discount (DiscountCustomeraccount_number, discount_rate, lower, upper) " +
-                            "VALUES (@val0, @val1, @val2, @val3); "
-                            , dr.Row.Field<string>("DiscountCustomeraccount_number")
-                            , dr.Row.Field<string>("discount_rate")
-                            , dr.Row.Field<string>("lower")
-                            , dr.Row.Field<string>("upper")
+                            "INSERT INTO flexible_discount (band_number, DiscountCustomeraccount_number, discount_rate, lower, upper) " +
+                            "VALUES (@val0, @val1, @val2, @val3,@val4); "
+                            , bnum
+                            , selectedAcc
+                            , dr.Row.Field<int>("discount_rate")
+                            , dr.Row.Field<int>("lower")
+                            , dr.Row.Field<int>("upper")
                             );
+                            bnum++;
                         }
                         break;
                     default:
