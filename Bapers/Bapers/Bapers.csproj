@@ -76,6 +76,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="GUI\officeManager\addTasks.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\officeManager\changeCustomer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -117,6 +121,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Database\DatabaseConnector.cs" />
+    <Compile Include="GUI\officeManager\addTasks.xaml.cs">
+      <DependentUpon>addTasks.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\officeManager\changeCustomer.xaml.cs">
       <DependentUpon>changeCustomer.xaml</DependentUpon>
     </Compile>

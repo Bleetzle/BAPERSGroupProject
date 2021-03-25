@@ -7,14 +7,19 @@
         mc:Ignorable="d"
         Title="officeManagerPortal" Height="450" Width="800" Background="#FFE4DCCF">
     <Grid>
-        <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="690,370,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="65*"/>
+            <ColumnDefinition Width="23*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="105,370,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black" Grid.Column="1"/>
         <TextBlock HorizontalAlignment="Left" Height="44" Margin="40,30,0,0" TextWrapping="Wrap" Text="Welcome Office Manager" VerticalAlignment="Top" Width="380" FontFamily="Global Serif" FontSize="36"/>
-        <Button x:Name="report_btn" Content="Create report" Height="56" Margin="418,194,77,0" VerticalAlignment="Top" Click="report_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
-        <Button x:Name="reception_btn" Content="Receptionist Portal" Height="56" Margin="418,118,77,0" VerticalAlignment="Top" Click="reception_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
-        <Button x:Name="createUser_btn" Content="Create user" Height="56" Margin="85,194,410,0" VerticalAlignment="Top" Click="create_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
-        <Button x:Name="changeCustomer_btn" Content="Change Customer Status" Height="56" Margin="85,118,410,0" VerticalAlignment="Top" Click="changeCustomer_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
-        <Button x:Name="restore_btn" Content="Restore Database" Height="56" Margin="418,270,77,0" VerticalAlignment="Top" Click="restore_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
-        <Button x:Name="backup_btn" Content="Backup Database" Height="56" Margin="85,270,410,0" VerticalAlignment="Top" Click="backup_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
+        <Button x:Name="report_btn" Content="Create report" Height="56" Margin="418,194,77,0" VerticalAlignment="Top" Click="report_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <Button x:Name="reception_btn" Content="Receptionist Portal" Height="56" Margin="418,118,77,0" VerticalAlignment="Top" Click="reception_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <Button x:Name="createUser_btn" Content="Create user" Height="56" Margin="85,194,203,0" VerticalAlignment="Top" Click="create_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
+        <Button x:Name="changeCustomer_btn" Content="Change Customer Status" Height="56" Margin="85,118,203,0" VerticalAlignment="Top" Click="changeCustomer_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
+        <Button x:Name="restore_btn" Content="Restore Database" Height="56" Margin="418,270,77,0" VerticalAlignment="Top" Click="restore_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center" Grid.ColumnSpan="2"/>
+        <Button x:Name="backup_btn" Content="Backup Database" Height="56" Margin="85,270,203,0" VerticalAlignment="Top" Click="backup_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
+        <Button x:Name="addTasks_btn" Content="Add tasks" Height="56" Margin="253,339,35,0" VerticalAlignment="Top" Click="addtasks_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
 
     </Grid>
 </Window>
