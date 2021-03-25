@@ -21,7 +21,7 @@
 
         </DataGrid>
 
-        <TextBlock x:Name="addpaymentfor" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="20,21,0,0" Height="39" Width="254" FontFamily="Global Serif" FontSize="36" Text="Payment for: "/>
+        <TextBlock x:Name="addpaymentfor" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="20,21,0,0" Height="39" Width="688" FontFamily="Global Serif" FontSize="36" Text="Payment for: "/>
         <TextBlock Margin="30,436,640,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text=" Payment Type"/><Run Text=" "/><Run Text=": "/></TextBlock>
         <TextBlock x:Name="cardType" Margin="110,480,640,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="Card Type"/><Run Text=" "/><Run Text=": "/></TextBlock>
         <TextBlock x:Name="expDate" Margin="66,522,640,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Sans Serif" FontSize="24" TextAlignment="Right"><Run Text="Expiry Date "/><Run Text=": "/></TextBlock>

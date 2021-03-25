@@ -92,5 +92,13 @@ namespace Bapers.GUI.officeManager
                 }
             }
         }
+
+        private void addtasks_click(object sender, RoutedEventArgs e)
+        {
+            addTasks addtasksWindow = new addTasks();
+            addtasksWindow.Show();
+            this.Close();
+
+        }
     }
 }
