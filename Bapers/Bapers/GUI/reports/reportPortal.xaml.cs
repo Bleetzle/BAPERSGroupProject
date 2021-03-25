@@ -64,13 +64,13 @@ namespace Bapers.GUI.reports
 
         private void viewReport_Click(object sender, RoutedEventArgs e)
         {
-            if (reportType_comboBox.Text.Equals("") || timespan_txtBox.Text.Equals("") || startDate_txtBox.Text.Equals(""))
+            if (reportType_comboBox.Text.Equals("") || timeSpan.Text.Equals("") || start_date.SelectedDate == null)
             {
                 MessageBox.Show("Please fill in all areas");
                 return;
             }
 
-            viewReport viewReportWindow = new viewReport(reportType_comboBox.Text, userId_txtBox.Text, timespan_txtBox.Text, startDate_txtBox.Text);
+            viewReport viewReportWindow = new viewReport(reportType_comboBox.Text, userId_txtBox.Text, timeSpan.Text, start_date.SelectedDate.Value);
             viewReportWindow.Show();
             this.Close();
         }

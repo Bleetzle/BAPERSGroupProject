@@ -1,16 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bapers.GUI.reports
 {
@@ -20,17 +11,20 @@ namespace Bapers.GUI.reports
     public partial class viewReport : Window
     {
         DatabaseConnector db = new DatabaseConnector();
+        string repType = "";
 
-        public viewReport(string reportType, string userID, string timespan, string startDate)
+        public viewReport(string reportType, string userID, string timespan, DateTime startDate)
         {
             InitializeComponent();
+            repType = reportType;
             populateGrid(reportType, userID, timespan, startDate);
- 
+
         }
 
-        private async void populateGrid(string reportType, string userID, string timespan, string startDate)
+        private async void populateGrid(string reportType, string userID, string timespan, DateTime srtDate)
         {
-            string endDate = "200120"; 
+            var startDate = srtDate.Date;
+            var endDate = startDate.AddDays(double.Parse(timespan));
 
             switch (reportType)
             {
@@ -98,19 +92,39 @@ namespace Bapers.GUI.reports
                     break;
                 case "Individual":
                     //indivual report does not exist rn 
-                    await db.Select(reportGrid,"", userID, startDate, endDate);
+                    await db.Select(reportGrid, "", userID, startDate, endDate);
                     break;
                 default:
                     MessageBox.Show("There was an error");
                     break;
             }
-            
+
         }
 
 
         private void printReport_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                this.IsEnabled = false;
 
+                reportGrid.HorizontalScrollBarVisibility = ScrollBarVisibility.Hidden;
+                reportGrid.VerticalScrollBarVisibility = ScrollBarVisibility.Hidden;
+
+                PrintDialog printDialog = new PrintDialog();
+                printDialog.PageRangeSelection = PageRangeSelection.AllPages;
+                printDialog.UserPageRangeEnabled = true;
+
+                if (printDialog.ShowDialog() == true)
+                {
+
+                    printDialog.PrintVisual(reportGrid, "Report: ");
+                }
+            }
+            finally
+            {
+                this.IsEnabled = true;
+            }
         }
 
         private void back_Click(object sender, RoutedEventArgs e)
@@ -126,5 +140,6 @@ namespace Bapers.GUI.reports
             loginWindow.Show();
             this.Close();
         }
+
     }
 }
