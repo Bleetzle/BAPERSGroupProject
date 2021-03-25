@@ -5,18 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Bapers"
         mc:Ignorable="d"
-        Title="Bapers" Height="450" Width="800" >
+        Title="Bapers" Height="450" Width="800" ResizeMode="NoResize">
     <Grid Background="#FFE4DCCF">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="99*"/>
-            <ColumnDefinition Width="695*"/>
-        </Grid.ColumnDefinitions>
-        <TextBlock Margin="158.152,36,258,273" TextWrapping="Wrap" FontFamily="Global Serif" FontSize="48" TextAlignment="Center" Grid.Column="1"><Run Text="Welcome to"/><LineBreak/><Run/><Run Text="BAPERS"/></TextBlock>
-        <TextBlock HorizontalAlignment="Left" Margin="80,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Width="198" Grid.ColumnSpan="2"><Run Text="Username"/><Run Text=" "/><Run Text=": "/></TextBlock>
-        <TextBox x:Name="username_txtBox" HorizontalAlignment="Left" Height="25" Margin="184.152,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697" Grid.Column="1"/>
-        <TextBlock HorizontalAlignment="Left" Margin="80,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Width="198" Grid.ColumnSpan="2"><Run Text="Password "/><Run Text=": "/></TextBlock>
-        <PasswordBox x:Name="password_txtBox" HorizontalAlignment="Left" Margin="184.152,228,0,0" VerticalAlignment="Top" Width="244" Height="25" Background="#FF959697" FontSize="18" Grid.Column="1"/>
-        <Button x:Name="login_btn" Content="LOGIN" HorizontalAlignment="Left" Height="25" Margin="246.152,273,0,0" VerticalAlignment="Top" Width="109" Click="login_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black" Grid.Column="1"/>
-        <Image HorizontalAlignment="Left" Height="77" Margin="593.152,325,0,0" VerticalAlignment="Top" Width="83" Source="CrimsonTechs.png" Grid.Column="1"/>
+        <TextBlock Margin="257,36,258,273" TextWrapping="Wrap" FontFamily="Global Serif" FontSize="48" TextAlignment="Center"><Run Text="Welcome to"/><LineBreak/><Run/><Run Text="BAPERS"/></TextBlock>
+        <TextBlock HorizontalAlignment="Left" Margin="80,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Width="198"><Run Text="Username"/><Run Text=" "/><Run Text=": "/></TextBlock>
+        <TextBox x:Name="username_txtBox" HorizontalAlignment="Left" Height="25" Margin="283,191,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="244" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBlock HorizontalAlignment="Left" Margin="80,224,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Width="198"><Run Text="Password "/><Run Text=": "/></TextBlock>
+        <PasswordBox x:Name="password_txtBox" HorizontalAlignment="Left" Margin="283,228,0,0" VerticalAlignment="Top" Width="244" Height="25" Background="#FF959697" FontSize="18"/>
+        <Button x:Name="login_btn" Content="LOGIN" HorizontalAlignment="Left" Height="25" Margin="345,273,0,0" VerticalAlignment="Top" Width="109" Click="login_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Image HorizontalAlignment="Left" Height="77" Margin="692,325,0,0" VerticalAlignment="Top" Width="83" Source="CrimsonTechs.png"/>
     </Grid>
 </Window>

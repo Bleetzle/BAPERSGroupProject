@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,15 +27,33 @@ namespace Bapers.GUI
 
         private async void populate()
         {
+            //await db.Select(taskGrid, "SELECT task_id, task_description, price, COALESCE(null, ' ') AS Amount FROM Tasks ORDER BY task_id;");
+
+            //foreach (System.Data.DataRowView dr in taskGrid.ItemsSource)
+            //{
+            //    foreach (System.Data.DataColumn dc in taskGrid.ItemsSource)
+            //    {
+            //        if (dc.ColumnName.Equals("Amount"))
+            //        {
+
+            //        }
+            //    }
+            //}
+
             await db.SelectLists(list, "SELECT task_description FROM Tasks;");
+
             if (list != null)
             {
                 foreach (string s in list)
                 {
+
+                    //adds checkboxes
                     CheckBox cb = new CheckBox();
                     cb.Content = s;
                     cb.Width = tasks_dropDown.Width;
+
                     tasks_dropDown.Items.Add(cb);
+
                 }
             }
         }

@@ -273,7 +273,7 @@ namespace Bapers.GUI.officeManager
             }
             else
             {
-                //sets them tp valued
+                //sets them to valued
                 await db.InQuery("UPDATE Customer SET customer_status = \"valued\" WHERE account_number = @val0;", selectedAcc);
                 await db.InQuery("INSERT INTO discount (discount_plan, Customeraccount_number)  VALUES (@val0, @val1)", discount_Dropdown.Text, selectedAcc);
 
