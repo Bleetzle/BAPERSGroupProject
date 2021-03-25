@@ -11,6 +11,7 @@
         <TextBlock HorizontalAlignment="Left" Height="44" Margin="40,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="334" FontFamily="Global Serif" FontSize="36"><Run Text="Shift Manager"/><Run Text=" Portal"/></TextBlock>
         <Button x:Name="report_btn" Content="Create report" Height="56" Margin="190,214,230,0" VerticalAlignment="Top" Click="report_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
         <Button x:Name="reception_btn" Content="Receptionist Portal" Height="56" Margin="190,138,230,0" VerticalAlignment="Top" Click="reception_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
+        <Button x:Name="assignJobs_btn" Content="Assign Jobs" Height="56" Margin="190,285,230,0" VerticalAlignment="Top" Click="assign_click" Background="#FF918F8B" FontSize="24" Foreground="Black" HorizontalContentAlignment="Center"/>
 
     </Grid>
 </Window>

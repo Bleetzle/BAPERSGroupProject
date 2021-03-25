@@ -15,29 +15,25 @@ using System.Windows.Shapes;
 namespace Bapers.GUI.shiftManager
 {
     /// <summary>
-    /// Interaction logic for shiftManager.xaml
+    /// Interaction logic for assign.xaml
     /// </summary>
-    public partial class shiftManager : Window
+    public partial class assign : Window
     {
-        public shiftManager()
+        public assign()
         {
-            myVariables.myStack.Push("Shift Manager");
             InitializeComponent();
         }
 
-        private void reception_click(object sender, RoutedEventArgs e)
+        private void assign_Click(object sender, RoutedEventArgs e)
         {
-            receptionist receptionistWindow = new receptionist();
-            receptionistWindow.Show();
-            this.Close();
+
         }
 
-        private void report_click(object sender, RoutedEventArgs e)
+        private void back_Click(object sender, RoutedEventArgs e)
         {
-            reports.reportPortal reportPortalWindow = new reports.reportPortal();
-            reportPortalWindow.Show();
+            shiftManager shiftManagerWindow = new shiftManager();
+            shiftManagerWindow.Show();
             this.Close();
-           
         }
 
         private void logOut_Click(object sender, RoutedEventArgs e)
@@ -47,11 +43,14 @@ namespace Bapers.GUI.shiftManager
             this.Close();
         }
 
-        private void assign_click(object sender, RoutedEventArgs e)
+        private void onUsersChange(object sender, SelectedCellsChangedEventArgs e)
         {
-            assign assignWindow = new assign();
-            assignWindow.Show();
-            this.Close();
+
+        }
+
+        private void onTaskChange(object sender, SelectedCellsChangedEventArgs e)
+        {
+
         }
     }
 }
