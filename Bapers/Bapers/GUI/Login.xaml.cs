@@ -47,18 +47,17 @@ namespace Bapers
                 MessageBox.Show("Please fill in all areas");
                 return;
             }
-
-
-            bool isfound = false;
             //code for searching database for the username and password
 
             var num = await db.SelectSingle("SELECT userID FROM users WHERE username = @val0 AND pass = @val1", username_txtBox.Text, db.StringToHash(password_txtBox.Password));
+            myVariables.num = num;
 
             //need to change this to also store the information of whos logged in
             if (!num.Equals("null"))
             {
                 string role = await db.SelectSingle("SELECT role FROM staff WHERE staff_ID = @val0", num); ;
                 myVariables.role = role;
+
 
                 //check user roles upon logging in
                 switch (role)
@@ -81,8 +80,11 @@ namespace Bapers
                         break;
                     default:
                         MessageBox.Show("Something went wrong, no role assigned to user");
+                        Login loginWindow = new Login();
+                        loginWindow.Show();
                         break;
                 }
+                this.Close();
                 //account found, switch to the account portal
             }
             else

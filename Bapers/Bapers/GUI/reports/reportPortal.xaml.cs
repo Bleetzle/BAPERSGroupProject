@@ -64,7 +64,13 @@ namespace Bapers.GUI.reports
 
         private void viewReport_Click(object sender, RoutedEventArgs e)
         {
-            viewReport viewReportWindow = new viewReport();
+            if (reportType_comboBox.Text.Equals("") || timeSpan.Text.Equals("") || start_date.SelectedDate == null)
+            {
+                MessageBox.Show("Please fill in all areas");
+                return;
+            }
+
+            viewReport viewReportWindow = new viewReport(reportType_comboBox.Text, userId_txtBox.Text, timeSpan.Text, start_date.SelectedDate.Value);
             viewReportWindow.Show();
             this.Close();
         }
@@ -97,6 +103,11 @@ namespace Bapers.GUI.reports
         {
         //selecttion sometimes doesnt happen depending on where the radio button is pressed. 
         //note tell prince about this
+        }
+
+        private void onChange(object sender, DependencyPropertyChangedEventArgs e)
+        {
+
         }
     }
 }

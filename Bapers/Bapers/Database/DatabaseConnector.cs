@@ -5,10 +5,11 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using MySql.Data.MySqlClient;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Text;
 using System.Security.Cryptography;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace Bapers
 {
@@ -71,7 +72,6 @@ namespace Bapers
         public async Task Select(DataGrid dg, string q, params object[] vals)
         {
             DataTable dataTable = new DataTable();
-
             try
             { 
                 MySqlCommand cmd = new MySqlCommand(q, connection);
@@ -87,6 +87,7 @@ namespace Bapers
                     {
                         await da.FillAsync(dataTable);
                     }
+                    dg.ItemsSource = dataTable.DefaultView;
                     dg.DataContext = dataTable.DefaultView;
                 }
             }
@@ -100,6 +101,43 @@ namespace Bapers
                 this.CloseConnection();
             }
         }
+
+        //runs a query and fills in a list for the first row of a query
+        public async Task SelectLists(List<string> list, string q)
+        {
+            DataTable dataTable = new DataTable();
+
+            try
+            {
+                MySqlCommand cmd = new MySqlCommand(q, connection);
+
+                if (this.OpenConnection() == true)
+                {
+
+                    using (MySqlDataReader dr = (MySqlDataReader)await cmd.ExecuteReaderAsync() )
+                    {
+                        
+                        if (dr.HasRows)
+                        {
+                            while(await dr.ReadAsync())
+                            {
+                                list.Add(dr.GetString(0));   
+                            }
+                        }
+                    }
+                }
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show(string.Format("An error occurred {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            finally
+            {
+                this.CloseConnection();
+            }
+        }
+
 
         //runs a query and selects a single item -- slightly quicker to run than the first method as there is no grid
         public async Task<string> SelectSingle(string q, params object[] vals)
@@ -131,7 +169,6 @@ namespace Bapers
             }
             return value;
         }
-
 
         ///runs a query and returns true or false based on if the query finds data 
         ///does not return the data found, just ot chek if a table search exists before searching or it, 
@@ -179,8 +216,6 @@ namespace Bapers
             return hash.ToString();
         }
 
-
-
         //runs a query to insert data into the database
         public async Task InQuery(string q, params object[] vals)
         {
@@ -208,7 +243,7 @@ namespace Bapers
             }
         }
 
-        public void Backup()
+        public void Backup(string path)
         {
             try
             {
@@ -226,8 +261,7 @@ namespace Bapers
                 int second = time.Second;
                 int millisecond = time.Millisecond;
 
-                string path; 
-                path = @"C:\\DatabaseBackups\\MySqlBackup" + year + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + second + "-" + millisecond + ".sql";
+                path += @"\\MySqlBackup" + year + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + second + "-" + millisecond + ".sql";
                 StreamWriter file = new StreamWriter(path);
 
                 ProcessStartInfo psi = new ProcessStartInfo();
@@ -256,7 +290,7 @@ namespace Bapers
         }
 
         //made it so then we can just use a search and select function to senf throught the rest of the name that is unkown to the user
-        public void Restore(string p)
+        public void Restore(string path)
         {
             try
             {
@@ -265,7 +299,6 @@ namespace Bapers
                 string server = System.Configuration.ConfigurationManager.AppSettings.Get("SERVER");
                 string database = System.Configuration.ConfigurationManager.AppSettings.Get("DATABASE");
 
-                string path = @"C:\\DatabaseBackups\\MySqlBackup" + p + ".sql";
                 StreamReader file = new StreamReader(path);
                 string input = file.ReadToEnd();
                 file.Close();
@@ -289,6 +322,7 @@ namespace Bapers
                 MessageBox.Show(string.Format("Error, unable to Restore. \n Backup with that filename does not exist. \n {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
+
 
     }
 }
