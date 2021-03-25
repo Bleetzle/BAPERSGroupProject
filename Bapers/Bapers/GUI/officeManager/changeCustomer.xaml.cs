@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -68,12 +69,13 @@ namespace Bapers.GUI.officeManager
             this.Close();
         }
 
-        private void searchChanged(object sender, TextChangedEventArgs e)
+        private async void searchChanged(object sender, TextChangedEventArgs e)
         {
             if (custGrid.ItemsSource != null) {
-
-                //((DataView)custGrid.ItemsSource).RowFilter = searchbox.Text;
-
+                if (searchbox.Text .Equals(""))
+                    await db.Select(custGrid, "SELECT account_number, first_name, last_name, phone_number, address, company_name FROM Customer; ");
+                else
+                    await db.Select(custGrid, "SELECT account_number, first_name, last_name, phone_number, address, company_name FROM Customer WHERE account_number = @val0; ", searchbox.Text);
             }
         }
 
@@ -99,6 +101,8 @@ namespace Bapers.GUI.officeManager
                 flexGrid.ItemsSource = dt2.DefaultView;
                 flexGrid.DataContext = dt2.DefaultView;
             }
+
+
             foreach (var item in e.AddedCells)
             {
                 if (item.Column != null)
@@ -188,9 +192,129 @@ namespace Bapers.GUI.officeManager
         }
 
         //saves all changes to the data 
-        private void saveChanges(object sender, RoutedEventArgs e)
+        private async void saveChanges(object sender, RoutedEventArgs e)
         {
-            //do the save
+            if (selectedAcc.Equals(""))
+            {
+                MessageBox.Show("Please select an account and change details to save");
+                return;
+            }
+
+            //save tge account details if changed
+            custGrid.CommitEdit();
+            foreach(System.Data.DataRowView dr in custGrid.ItemsSource)
+            {
+                if (dr.Row.Field<string>("account_number").Equals(selectedAcc))
+                {
+                    await db.InQuery(
+                        "UPDATE Customer " +
+                        "SET first_name = @val0, " +
+                        "   last_name = @val1, " +
+                        "   phone_number = @val2, " +
+                        "   address = @val3, " +
+                        "   company_name = @val4 " +
+                        "WHERE account_number = @val5; "
+                        , dr.Row.Field<string>("first_name")
+                        , dr.Row.Field<string>("last_name")
+                        , dr.Row.Field<int>("phone_number")
+                        , dr.Row.Field<string>("address") 
+                        , dr.Row.Field<string>("company_name")
+                        , selectedAcc );  
+                }
+                //account_number, first_name, last_name, phone_number, address, company_name
+            }
+
+
+            //check the discount type and see if it was the same as the selected one
+            //if same, then check for changes to values
+            var val = await db.SelectSingle("SELECT customer_status FROM customer WHERE account_number = @val0", selectedAcc);
+            var disc = await db.SelectSingle("SELECT discount_plan FROM discount WHERE Customeraccount_number = @val0", selectedAcc);
+            //delete any discount that could be attached to the customer
+
+            await db.InQuery("DELETE FROM discount WHERE Customeraccount_number = @val0;", selectedAcc);
+            //if was originally a valued customer, then will delete the discount attached to that customer
+            switch (val)
+            {
+                case "valued":
+                    switch (disc)
+                    {
+                        case "Fixed":
+                            await db.InQuery(
+                                "DELETE " +
+                                "FROM fixed_discount " +
+                                "WHERE DiscountCustomeraccount_number = @val0"
+                                , selectedAcc);
+                            break;
+                        case "Variable":
+                            await db.InQuery(
+                                "DELETE " +
+                                "FROM variable_discount " +
+                                "AND DiscountCustomeraccount_number = @val0; "
+                                , selectedAcc);
+                            break;
+                        case "Flexible":
+                            await db.InQuery(
+                                "DELETE " +
+                                "FROM flexible_discount " +
+                                "WHERE DiscountCustomeraccount_number = @val0; "
+                                , selectedAcc);
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            if ((bool)standard_radioBtn.IsChecked)
+            {
+                await db.InQuery("UPDATE Customer SET customer_status = \"standard\" WHERE account_number = @val0;", selectedAcc);
+            }
+            else
+            {
+                //sets them tp valued
+                await db.InQuery("UPDATE Customer SET customer_status = \"valued\" WHERE account_number = @val0;", selectedAcc);
+                await db.InQuery("INSERT INTO discount (discount_plan, Customeraccount_number)  VALUES (@val0, @val1)", discount_Dropdown.Text, selectedAcc);
+
+                switch (discount_Dropdown.Text)
+                {
+                    case "Fixed":
+                        await db.InQuery(
+                            "INSERT INTO fixed_discount (DiscountCustomeraccount_number, discount_rate) " +
+                            "VALUES (@val0, @val1)"
+                            , selectedAcc, fixed_txtBox.Text);
+                        break;
+                    case "Variable":
+                        foreach (System.Data.DataRowView dr in variGrid.ItemsSource)
+                        {
+                            await db.InQuery(
+                            "INSERT INTO variable_discount (DiscountCustomeraccount_number, task_type,discount_rate) " +
+                            "VALUES (@val0, @val1, @val2); "
+                            , dr.Row.Field<string>("DiscountCustomeraccount_number")
+                            , dr.Row.Field<string>("task_type")
+                            , dr.Row.Field<string>("discount_rate")
+                            );
+                        }
+                        break;
+                    case "Flexible":
+                        foreach (System.Data.DataRowView dr in variGrid.ItemsSource)
+                        {
+                            await db.InQuery(
+                            "INSERT INTO flexible_discount (DiscountCustomeraccount_number, discount_rate, lower, upper) " +
+                            "VALUES (@val0, @val1, @val2, @val3); "
+                            , dr.Row.Field<string>("DiscountCustomeraccount_number")
+                            , dr.Row.Field<string>("discount_rate")
+                            , dr.Row.Field<string>("lower")
+                            , dr.Row.Field<string>("upper")
+                            );
+                        }
+                        break;
+                    default:
+                        break;
+                }                
+            }
+            MessageBox.Show("Save successfull");
         }
     }
 }

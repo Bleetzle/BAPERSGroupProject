@@ -24,8 +24,6 @@ namespace Bapers
             Login loginWindow = new Login();
             loginWindow.Show();
 
-
-
             //GUI.reports.reportPortal reportPortalWindow = new GUI.reports.reportPortal();
             //reportPortalWindow.Show();
 
