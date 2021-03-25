@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -102,14 +103,15 @@ namespace Bapers.GUI
             string urgency = "Normal";
             if (timeTillDeadline - minsToComplete < 360 )
                 urgency = "Urgent";
-            
+
+            var tmpList = tasksCost;
+
             float totalPrice = 0f;
             switch (await db.SelectSingle(
                 "SELECT discount_plan " +
                 "FROM discount " +
-                "WHERE Customeraccount_number = @val0 " +
-                "AND Customerphone_number = @val1"
-                , myVariables.currID, myVariables.currnum)
+                "WHERE Customeraccount_number = @val0; "
+                , myVariables.currID)
                 )
             {
                 case "Fixed":
@@ -117,14 +119,14 @@ namespace Bapers.GUI
                     foreach (float f in tasksCost.Values)
                         totalPrice += f;
                     string val = await db.SelectSingle("SELECT discount_rate FROM fixed_discount WHERE DiscountCustomeraccount_number = @val0", myVariables.currID);
-                    totalPrice -= (totalPrice * float.Parse(val));
+                    totalPrice -= (totalPrice * (float.Parse(val)/100));
                     break;
                 case "Variable":
                     //grabs the discount and removes it from each price
-                    foreach (KeyValuePair<string, float> p in tasksCost)
+                    foreach (KeyValuePair<string, float> p in tmpList.ToList())
                     {
                         string val1 = await db.SelectSingle("SELECT discount_rate FROM variable_discount WHERE DiscountCustomeraccount_number = @val0 AND task_type = @val1", myVariables.currID, p.Key);
-                        tasksCost[p.Key] -= p.Value * float.Parse(val1); 
+                        tasksCost[p.Key] -= p.Value * (float.Parse(val1)/100); 
                     }
                     //takes all the discounted prices and adds them together
                     foreach(float f in tasksCost.Values)
@@ -152,7 +154,7 @@ namespace Bapers.GUI
                     //uses the rate gotten to apply the discount to the total price
                     foreach (float f in tasksCost.Values)
                             totalPrice += f;
-                    totalPrice -= (totalPrice * rate);
+                    totalPrice -= (totalPrice * (rate/100));
                     break;
                 default:
                     foreach (float f in tasksCost.Values)

@@ -22,7 +22,7 @@ namespace Bapers
 
 
             Login loginWindow = new Login();
-            //loginWindow.Show();
+            loginWindow.Show();
 
 
 
@@ -35,8 +35,8 @@ namespace Bapers
             //addJobs aj = new addJobs();
             //aj.Show();
 
-            GUI.officeManager.officeManagerPortal officeManagerWindow = new GUI.officeManager.officeManagerPortal();
-            officeManagerWindow.Show();
+            //GUI.officeManager.officeManagerPortal officeManagerWindow = new GUI.officeManager.officeManagerPortal();
+            //officeManagerWindow.Show();
 
             //GUI.shiftManager.shiftManager shiftManagerWindow = new GUI.shiftManager.shiftManager();
             //shiftManagerWindow.Show();
