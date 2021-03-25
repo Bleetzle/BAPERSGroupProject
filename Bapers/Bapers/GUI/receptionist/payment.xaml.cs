@@ -105,7 +105,7 @@ namespace Bapers.GUI
                 }
 
                 //create a payment entry for each job
-                foreach (KeyValuePair<string, float> p in selectedJobs)
+                foreach (KeyValuePair<string, float> p in selectedJobs.ToList())
                 {
                     //stores the payment for each of the jobs
                     await db.InQuery(
@@ -113,11 +113,12 @@ namespace Bapers.GUI
                         "Values (@val0, @val1, @val2, @val3, @val4, @val5)"
                         , "Card", p.Value, p.Key, myVariables.currnum, myVariables.currID, DateTime.Now.Date);
                     //gets the payment ID just 
-                    var val = db.SelectSingle(
+                    var val = await db.SelectSingle(
                         "SELECT payment_id " +
                         "FROM payment " +
                         "WHERE Jobjob_number = @val0"
                         , p.Key);
+                    
                     //stores the card details
                     await db.InQuery(
                         "INSERT INTO card (Paymentpayment_id, card_type, expiry_date, CC4digits)" +
@@ -139,7 +140,7 @@ namespace Bapers.GUI
             else
             {
                 //create a payment entry for each job
-                foreach(KeyValuePair<string,float> p in selectedJobs)
+                foreach (KeyValuePair<string, float> p in selectedJobs.ToList())
                 {
                     //stores the payment for each of the jobs
                     await db.InQuery(
