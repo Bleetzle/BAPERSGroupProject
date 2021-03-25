@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="assign" Height="507" Width="800" Background="#FFE4DDCF">
     <Grid>
-        <DataGrid x:Name="userGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" SelectedCellsChanged="onUsersChange" HorizontalAlignment="Left" Height="102" Margin="36,96,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" IsReadOnly="True">
+        <DataGrid x:Name="userGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" SelectedCellsChanged="onUsersChange" HorizontalAlignment="Left" Height="102" Margin="36,75,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" IsReadOnly="True">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                     Color="#FF7AD18A"/>
@@ -21,7 +21,7 @@
         </DataGrid>
         <Button x:Name="assignTask_btn" Content="Assign task" HorizontalAlignment="Left" Height="25" Margin="36,386,0,0" VerticalAlignment="Top" Width="116" Click="assign_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="14" Foreground="Black"/>
 
-        <DataGrid x:Name="tasksGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" HorizontalAlignment="Left" Height="142" Margin="36,229,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" SelectedCellsChanged="onTaskChange" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" IsReadOnly="True">
+        <DataGrid x:Name="tasksGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" HorizontalAlignment="Left" Height="152" Margin="36,219,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" SelectedCellsChanged="onTaskChange" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" IsReadOnly="True">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                     Color="#FF7AD18A"/>
@@ -34,9 +34,11 @@
             </DataGrid.CellStyle>
         </DataGrid>
         <TextBlock x:Name="Welcome" HorizontalAlignment="Left" Height="39" Margin="10,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" FontFamily="Global Serif" FontSize="30" Text="Assign tasks"/>
-        <TextBlock x:Name="Welcome_Copy" HorizontalAlignment="Left" Height="21" Margin="36,75,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48" FontFamily="Global Serif" FontSize="18"><Run Text="Users"/><Run Text=":"/></TextBlock>
-        <TextBlock x:Name="Welcome_Copy1" HorizontalAlignment="Left" Height="21" Margin="36,203,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48" FontFamily="Global Serif" FontSize="18"><Run Text="Tasks"/><Run Text=":"/></TextBlock>
+        <TextBlock x:Name="Welcome_Copy" HorizontalAlignment="Left" Height="21" Margin="36,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="48" FontFamily="Global Serif" FontSize="18"><Run Text="Users"/><Run Text=":"/></TextBlock>
+        <TextBlock x:Name="Welcome_Copy1" HorizontalAlignment="Left" Height="21" Margin="36,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="198" FontFamily="Global Serif" FontSize="18"><Run Text="Tasks"/><Run Text=" "/><Run Text="that you can assign"/><Run Text=":"/></TextBlock>
         <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="690,435,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="20,435,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <TextBlock HorizontalAlignment="Left" Margin="612,203,0,0" TextWrapping="Wrap" Text="Tasks left to assign:" VerticalAlignment="Top"/>
+        <TextBlock x:Name="tasksLeft" HorizontalAlignment="Left" Margin="718,203,0,0" TextWrapping="Wrap" Text="000" VerticalAlignment="Top" RenderTransformOrigin="0.46,0.024"/>
     </Grid>
 </Window>

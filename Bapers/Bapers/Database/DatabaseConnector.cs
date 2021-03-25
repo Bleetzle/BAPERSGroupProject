@@ -29,11 +29,14 @@ namespace Bapers
             connection = new MySqlConnection(connectionString);
         }
 
-        private bool OpenConnection()
+        private async Task<bool> OpenConnection()
         {
             try
             {
-                connection.Open();
+                if (connection.State != ConnectionState.Open)
+                {
+                    await connection.OpenAsync();
+                }
                 return true;
             }
             catch (MySqlException ex)
@@ -53,11 +56,11 @@ namespace Bapers
             }
         }
 
-        private bool CloseConnection()
+        private async Task<bool> CloseConnection()
         {
             try
             {
-                connection.Close();
+                await connection.CloseAsync();
                 return true;
             }
             catch (MySqlException ex)
@@ -81,7 +84,7 @@ namespace Bapers
                   cmd.Parameters.AddWithValue($"@val{i}", vals[i]);
                 }
 
-                if (this.OpenConnection() == true)
+                if (await OpenConnection() == true)
                 {
                     using (MySqlDataAdapter da = new MySqlDataAdapter(cmd))
                     {
@@ -98,7 +101,7 @@ namespace Bapers
             }
             finally
             {
-                this.CloseConnection();
+               await this.CloseConnection();
             }
         }
 
@@ -111,7 +114,7 @@ namespace Bapers
             {
                 MySqlCommand cmd = new MySqlCommand(q, connection);
 
-                if (this.OpenConnection() == true)
+                if (await  this.OpenConnection() == true)
                 {
 
                     using (MySqlDataReader dr = (MySqlDataReader)await cmd.ExecuteReaderAsync() )
@@ -134,7 +137,7 @@ namespace Bapers
             }
             finally
             {
-                this.CloseConnection();
+                await this.CloseConnection();
             }
         }
 
@@ -152,7 +155,7 @@ namespace Bapers
                     cmd.Parameters.AddWithValue($"@val{i}", vals[i]);
                 }
 
-                if (this.OpenConnection() == true)
+                if (await this.OpenConnection() == true)
                 {
                     var val = await cmd.ExecuteScalarAsync();
                     if (val != null)
@@ -165,7 +168,7 @@ namespace Bapers
             }
             finally
             {
-                this.CloseConnection();
+                await this.CloseConnection();
             }
             return value;
         }
@@ -184,7 +187,7 @@ namespace Bapers
                     cmd.Parameters.AddWithValue($"@val{i}", vals[i]);
                 }
 
-                if (this.OpenConnection() == true)
+                if (await this.OpenConnection() == true)
                 {
                     var reader = await cmd.ExecuteReaderAsync();
                     return reader.HasRows;
@@ -196,7 +199,7 @@ namespace Bapers
             }
             finally
             {
-                this.CloseConnection();
+                await this.CloseConnection();
             }
             return false;
         }
@@ -228,7 +231,7 @@ namespace Bapers
                     cmd.Parameters.AddWithValue($"@val{i}", vals[i]);
                 }
 
-                if (this.OpenConnection() == true)
+                if (await OpenConnection() == true)
                 {
                    await cmd.ExecuteNonQueryAsync();
                 }
@@ -239,7 +242,7 @@ namespace Bapers
             }
             finally
             {
-                this.CloseConnection();
+                await this.CloseConnection();
             }
         }
 

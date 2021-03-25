@@ -207,6 +207,7 @@ namespace Bapers.GUI.technician
                 //add to the resolved table
                 await db.InQuery("INSERT INTO resolvedQuestions(question_id, staff_id, resolvedDateTime) VALUES (@val0, @val1, @val2)", selectedQ, int.Parse(tmp), DateTime.Now);
                 MessageBox.Show("Job Resolved Successfully!");
+                return;
             }
             MessageBox.Show("Response Added Successfully!");
         }
