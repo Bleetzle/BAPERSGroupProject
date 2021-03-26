@@ -39,7 +39,8 @@ namespace Bapers.GUI.officeManager
         {
             await db.Select(custGrid, "SELECT account_number, first_name, last_name, phone_number, address, company_name FROM Customer");
 
-            await db.Select(variGrid, "SELECT task_id, task_description, COALESCE(NULL, ' ') as discount_rate FROM tasks; ");
+            await db.Select(variGrid, "SELECT task_id, task_description, NULLIF(discount_rate, discount_rate) AS discount_rate FROM variable_discount, tasks WHERE task_type = task_id");
+
             await db.Select(flexGrid, "SELECT lower, upper, discount_rate " +
                                             "FROM flexible_discount " +
                                             "WHERE DiscountCustomeraccount_number IS NULL; "
@@ -105,7 +106,7 @@ namespace Bapers.GUI.officeManager
             }
 
             //requiries the variable discount fird to reset it
-            await db.Select(variGrid, "SELECT task_id, task_description, COALESCE(NULL, ' ') as discount_rate FROM Tasks; ");
+            await db.Select(variGrid, "SELECT task_id, task_description, NULLIF(discount_rate, discount_rate) AS discount_rate FROM variable_discount, tasks WHERE task_type = task_id");
             //resets the values for the fleible discount grid
             if (flexGrid.ItemsSource != null)
             {
@@ -227,7 +228,7 @@ namespace Bapers.GUI.officeManager
                         foreach (System.Data.DataRowView dr in variGrid.ItemsSource)
                         {
                             var str = dr.Row.Field<string>("discount_rate");
-                            if (str.Equals(" "))
+                            if (str == null )
                             {
                                 MessageBox.Show("Please insert missing discount values");
                                 return;
@@ -296,7 +297,7 @@ namespace Bapers.GUI.officeManager
                             await db.InQuery(
                                 "DELETE " +
                                 "FROM variable_discount " +
-                                "AND DiscountCustomeraccount_number = @val0; "
+                                "WHERE DiscountCustomeraccount_number = @val0; "
                                 , selectedAcc);
                             break;
                         case "Flexible":
@@ -342,8 +343,8 @@ namespace Bapers.GUI.officeManager
                             "INSERT INTO variable_discount (DiscountCustomeraccount_number, task_type, discount_rate) " +
                             "VALUES (@val0, @val1, @val2); "
                             , selectedAcc
-                            , Int32.Parse(dr.Row.Field<string>("task_id"))
-                            , dr.Row.Field<int>("discount_rate")
+                            , dr.Row.Field<int>("task_id")
+                            , dr.Row.Field<string>("discount_rate")
                             );
                         }
                         break;
