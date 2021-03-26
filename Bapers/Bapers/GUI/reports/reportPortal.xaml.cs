@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
+using System.Windows.Forms;
 
 namespace Bapers.GUI.reports
 {
@@ -19,6 +10,7 @@ namespace Bapers.GUI.reports
     /// </summary>
     public partial class reportPortal : Window
     {
+        DatabaseConnector db = new DatabaseConnector();
         public reportPortal()
         {
             InitializeComponent();
@@ -64,13 +56,31 @@ namespace Bapers.GUI.reports
 
         private void viewReport_Click(object sender, RoutedEventArgs e)
         {
+            bool automatic = false;
+            string path = "";
             if (reportType_comboBox.Text.Equals("") || timeSpan.Text.Equals("") || start_date.SelectedDate == null)
             {
-                MessageBox.Show("Please fill in all areas");
+                System.Windows.MessageBox.Show("Please fill in all areas");
                 return;
             }
 
-            viewReport viewReportWindow = new viewReport(reportType_comboBox.Text, userId_txtBox.Text, timeSpan.Text, start_date.SelectedDate.Value);
+            if ((bool)autoGen_checkbox.IsChecked)
+            {
+                automatic = true;
+                //store the date in the database with path to folder
+            }
+
+            //gets a directory to store the files in
+            using (FolderBrowserDialog fbd = new FolderBrowserDialog())
+            {
+                fbd.Description = "Chose a folder to store reports";
+                if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    path = fbd.SelectedPath;
+                }
+            }
+
+            viewReport viewReportWindow = new viewReport(reportType_comboBox.Text, userId_txtBox.Text, timeSpan.Text, start_date.SelectedDate.Value, automatic, path);
             viewReportWindow.Show();
             this.Close();
         }
@@ -88,7 +98,7 @@ namespace Bapers.GUI.reports
                     officeManagerWindow.Show();
                     break;
                 default:
-                    MessageBox.Show("Something went wrong, History not found");
+                    System.Windows.MessageBox.Show("Something went wrong, History not found");
                     break;
             }
             this.Close();

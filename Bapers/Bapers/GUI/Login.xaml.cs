@@ -67,6 +67,12 @@ namespace Bapers
                         receptionistwindow.Show();
                         break;
                     case "Technician":
+                        //need to check with the id if there is any quesries to remove
+                        List<string> qs= new List<string>();
+                        await db.SelectLists(qs, "select question_id FROM resolvedQuestions where staff_id = @val0;", myVariables.num);
+                        await db.SelectLists(qs, "DELETE FROM resolvedQuestions where staff_id = @val0;", myVariables.num);
+                        foreach (string s in qs)
+                            await db.InQuery("UPDATE Questions SET status = \"Archived\" WHERE question_id = @val0 ", int.Parse(s));
                         GUI.technician.technicianPortal technicianWindow = new GUI.technician.technicianPortal();
                         technicianWindow.Show();
                         break;
@@ -75,6 +81,24 @@ namespace Bapers
                         shiftManagerWindow.Show();
                         break;
                     case "Office Manager":
+                        var nxtRepDate = await db.SelectSingle("SELECT MAX(DateofNext) FROM ReportHistory;");
+                        if (!nxtRepDate.Equals("") && DateTime.Parse(nxtRepDate).Date == DateTime.Now.Date)
+                        {
+                            var val = await db.SelectSingle("SELECT id, MAX(DateofNext) FROM ReportHistory;");
+                            List<string> repinfo = new List<string>();
+                            await db.SelectLists(repinfo,
+                                "SELECT report_date FROM ReportHistory WHERE id = @val0 " +
+                                "UNION SELECT report_type FROM ReportHistory WHERE id = @val0  " +
+                                "UNION SELECT automatically_generated FROM ReportHistory WHERE id = @val0 " +
+                                "UNION SELECT DateOfNext FROM ReportHistory WHERE id = @val0 " +
+                                "UNION SELECT timeSpan FROM ReportHistory WHERE id = @val0 " +
+                                "UNION SELECT savePath FROM ReportHistory WHERE id = @val0 " +
+                                "UNION SELECT userID FROM ReportHistory WHERE id = @val0; "
+                                , val); 
+
+                            await db.generateReport(repinfo[1], new DataGrid(), repinfo[6], int.Parse(repinfo[4]), DateTime.Parse(repinfo[0]),Convert.ToBoolean(int.Parse(repinfo[2])), repinfo[5]);
+                            MessageBox.Show("Automatic backup created \n Next backup in: " + int.Parse(repinfo[4]) + "Days");
+                        }
                         GUI.officeManager.officeManagerPortal officeManagerWindow = new GUI.officeManager.officeManagerPortal();
                         officeManagerWindow.Show();
                         break;

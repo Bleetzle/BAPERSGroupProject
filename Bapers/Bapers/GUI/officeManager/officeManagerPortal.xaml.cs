@@ -84,6 +84,8 @@ namespace Bapers.GUI.officeManager
 
         private void backup_click(object sender, RoutedEventArgs e)
         {
+
+
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
                 fbd.Description = "Chose a folder to store";
