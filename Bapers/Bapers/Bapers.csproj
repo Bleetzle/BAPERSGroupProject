@@ -86,6 +86,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\officeManager\autoBackup_popup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\officeManager\changeCustomer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -129,6 +133,9 @@
     <Compile Include="Database\DatabaseConnector.cs" />
     <Compile Include="GUI\officeManager\addTasks.xaml.cs">
       <DependentUpon>addTasks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\officeManager\autoBackup_popup.xaml.cs">
+      <DependentUpon>autoBackup_popup.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\officeManager\changeCustomer.xaml.cs">
       <DependentUpon>changeCustomer.xaml</DependentUpon>

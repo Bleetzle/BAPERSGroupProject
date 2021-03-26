@@ -81,10 +81,29 @@ namespace Bapers
                         shiftManagerWindow.Show();
                         break;
                     case "Office Manager":
-                        var nxtRepDate = await db.SelectSingle("SELECT MAX(DateofNext) FROM ReportHistory;");
+                        //cjeck for automatic backup to do
+                        var nxtBUDate = await db.SelectSingle("SELECT MAX(DateofNext) FROM BackupHistory;");
+                        if (!nxtBUDate.Equals("") && DateTime.Parse(nxtBUDate).Date == DateTime.Now.Date)
+                        {
+                            var val = await db.SelectSingle("SELECT id, MAX(DateOfNext) FROM BackupHistory GROUP BY id ORDER BY  DateOfNext DESC;");
+                            List<string> BUinfo = new List<string>();
+                            await db.SelectLists(BUinfo,
+                                "SELECT backup_date FROM BackupHistory WHERE id = @val0 " +
+                                "UNION SELECT automatically_backed FROM BackupHistory WHERE id = @val0  " +
+                                "UNION SELECT DateOfNext FROM BackupHistory WHERE id = @val0 " +
+                                "UNION SELECT timeSpan FROM BackupHistory WHERE id = @val0 " +
+                                "UNION SELECT savePath FROM BackupHistory WHERE id = @val0; "
+                                , val);
+                            db.Backup(BUinfo[4]);
+                            await db.InQuery("INSERT INTO BackupHistory (backup_date, automatically_backed, DateOfNext, timeSpan, savePath) VALUES (@val0,@val1,@val2,@val3,@val4)"
+                                , DateTime.Now.Date, true, DateTime.Now.Date.AddDays(int.Parse(BUinfo[3])), BUinfo[3], BUinfo[4] );
+                            MessageBox.Show("Automatic backup created \n Next backup in: " + int.Parse(BUinfo[3]) + "Days");
+                        }
+                        //check for automatic report to backup
+                        var nxtRepDate = await db.SelectSingle("SELECT MAX(DateOfNext) FROM ReportHistory;");
                         if (!nxtRepDate.Equals("") && DateTime.Parse(nxtRepDate).Date == DateTime.Now.Date)
                         {
-                            var val = await db.SelectSingle("SELECT id, MAX(DateofNext) FROM ReportHistory;");
+                            var val = await db.SelectSingle("SELECT id, MAX(DateofNext) FROM ReportHistory GROUP BY id ORDER BY  DateOfNext DESC;");
                             List<string> repinfo = new List<string>();
                             await db.SelectLists(repinfo,
                                 "SELECT report_date FROM ReportHistory WHERE id = @val0 " +
@@ -97,7 +116,7 @@ namespace Bapers
                                 , val); 
 
                             await db.generateReport(repinfo[1], new DataGrid(), repinfo[6], int.Parse(repinfo[4]), DateTime.Parse(repinfo[0]),Convert.ToBoolean(int.Parse(repinfo[2])), repinfo[5]);
-                            MessageBox.Show("Automatic backup created \n Next backup in: " + int.Parse(repinfo[4]) + "Days");
+                            MessageBox.Show("Automatic report created \n Next backup in: " + int.Parse(repinfo[4]) + "Days");
                         }
                         GUI.officeManager.officeManagerPortal officeManagerWindow = new GUI.officeManager.officeManagerPortal();
                         officeManagerWindow.Show();

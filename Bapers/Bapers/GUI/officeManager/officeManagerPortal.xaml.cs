@@ -1,17 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Bapers.GUI.officeManager
 {
@@ -82,20 +73,33 @@ namespace Bapers.GUI.officeManager
             this.Close();
         }
 
-        private void backup_click(object sender, RoutedEventArgs e)
+        private async void backup_click(object sender, RoutedEventArgs e)
         {
-
-
+            string path = "";
             using (FolderBrowserDialog fbd = new FolderBrowserDialog())
             {
                 fbd.Description = "Chose a folder to store";
 
                 if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    string path = fbd.SelectedPath;
-                    db.Backup(path);
+                    path = fbd.SelectedPath;
+                    //db.Backup(path);
                 }
-            }  
+            } 
+
+
+            if ((bool)autobackup.IsChecked)
+            {
+                autoBackup_popup pop = new autoBackup_popup(path);
+                pop.Show();
+            }
+            else
+            {
+                await db.InQuery("INSERT INTO BackupHistory (backup_date, automatically_backed) VALUES (@val0, @val1)", DateTime.Now.Date, false);
+                db.Backup(path);
+            }
+
+
         }
 
         private void restore_click(object sender, RoutedEventArgs e)
