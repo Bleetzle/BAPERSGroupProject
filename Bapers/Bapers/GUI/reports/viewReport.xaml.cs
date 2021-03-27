@@ -26,8 +26,6 @@ namespace Bapers.GUI.reports
             var startDate = srtDate.Date;
 
             filePath = await db.generateReport(reportType, reportGrid, userID, int.Parse(timespan), startDate, automatic, path);
-            //records generation
-            await db.InQuery("INSERT INTO ReportHistory (report_date, report_type, automatically_generated, userID) VALUES (@val0, @val1, @val2, @val3)", DateTime.Now.Date, reportType, false, userID);
         }
 
 

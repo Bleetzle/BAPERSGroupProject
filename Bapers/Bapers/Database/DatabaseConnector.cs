@@ -344,6 +344,9 @@ namespace Bapers
             //records Auto generation
             if (automatic)
                 await this.InQuery("INSERT INTO ReportHistory (report_date, report_type, automatically_generated, DateOfNext, timeSpan, savePath, userID) VALUES (@val0, @val1, @val2, @val3, @val4, @val5, @val6)", DateTime.Now.Date, reportType, automatic, DateTime.Now.Date.AddDays(timespan), timespan, path, userID);
+                            //records generation
+            else
+                await this.InQuery("INSERT INTO ReportHistory (report_date, report_type, automatically_generated, timespan,userID) VALUES (@val0, @val1, @val2,@val3, @val4)", DateTime.Now.Date, reportType, automatic, timespan, userID);
 
             var endDate = startDate.AddDays(timespan);
 
