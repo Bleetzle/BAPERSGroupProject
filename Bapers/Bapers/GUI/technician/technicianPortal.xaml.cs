@@ -197,6 +197,9 @@ namespace Bapers.GUI.technician
 
         }
 
-   
+        private void jobsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

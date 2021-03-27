@@ -39,8 +39,9 @@ namespace Bapers.GUI
             //        }
             //    }
             //}
-
-            await db.SelectLists(list, "SELECT task_description FROM Tasks;");
+            await db.Select(taskGrid,"SELECT * FROM tasks" );
+            
+            //await db.SelectLists(list, "SELECT task_description FROM Tasks;");
 
             if (list != null)
             {
@@ -71,20 +72,36 @@ namespace Bapers.GUI
             loginWindow.Show();
             this.Close();
         }
-
+        
         private async void addJob_Click(object sender, RoutedEventArgs e)
         {
             List<string> selectedList = new List<string>();
+            List<int> amount = new List<int>();
 
-            //get the Selected tasks
-            for (int i = 1; i < tasks_dropDown.Items.Count; i++)
+            //get the Selected tasks on drop down 
+            //for (int i = 1; i < tasks_dropDown.Items.Count; i++)
+            //{
+            //    CheckBox cb = (tasks_dropDown.Items[i] as CheckBox);
+            //    if ((bool)cb.IsChecked)
+            //        selectedList.Add(cb.Content.ToString());
+            //}
+
+            int amountChanged = 0;
+
+            //finds all the rows which has more than 0 in the amount
+
+            foreach (System.Data.DataRowView dr in taskGrid.ItemsSource)
             {
-                CheckBox cb = (tasks_dropDown.Items[i] as CheckBox);
-                if ((bool)cb.IsChecked)
-                    selectedList.Add(cb.Content.ToString());
+                
+                    if (dr.Row.Field<int>("amount") > 0)
+                    {
+                    amountChanged++;
+                    selectedList.Add(dr.Row.Field<string>("task_description"));
+                    amount.Add(dr.Row.Field<int>("amount"));
+                    }
             }
 
-            if (selectedList.Count.Equals(0) || deadline_date.SelectedDate.Value.Equals(null) || time_dropDown.SelectedIndex.Equals(0))
+            if (amountChanged == 0 || deadline_date.SelectedDate.Value.Equals(null) || time_dropDown.SelectedIndex.Equals(0))
             {
                 MessageBox.Show("Please fill in all required fields");
                 return;
@@ -126,6 +143,8 @@ namespace Bapers.GUI
             var tmpList = tasksCost;
 
             float totalPrice = 0f;
+
+
             switch (await db.SelectSingle(
                 "SELECT discount_plan " +
                 "FROM discount " +
@@ -189,10 +208,16 @@ namespace Bapers.GUI
             ,"J" + num , urgency, selectedDate, "uncompleted", specialIn_txtBox.Text, null, myVariables.currID, myVariables.currnum, totalPrice);
 
             //create entries in job_tasks table
-            foreach (string s in selectedList)
+            //foreach (string s in selectedList)
+            //{
+            //    var taskid = await db.SelectSingle("SELECT Task_ID FROM Tasks WHERE task_description = @val0;", s);
+            //    await db.InQuery("INSERT INTO Job_Tasks VALUES (@val0, @val1, @val2, @val3, @val4)", "J" + num, taskid, null, null, null);
+            //}
+
+            for(int i = 0; i< selectedList.Count(); i++)
             {
-                var taskid = await db.SelectSingle("SELECT Task_ID FROM Tasks WHERE task_description = @val0;", s);
-                await db.InQuery("INSERT INTO Job_Tasks VALUES (@val0, @val1, @val2, @val3, @val4 )", "J" + num, taskid, null, null, null);
+                var taskid = await db.SelectSingle("SELECT Task_ID FROM Tasks WHERE task_description = @val0;", selectedList[i]);
+                await db.InQuery("INSERT INTO Job_Tasks VALUES (@val0, @val1, @val2, @val3, @val4, @val5)", "J" + num, taskid, null, null, null,amount[i]);
             }
 
             //populate the table on the page
@@ -222,6 +247,16 @@ namespace Bapers.GUI
         private void onChange(object sender, SelectionChangedEventArgs e)
         {
             tasks_dropDown.SelectedIndex = 0;
+        }
+
+        private void taskGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ontaskChange(object sender, SelectedCellsChangedEventArgs e)
+        {
+
         }
     }
 }

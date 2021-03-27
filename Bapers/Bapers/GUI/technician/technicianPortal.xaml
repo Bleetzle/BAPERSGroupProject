@@ -13,7 +13,7 @@
                 <ImageBrush ImageSource="msg.png"/>
             </Button.Background>
         </Button>
-        <DataGrid x:Name="jobsGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" SelectedCellsChanged="onJobChange" HorizontalAlignment="Left" Height="102" Margin="36,96,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" IsReadOnly="True">
+        <DataGrid x:Name="jobsGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" SelectedCellsChanged="onJobChange" HorizontalAlignment="Left" Height="102" Margin="36,96,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" IsReadOnly="True" SelectionChanged="jobsGrid_SelectionChanged">
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">
                     <Setter Property="BorderThickness" Value="0"/>

@@ -33,6 +33,14 @@ namespace Bapers.GUI.officeManager
                 {
                     notification = notification + list1[i] + "   Due at: " + list2[i] + "\n";
                 }
+                var overdue = new List<string>();
+                await db.SelectLists(overdue, "select job_Number from job where job_status = 'Uncompleted' AND deadline < curdate()");
+                notification = notification  + "\n" + "Current Jobs overdue payment are: " + "\n";
+                
+                for (int i = 0; i < overdue.Count(); i++)
+                {
+                    notification = notification + overdue[i] + "\n";
+                }
                 System.Windows.Forms.MessageBox.Show(notification);
             }
             

@@ -370,5 +370,10 @@ namespace Bapers.GUI.officeManager
             }
             MessageBox.Show("Save successfull");
         }
+
+        private void custGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

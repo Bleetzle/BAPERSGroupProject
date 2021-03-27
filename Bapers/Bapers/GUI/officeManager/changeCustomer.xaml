@@ -19,7 +19,7 @@
         </ComboBox>
         <RadioButton x:Name="valued_radioBtn" Content="Valued" HorizontalAlignment="Left" Margin="160,199,0,0" VerticalAlignment="Top" IsChecked="True" Checked="valued_checked"/>
         <RadioButton x:Name="standard_radioBtn" Content="Standard" HorizontalAlignment="Left" Margin="235,199,0,0" VerticalAlignment="Top" Checked="standard_checked"/>
-        <DataGrid x:Name="custGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" SelectedCellsChanged="onCustChange" HorizontalAlignment="Left" Height="105" Margin="36,76,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF">
+        <DataGrid x:Name="custGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" SelectedCellsChanged="onCustChange" HorizontalAlignment="Left" Height="105" Margin="36,76,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" SelectionChanged="custGrid_SelectionChanged">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                     Color="#FF7AD18A"/>
