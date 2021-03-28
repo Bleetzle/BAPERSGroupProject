@@ -43,7 +43,29 @@ namespace Bapers.GUI.officeManager
                 }
                 System.Windows.Forms.MessageBox.Show(notification);
             }
-            
+
+            List<string> jobsToUrgent = new List<string>();
+            await db.SelectLists(jobsToUrgent, "SELECT job_number FROM Job WHERE job_status = \"Uncompleted\";");
+
+            foreach(string s in jobsToUrgent)
+            {
+                var durLeftTocomplete = int.Parse(await db.SelectSingle("SELECT SUM(task_duration) FROM job_Tasks, tasks WHERE Jobjob_number = @val0 AND time_taken is null AND Taskstask_ID = task_ID;", s));
+                var timeTillDeadline = DateTime.Parse(await db.SelectSingle("SELECT deadline FROM Job WHERE job_number = @val0", s));
+                TimeSpan daysTillDeadline = DateTime.Now - timeTillDeadline;
+                if (daysTillDeadline.TotalMinutes > durLeftTocomplete)
+                    jobsToUrgent.Remove(s);
+            }
+
+            string notification = "Following Jobs are likely to be completed late:  \n";
+
+            for (int i = 0; i < jobsToUrgent.Count(); i++)
+            {
+                notification = notification + jobsToUrgent[i] + "\n";
+            }
+            if (jobsToUrgent.Count() > 0)
+            {
+                System.Windows.Forms.MessageBox.Show(notification);
+            }
         }
 
         private void create_click(object sender, RoutedEventArgs e)

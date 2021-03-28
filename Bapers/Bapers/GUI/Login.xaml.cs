@@ -81,7 +81,7 @@ namespace Bapers
                         shiftManagerWindow.Show();
                         break;
                     case "Office Manager":
-                        //cjeck for automatic backup to do
+                        //check for automatic backup to do
                         var nxtBUDate = await db.SelectSingle("SELECT MAX(DateofNext) FROM BackupHistory;");
                         if (!nxtBUDate.Equals("") && DateTime.Parse(nxtBUDate).Date == DateTime.Now.Date)
                         {
@@ -118,6 +118,7 @@ namespace Bapers
                             await db.generateReport(repinfo[1], new DataGrid(), repinfo[6], int.Parse(repinfo[4]), DateTime.Parse(repinfo[0]),Convert.ToBoolean(int.Parse(repinfo[2])), repinfo[5]);
                             MessageBox.Show("Automatic report created \n Next backup in: " + int.Parse(repinfo[4]) + "Days");
                         }
+                      
                         GUI.officeManager.officeManagerPortal officeManagerWindow = new GUI.officeManager.officeManagerPortal();
                         officeManagerWindow.Show();
                         break;

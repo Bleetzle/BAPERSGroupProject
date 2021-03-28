@@ -427,7 +427,6 @@ namespace Bapers
                     break;
                 case "Individual":
                     // im using deadline to make the report cuz we dont have a initial date when jobs are made
-                    
                     await this.Select(dg, "SELECT job_status, job_Number, job_priority, discounted_total ,deadline, special_instructions from job where Customerphone_number = '"+custID+"' AND deadline BETWEEN @val0 AND @val1; "
                         , startDate, endDate) ;
                     break;
@@ -500,7 +499,7 @@ namespace Bapers
             XSolidBrush rect_style3 = new XSolidBrush(XColors.DarkGray);
 
 
-            for (int i = 0; i < dt.Rows.Count; i++)
+            for (int i = 0; i <= dt.Rows.Count; i++)
             {
                 if (i == 0)
                 {
@@ -512,12 +511,12 @@ namespace Bapers
                 }
                 else
                 {
-                    var row = dt.Rows[i] as DataRow;
+                    var row = dt.Rows[i-1] as DataRow;
 
-                    if (i % 2 == 1)
-                        gfx.DrawRectangle(rect_style2, marginLeft, marginTop + (rect_height * i + 1) + i, gridwidth, rect_height);
+                    if ((i-1) % 2 == 1)
+                        gfx.DrawRectangle(rect_style2, marginLeft, marginTop + (rect_height * i ) + (i - 1), gridwidth, rect_height);
                     else
-                        gfx.DrawRectangle(rect_style3, marginLeft, marginTop + (rect_height * i + 1) + i, gridwidth, rect_height);
+                        gfx.DrawRectangle(rect_style3, marginLeft, marginTop + (rect_height * i) + (i - 1), gridwidth, rect_height);
 
                     for (int j = 0; j < dt.Columns.Count; j++)
                     {

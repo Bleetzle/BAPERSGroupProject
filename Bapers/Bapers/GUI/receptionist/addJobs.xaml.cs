@@ -92,13 +92,12 @@ namespace Bapers.GUI
 
             foreach (System.Data.DataRowView dr in taskGrid.ItemsSource)
             {
-                
-                    if (dr.Row.Field<int>("amount") > 0)
-                    {
-                    amountChanged++;
-                    selectedList.Add(dr.Row.Field<string>("task_description"));
-                    amount.Add(dr.Row.Field<int>("amount"));
-                    }
+                if (dr.Row.Field<int>("amount") > 0)
+                {
+                amountChanged++;
+                selectedList.Add(dr.Row.Field<string>("task_description"));
+                amount.Add(dr.Row.Field<int>("amount"));
+                }
             }
 
             if (amountChanged == 0 || deadline_date.SelectedDate.Value.Equals(null) || time_dropDown.SelectedIndex.Equals(0))
@@ -122,16 +121,16 @@ namespace Bapers.GUI
 
             var tasksCost = new Dictionary<string,float>(); ;
 
-            foreach(string s in selectedList)
+            for (int i = 0; i < selectedList.Count(); i++)
             {
                 //get the time to complete all tasks
-                var val = await db.SelectSingle("SELECT task_duration FROM Tasks WHERE task_description = @val0;", s);
-                minsToComplete += int.Parse(val);
+                var val = await db.SelectSingle("SELECT task_duration FROM Tasks WHERE task_description = @val0;", selectedList[i]);
+                minsToComplete += int.Parse(val) * amount[i];
 
                 //get the cost of each task
-                var val1 = await db.SelectSingle("SELECT task_id FROM Tasks WHERE task_description = @val0;", s);
-                var val2 = await db.SelectSingle("SELECT price FROM Tasks WHERE task_description = @val0;", s);
-                tasksCost.Add(val1, float.Parse(val2));
+                var val1 = await db.SelectSingle("SELECT task_id FROM Tasks WHERE task_description = @val0;", selectedList[i]);
+                var val2 = await db.SelectSingle("SELECT price FROM Tasks WHERE task_description = @val0;", selectedList[i]);
+                tasksCost.Add(val1, float.Parse(val2) * amount[i]);
             }
             
             //determine if job deadline is less than 6 hour
@@ -200,19 +199,12 @@ namespace Bapers.GUI
                     break;
             }
 
-            
             //create entry in job table
             await db.InQuery(
             "INSERT INTO Job(job_Number, job_priority, deadline, job_status, special_instructions, job_completed, Customeraccount_number, Customerphone_number, discounted_total) " +
             "VALUES(@val0, @val1 , @val2, @val3, @val4, @val5, @val6, @val7, @val8);"
             ,"J" + num , urgency, selectedDate, "uncompleted", specialIn_txtBox.Text, null, myVariables.currID, myVariables.currnum, totalPrice);
 
-            //create entries in job_tasks table
-            //foreach (string s in selectedList)
-            //{
-            //    var taskid = await db.SelectSingle("SELECT Task_ID FROM Tasks WHERE task_description = @val0;", s);
-            //    await db.InQuery("INSERT INTO Job_Tasks VALUES (@val0, @val1, @val2, @val3, @val4)", "J" + num, taskid, null, null, null);
-            //}
 
             for(int i = 0; i< selectedList.Count(); i++)
             {
