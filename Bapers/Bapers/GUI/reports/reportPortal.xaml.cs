@@ -22,6 +22,8 @@ namespace Bapers.GUI.reports
             {
                 back_btn.Visibility = Visibility.Visible;
             }
+            custNo_txt.Visibility = Visibility.Hidden;
+            custNo_txtBox.Visibility = Visibility.Hidden;
         }
 
 
@@ -37,17 +39,9 @@ namespace Bapers.GUI.reports
 
         }
 
-        private void individual_Checked(object sender, RoutedEventArgs e)
-        {
-            userId_txt.Visibility = Visibility.Visible;
-            userId_txtBox.Visibility = Visibility.Visible;
-        }
+        
 
-        private void individual_unchekced(object sender, RoutedEventArgs e)
-        {
-            userId_txt.Visibility = Visibility.Hidden;
-            userId_txtBox.Visibility = Visibility.Hidden;
-        }
+        
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -79,8 +73,9 @@ namespace Bapers.GUI.reports
                     path = fbd.SelectedPath;
                 }
             }
-
-            viewReport viewReportWindow = new viewReport(reportType_comboBox.Text, userId_txtBox.Text, timeSpan.Text, start_date.SelectedDate.Value, automatic, path);
+            
+            viewReport viewReportWindow = new viewReport(reportType_comboBox.Text, custNo_txtBox.Text, timeSpan.Text, start_date.SelectedDate.Value, automatic, path);
+            
             viewReportWindow.Show();
             this.Close();
         }
@@ -111,8 +106,23 @@ namespace Bapers.GUI.reports
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-        //selecttion sometimes doesnt happen depending on where the radio button is pressed. 
-        //note tell prince about this
+    
+        }
+
+        
+
+        private void onChange(object sender, System.EventArgs e)
+        {
+            if (reportType_comboBox.Text == "Individual")
+            {
+                custNo_txt.Visibility = Visibility.Visible;
+                custNo_txtBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                custNo_txt.Visibility = Visibility.Hidden;
+                custNo_txtBox.Visibility = Visibility.Hidden;
+            }
         }
 
         private void onChange(object sender, DependencyPropertyChangedEventArgs e)

@@ -27,14 +27,14 @@ namespace Bapers
             //GUI.reports.reportPortal reportPortalWindow = new GUI.reports.reportPortal();
             //reportPortalWindow.Show();
 
-            GUI.receptionist receptionistwindow = new GUI.receptionist();
-            receptionistwindow.Show();
+            //GUI.receptionist receptionistwindow = new GUI.receptionist();
+            //receptionistwindow.Show();
 
             //addJobs aj = new addJobs();
             //aj.Show();
 
-            //GUI.officeManager.officeManagerPortal officeManagerWindow = new GUI.officeManager.officeManagerPortal();
-            //officeManagerWindow.Show();
+            GUI.officeManager.officeManagerPortal officeManagerWindow = new GUI.officeManager.officeManagerPortal();
+            officeManagerWindow.Show();
 
             //GUI.shiftManager.shiftManager shiftManagerWindow = new GUI.shiftManager.shiftManager();
             //shiftManagerWindow.Show();

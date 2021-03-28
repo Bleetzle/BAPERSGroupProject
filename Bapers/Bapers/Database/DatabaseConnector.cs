@@ -339,14 +339,14 @@ namespace Bapers
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        public async Task<string> generateReport(string reportType, DataGrid dg, string userID, int timespan, DateTime startDate, bool automatic, string path)
+        public async Task<string> generateReport(string reportType, DataGrid dg, string custID, int timespan, DateTime startDate, bool automatic, string path)
         {
             //records Auto generation
             if (automatic)
-                await this.InQuery("INSERT INTO ReportHistory (report_date, report_type, automatically_generated, DateOfNext, timeSpan, savePath, userID) VALUES (@val0, @val1, @val2, @val3, @val4, @val5, @val6)", DateTime.Now.Date, reportType, automatic, DateTime.Now.Date.AddDays(timespan), timespan, path, userID);
+                await this.InQuery("INSERT INTO ReportHistory (report_date, report_type, automatically_generated, DateOfNext, timeSpan, savePath, userID) VALUES (@val0, @val1, @val2, @val3, @val4, @val5, @val6)", DateTime.Now.Date, reportType, automatic, DateTime.Now.Date.AddDays(timespan), timespan, path, custID);
                             //records generation
             else
-                await this.InQuery("INSERT INTO ReportHistory (report_date, report_type, automatically_generated, timespan,userID) VALUES (@val0, @val1, @val2,@val3, @val4)", DateTime.Now.Date, reportType, automatic, timespan, userID);
+                await this.InQuery("INSERT INTO ReportHistory (report_date, report_type, automatically_generated, timespan,userID) VALUES (@val0, @val1, @val2,@val3, @val4)", DateTime.Now.Date, reportType, automatic, timespan, custID);
 
             var endDate = startDate.AddDays(timespan);
 
@@ -426,8 +426,10 @@ namespace Bapers
                         , startDate, endDate);
                     break;
                 case "Individual":
-                    //indivual report does not exist rn 
-                    await this.Select(dg, "", userID, startDate, endDate);
+                    // im using deadline to make the report cuz we dont have a initial date when jobs are made
+                    
+                    await this.Select(dg, "SELECT job_status, job_Number, job_priority, discounted_total ,deadline, special_instructions from job where Customerphone_number = '"+custID+"' AND deadline BETWEEN @val0 AND @val1; "
+                        , startDate, endDate) ;
                     break;
                 default:
                     MessageBox.Show("There was an error");

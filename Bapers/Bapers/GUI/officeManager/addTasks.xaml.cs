@@ -37,7 +37,7 @@ namespace Bapers.GUI.officeManager
 
             try
             {
-                await db.InQuery("INSERT INTO Tasks (task_description,location,task_duration, price)VALUES(@val0, @val1, @val2,@val3)", description_txtBox.Text, location_txtBox.Text, duration_txtBox.Text, price_txtBox.Text);
+                await db.InQuery("INSERT INTO Tasks (task_description,location,task_duration, price,amount)VALUES(@val0, @val1, @val2,@val3,@val4)", description_txtBox.Text, location_txtBox.Text, duration_txtBox.Text, price_txtBox.Text,0);
                 MessageBox.Show("Successfully added task");
                 description_txtBox.Clear();
                 location_txtBox.Clear();

@@ -16,9 +16,9 @@
         <CheckBox x:Name="autoGen_checkbox" Content="" HorizontalAlignment="Left" Margin="315,272,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.352,0" Checked="CheckBox_Checked" FontSize="6"/>
         <Button x:Name="viewReport_btn" Content="View Report" HorizontalAlignment="Left" Height="40" Margin="364,308,0,0" VerticalAlignment="Top" Width="158" Click="viewReport_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
         <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="45,350,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
-        <TextBox x:Name="userId_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697" Visibility="Hidden"/>
-        <TextBlock x:Name="userId_txt" Margin="30,137,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Visibility="Hidden"><Run Text="User Id"/><Run Text=" :"/></TextBlock>
-        <ComboBox x:Name="reportType_comboBox" HorizontalAlignment="Left" Margin="295,109,0,0" VerticalAlignment="Top" Width="331" IsSynchronizedWithCurrentItem="True" Cursor="Hand" DataContextChanged="onChange">
+        <TextBox x:Name="custNo_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697" />
+        <TextBlock x:Name="custNo_txt" Margin="30,137,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Customer Number"/><Run Text=" :"/></TextBlock>
+        <ComboBox x:Name="reportType_comboBox" HorizontalAlignment="Left" Margin="295,109,0,0" VerticalAlignment="Top" Width="331" IsSynchronizedWithCurrentItem="True" Cursor="Hand" DropDownClosed="onChange" DataContextChanged="onChange">
             <ListBoxItem Content="Individual"/>
             <ListBoxItem Content="Individual Performance"/>
             <ListBoxItem Content="Summary Performance"/>
