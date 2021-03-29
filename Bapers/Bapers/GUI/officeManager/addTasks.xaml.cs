@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
 
 namespace Bapers.GUI.officeManager
 {
@@ -20,6 +21,8 @@ namespace Bapers.GUI.officeManager
     public partial class addTasks : Window
     {
         DatabaseConnector db = new DatabaseConnector();
+        string selectedTask = "";
+
         public addTasks()
         {
             InitializeComponent();
@@ -27,7 +30,7 @@ namespace Bapers.GUI.officeManager
         }
         private async void populate()
         {
-             await db.Select(taskGrid, "SELECT * FROM Tasks;");
+             await db.Select(taskGrid, "SELECT task_id, task_description, location, task_duration, price FROM Tasks;");
         }
 
 
@@ -70,11 +73,7 @@ namespace Bapers.GUI.officeManager
 
         }
 
-        private void taskGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
+ 
         private void searchChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -82,7 +81,31 @@ namespace Bapers.GUI.officeManager
 
         private void ontaskChange(object sender, SelectedCellsChangedEventArgs e)
         {
+            
+        }
 
+        private async void save_Click(object sender, RoutedEventArgs e)
+        {
+            //save the account details if changed
+            taskGrid.CommitEdit();
+            foreach (System.Data.DataRowView dr in taskGrid.ItemsSource)
+            {
+                await db.InQuery(
+                    "UPDATE Tasks " +
+                    "SET task_description = @val0, " +
+                    "location = @val1, " +
+                    "task_duration = @val2, " +
+                    "price = @val3 " +
+                    "WHERE task_ID = @val4; "
+                    , dr.Row.Field<string>("task_description")
+                    , dr.Row.Field<string>("location")
+                    , dr.Row.Field<float>("task_duration")
+                    , dr.Row.Field<float>("price")
+                    , dr.Row.Field<int>("task_id")
+                );
+                //account_number, first_name, last_name, phone_number, address, company_name
+            }
+            MessageBox.Show("Tasks updated");
         }
     }
 }
