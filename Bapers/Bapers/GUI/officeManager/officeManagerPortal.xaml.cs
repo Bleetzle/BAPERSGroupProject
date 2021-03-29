@@ -28,20 +28,20 @@ namespace Bapers.GUI.officeManager
                 var list2 = new List<string>();
                 await db.SelectLists(list1, "select job_Number from job where job_status = 'Uncompleted' AND deadline between curdate() AND date_format(curdate() + 4, '%Y-%m-%d')");
                 await db.SelectLists(list2, "select deadline from job where job_status = 'Uncompleted' AND deadline between curdate() AND date_format(curdate() + 4, '%Y-%m-%d')");
-                string notification= "Deadline coming soon for \n";
+                string notification1 = "Deadline coming soon for \n";
                for(int i = 0; i < list1.Count(); i++)
                 {
-                    notification = notification + list1[i] + "   Due at: " + list2[i] + "\n";
+                    notification1 = notification1 + list1[i] + "   Due at: " + list2[i] + "\n";
                 }
                 var overdue = new List<string>();
                 await db.SelectLists(overdue, "select job_Number from job where job_status = 'Uncompleted' AND deadline < curdate()");
-                notification = notification  + "\n" + "Current Jobs overdue payment are: " + "\n";
+                notification1 = notification1  + "\n" + "Current Jobs overdue payment are: " + "\n";
                 
                 for (int i = 0; i < overdue.Count(); i++)
                 {
-                    notification = notification + overdue[i] + "\n";
+                    notification1 = notification1 + overdue[i] + "\n";
                 }
-                System.Windows.Forms.MessageBox.Show(notification);
+                System.Windows.Forms.MessageBox.Show(notification1);
             }
 
             List<string> jobsToUrgent = new List<string>();
