@@ -55,7 +55,10 @@ namespace Bapers.GUI
         private void card_Checked(object sender, RoutedEventArgs e)
         {
             cardType.Visibility = Visibility.Visible;
-            cardType_txtbox.Visibility = Visibility.Visible;
+            cardType_txtbox.Visibility = Visibility.Visible; 
+            cardNum.Visibility = Visibility.Visible;
+            cardNum_txtbox.Visibility = Visibility.Visible;
+
             expDate.Visibility = Visibility.Visible;
             expDateCal.Visibility = Visibility.Visible;
             cvc.Visibility = Visibility.Visible;
@@ -66,6 +69,8 @@ namespace Bapers.GUI
         {
             cardType.Visibility = Visibility.Hidden;
             cardType_txtbox.Visibility = Visibility.Hidden;
+            cardNum.Visibility = Visibility.Hidden;
+            cardNum_txtbox.Visibility = Visibility.Hidden;
             expDate.Visibility = Visibility.Hidden;
             expDateCal.Visibility = Visibility.Hidden;
             cvc.Visibility = Visibility.Hidden;
@@ -118,12 +123,11 @@ namespace Bapers.GUI
                         "FROM payment " +
                         "WHERE Jobjob_number = @val0"
                         , p.Key);
-                    
                     //stores the card details
                     await db.InQuery(
-                        "INSERT INTO card (Paymentpayment_id, card_type, expiry_date, CC4digits)" +
-                        "Values (@val0, @val1, @val2, @val3)"
-                        , val, cardType_txtbox.Text, expDateCal.SelectedDate.Value.Date, cvc_txtbox.Text);
+                        "INSERT INTO card (Paymentpayment_id, card_type, expiry_date, CC4digits, CardNum)" +
+                        "Values (@val0, @val1, @val2, @val3, @val4)"
+                        ,val, cardType_txtbox.Text, expDateCal.SelectedDate.Value.Date, cvc_txtbox.Text, cardNum_txtbox.Text);
                     //archives the Jobs
                     await db.InQuery(
                         "UPDATE job " +
@@ -165,7 +169,7 @@ namespace Bapers.GUI
         private void onChange(object sender, SelectedCellsChangedEventArgs e)
         {       
             string tmp = "";
-            float tmp1 = 0f; 
+            float tmp1 = -1; 
 
             foreach (var item in e.AddedCells)
             {
@@ -185,10 +189,11 @@ namespace Bapers.GUI
                         subTotal += tmp1;
                     }
                     //makes sure a job number has been selected before adding to the list
-                    if (!tmp.Equals(""))
+                    if (!tmp.Equals("") && tmp1 != -1)
                     {
                         selectedJobs.Add(tmp, tmp1);
                         tmp = "";
+                        tmp1 = -1;
                     }
                 }
             }

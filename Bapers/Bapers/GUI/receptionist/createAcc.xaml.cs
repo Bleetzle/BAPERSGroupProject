@@ -67,6 +67,26 @@ namespace Bapers.GUI
                 ,"ACC" + num, firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text, compName_txtBox.Text, address_txtBox.Text, "standard"
                 );
 
+
+            //stores the customer deatails for use in the job adding or payment adding
+            myVariables.currfname = firstname_txtBox.Text;
+            myVariables.currlname = surname_txtBox.Text;
+            myVariables.currnum = telephone_txtBox.Text;
+            myVariables.currvalue = await db.SelectSingle(
+                "SELECT customer_status " +
+                "FROM Customer " +
+                "WHERE first_name = @val0 " +
+                "AND last_name = @val1 " +
+                "AND phone_number = @val2 " +
+                ";", firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text);
+            myVariables.currID = await db.SelectSingle(
+                "SELECT account_number " +
+                "FROM Customer " +
+                "WHERE first_name = @val0 " +
+                "AND last_name = @val1 " +
+                "AND phone_number = @val2 " +
+                ";", firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text);
+
             //after account created..
             accountCreated_popup accountCreated_Popup_window = new accountCreated_popup();
             accountCreated_Popup_window.Show();

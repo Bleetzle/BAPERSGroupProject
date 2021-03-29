@@ -26,6 +26,7 @@
         <DatePicker x:Name="deadline_date" HorizontalAlignment="Left" Margin="244,424,0,0" VerticalAlignment="Top" Width="122" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDate="2021-03-22" IsTodayHighlighted="True"/>
         <ComboBox x:Name="time_dropDown" HorizontalAlignment="Left" Height="24" Margin="399,424,0,0" VerticalAlignment="Top" Width="85" Background="{x:Null}" BorderBrush="#FFACACAC" Foreground="Black" IsReadOnly="True" SelectedIndex="0" Grid.ColumnSpan="2">
             <ListBoxItem ContentStringFormat="Select All That Apply:" Content="Time:" IsSelected="True" />
+            <ListBoxItem Content="10:00 PM"/>
             <ListBoxItem Content="07:00 AM"/>
             <ListBoxItem Content="08:00 AM"/>
             <ListBoxItem Content="09:00 AM"/>

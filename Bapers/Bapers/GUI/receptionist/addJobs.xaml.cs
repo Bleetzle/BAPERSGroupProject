@@ -136,9 +136,21 @@ namespace Bapers.GUI
             //determine if job deadline is less than 6 hour
             timeTillDeadline = (selectedDate - DateTime.Now).TotalMinutes;
             string urgency = "Normal";
-            if (timeTillDeadline - minsToComplete < 360 )
-                urgency = "Urgent";
-
+            if (timeTillDeadline < 360)
+            {
+                urgency = "Urgent"; 
+                if (timeTillDeadline < 180)
+                {
+                    foreach (string f in tasksCost.Keys.ToList())
+                        tasksCost[f] *= 2;
+                    if (timeTillDeadline< 60)
+                    {
+                        foreach (string f in tasksCost.Keys.ToList())
+                            tasksCost[f] *= 2;
+                    }
+                }
+            }
+           
             var tmpList = tasksCost;
 
             float totalPrice = 0f;
@@ -174,20 +186,24 @@ namespace Bapers.GUI
                     var todays_date = DateTime.Now.Date;
                     var lastmonth_date = todays_date.Subtract(TimeSpan.FromDays(30));
                     //grabs the money spent by the customer in the last 30 
-                    float monthlyTotal = float.Parse(await db.SelectSingle(
+                    var monthlyTotal = 
+                        await db.SelectSingle(
                         "SELECT SUM(payment_amount) " +
                         "FROM payment " +
                         "WHERE Customeraccount_number = @val0 " +
-                        "AND AND Customeraccountphone_number = @val1 " +
-                        "AND payment_date BETWEEN  @val2 AND @val3; "
-                        , myVariables.currID, myVariables.currnum, lastmonth_date, todays_date));
+                        "AND Customerphone_number = @val1 " +
+                        "AND payment_date BETWEEN @val2 AND @val3; "
+                        , myVariables.currID, int.Parse(myVariables.currnum), lastmonth_date, todays_date);
+                    if (monthlyTotal.Equals(""))
+                        monthlyTotal = "0";
                     //grab the discount rate based on the monthly discount
                     float rate = float.Parse(await db.SelectSingle(
                         "SELECT discount_rate " +
                         "FROM flexible_discount " +
                         "WHERE DiscountCustomeraccount_number = @val0 " +
                         "AND @val1 BETWEEN  lower AND upper; "
-                        , myVariables.currID, lastmonth_date, todays_date));
+                        , myVariables.currID, float.Parse(monthlyTotal)));
+
                     //uses the rate gotten to apply the discount to the total price
                     foreach (float f in tasksCost.Values)
                             totalPrice += f;
@@ -214,18 +230,28 @@ namespace Bapers.GUI
 
             //populate the table on the page
             await db.Select(jobsGrid,
-                "SELECT job_number, job_priority, deadline, job_status, special_instructions " +
+                "SELECT job_number, job_priority, deadline, job_status, special_instructions AS Amount, coalesce(NULL, ' ') AS Total " +
                 "FROM Job " +
                 "WHERE job_number = @val0 " +
                 "UNION  " +
-                "SELECT coalesce(NULL, '*'), coalesce(NULL, 'Task'), coalesce(NULL, 'Description'), coalesce(NULL, 'Price(£)'), coalesce(NULL, ' ') " +
+                "SELECT coalesce(NULL, '*'), coalesce(NULL, 'Task'), coalesce(NULL, 'Description'), coalesce(NULL, 'Price(£)'), coalesce(NULL, ' '),coalesce(NULL, ' ') " +
                 "UNION " +
-                "SELECT coalesce(NULL, '*'), Taskstask_id, task_description, price, coalesce(NULL, ' ') " +
+                "SELECT coalesce(NULL, '*'), Taskstask_id, task_description, price, Job_Tasks.amount, coalesce(NULL, 'fill') " +
                 "FROM Job_Tasks, tasks " +
                 "WHERE Jobjob_number = @val0 " +
-                "AND Taskstask_id = task_id; "
+                "AND Taskstask_id = task_id " +
+                "UNION " +
+                "SELECT coalesce(NULL, 'Total: '), coalesce(NULL, ' '), coalesce(NULL, ' '),coalesce(NULL, ' '), coalesce(NULL, ' '), discounted_total " +
+                "FROM Job " +
+                "WHERE job_number = @val0; "
                 , "J" + num);
-            
+
+            foreach (System.Data.DataRowView dr in jobsGrid.ItemsSource)
+            {
+                if (dr.Row.Field<string>(5).Equals("fill")){
+                    dr.Row.SetField<string>(5, tasksCost[dr.Row.Field<string>("job_priority")].ToString() );
+                }
+            }
 
             System.Windows.Forms.MessageBox.Show("Job has been added successfully");
             
