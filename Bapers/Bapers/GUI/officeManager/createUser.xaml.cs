@@ -12,7 +12,7 @@ namespace Bapers.GUI.officeManager
     public partial class createUser : Window
     {
         DatabaseConnector db = new DatabaseConnector();
-        float selectedUserID = "";
+        string selectedUserID = "";
 
         public createUser()
         {
@@ -158,11 +158,12 @@ namespace Bapers.GUI.officeManager
 
         }
 
-        private void delete_Click(object sender, RoutedEventArgs e)
+        private async void delete_Click(object sender, RoutedEventArgs e)
         {
             if (selectedUserID.Equals(""))
             {
                 MessageBox.Show("No user selected");
+                return;
             }
 
             if (!selectedUserID.Equals(""))
@@ -171,14 +172,37 @@ namespace Bapers.GUI.officeManager
                 if (confirmResult == MessageBoxResult.No)
                     return;
             }
-            
+            //all remove all their tasks
+            await db.InQuery("UPDATE Job_tasks SET Staffstaff_ID = null WHERE Staffstaff_ID = @val0;", int.Parse(selectedUserID));
+            //remove any questions
+            await db.InQuery("DELETE FROM Responces WHERE staff_id = @val0;", int.Parse(selectedUserID));
+            //remove any responces
+            await db.InQuery("DELETE FROM Questions WHERE staff_id = @val0;", int.Parse(selectedUserID));
+            //remove the staff 
+            await db.InQuery("DELETE FROM staff WHERE staff_id = @val0;", int.Parse(selectedUserID));
+            //remove user account
+            await db.InQuery("DELETE FROM Users WHERE userId = @val0;", int.Parse(selectedUserID));
 
+            Populate();
 
         }
 
-        private void gridSelectChanged(object sender, SelectionChangedEventArgs e)
+        private void gridSelectChanged(object sender, SelectedCellsChangedEventArgs e)
         {
+            foreach (var item in e.AddedCells)
+            {
+                if (item.Column != null)
+                {
+                    string col = item.Column.Header.ToString();
+                    //tmp job num to be able to create the map value
 
+                    //assuming job num always appears before the price
+                    if (col.Equals("UserID") && item.Column.GetCellContent(item.Item) != null)
+                    {
+                        selectedUserID = (item.Column.GetCellContent(item.Item) as TextBlock).Text;
+                    }
+                }
+            }
         }
     }
 }

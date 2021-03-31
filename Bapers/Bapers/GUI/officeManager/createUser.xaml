@@ -31,7 +31,7 @@
         <TextBox x:Name="lastname_txtBox" HorizontalAlignment="Left" Height="25" Margin="602,286,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="268" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
         <TextBlock x:Name="locName" Margin="462,329,345,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="16" TextAlignment="Right"><Run Text="L"/><Run Text="ocation"/><Run Text=" :"/></TextBlock>
         <TextBox x:Name="location_txtBox" HorizontalAlignment="Left" Height="25" Margin="602,329,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="268" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
-        <DataGrid x:Name="userGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" HorizontalAlignment="Left" Height="274" Margin="43,133,0,0" VerticalAlignment="Top" Width="416" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" SelectionChanged="gridSelectChanged">
+        <DataGrid x:Name="userGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" HorizontalAlignment="Left" Height="274" Margin="43,133,0,0" VerticalAlignment="Top" Width="416" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF" SelectedCellsChanged="gridSelectChanged">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                     Color="#FF7AD18A"/>

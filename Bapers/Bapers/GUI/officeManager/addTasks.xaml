@@ -8,17 +8,17 @@
         Title="addTasks" Height="546.002" Width="800" Background="#FFE4DCCF">
     <Grid>
         <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Margin="20,21,0,0" Height="39" Width="254" FontFamily="Global Serif" FontSize="36" Text="Add new tasks"/>
-        <TextBox x:Name="description_txtBox" HorizontalAlignment="Left" Height="25" Margin="269,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="465" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
-        <TextBox x:Name="location_txtBox" HorizontalAlignment="Left" Height="25" Margin="269,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="465" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
-        <TextBox x:Name="duration_txtBox" HorizontalAlignment="Left" Height="25" Margin="269,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="465" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBox x:Name="description_txtBox" HorizontalAlignment="Left" Height="25" Margin="269,260,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="465" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBox x:Name="location_txtBox" HorizontalAlignment="Left" Height="25" Margin="269,295,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="465" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBox x:Name="duration_txtBox" HorizontalAlignment="Left" Height="25" Margin="269,330,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="465" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
         <TextBlock Margin="54,257,538,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Task Description "/><Run Text=": "/></TextBlock>
         <TextBlock Margin="119,291,538,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Location"/><Run Text=" "/><Run Text=": "/></TextBlock>
         <TextBlock Margin="84,326,538,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Duration"/><Run Text=" "/><Run Text=": "/></TextBlock>
         <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="685,466,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="20,466,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <TextBlock Margin="84,362,538,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Price "/><Run Text=": "/></TextBlock>
-        <TextBox x:Name="price_txtBox" HorizontalAlignment="Left" Height="25" Margin="269,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="465" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
-        <Button x:Name="addTasks_btn" Content="Add tasks" HorizontalAlignment="Left" Height="40" Margin="606,411,0,0" VerticalAlignment="Top" Width="128" Click="add_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
+        <TextBox x:Name="price_txtBox" HorizontalAlignment="Left" Height="25" Margin="269,365,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="465" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <Button x:Name="addTasks_btn" Content="Add task" HorizontalAlignment="Left" Height="27" Margin="639,411,0,0" VerticalAlignment="Top" Width="95" Click="add_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black" FontWeight="Bold"/>
         <DataGrid x:Name="taskGrid" SelectionUnit="FullRow" SelectionMode="Single" ItemsSource = "{Binding}" SelectedCellsChanged="ontaskChange" HorizontalAlignment="Left" Height="105" Margin="64,90,0,0" VerticalAlignment="Top" Width="701" Background="#FFACACAC" IsSynchronizedWithCurrentItem="True" GridLinesVisibility="Horizontal" BorderBrush="#FF688CAF">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
@@ -33,8 +33,9 @@
         </DataGrid>
         <TextBlock x:Name="Welcome_Copy" HorizontalAlignment="Left" Height="21" Margin="64,69,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="89" FontFamily="Global Serif" FontSize="18" Text="Tasks:"/>
         <TextBox x:Name="searchbox" HorizontalAlignment="Left" Height="21" Margin="589,69,0,0" TextWrapping="Wrap" Text="Search..." VerticalAlignment="Top" Width="176" TextChanged="searchChanged"/>
-        <Image Margin="563,64,208,401" Source="/Bapers;component/GUI/technician/search.png" Stretch="Fill" OpacityMask="{x:Null}"/>
+        <Image Margin="565,69,203,425" Source="/Bapers;component/GUI/technician/search.png" Stretch="Fill" OpacityMask="{x:Null}"/>
         <Button x:Name="saveTasks_btn" Content="Save" HorizontalAlignment="Left" Height="25" Margin="701,200,0,0" VerticalAlignment="Top" Width="64" Click="save_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black" FontWeight="Bold"/>
+        <Button x:Name="deletebtn" Content="Delete" HorizontalAlignment="Left" Height="19" Margin="64,200,0,0" VerticalAlignment="Top" Width="57" Background="#FF918F8B" FontFamily="Segoe UI Semibold" Foreground="Black" FontWeight="Bold" Click="delete_Click"/>
 
     </Grid>
 </Window>
