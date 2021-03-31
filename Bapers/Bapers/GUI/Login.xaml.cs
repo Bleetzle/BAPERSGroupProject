@@ -101,7 +101,7 @@ namespace Bapers
                         }
                         //check for automatic report to backup
                         var nxtRepDate = await db.SelectSingle("SELECT MAX(DateOfNext) FROM ReportHistory;");
-                        if (!nxtRepDate.Equals("") && DateTime.Parse(nxtRepDate).Date == DateTime.Now.Date)
+                        if (!nxtRepDate.Equals("") && DateTime.Parse(nxtRepDate).Date >= DateTime.Now.Date)
                         {
                             var val = await db.SelectSingle("SELECT id, MAX(DateofNext) FROM ReportHistory GROUP BY id ORDER BY  DateOfNext DESC;");
                             List<string> repinfo = new List<string>();

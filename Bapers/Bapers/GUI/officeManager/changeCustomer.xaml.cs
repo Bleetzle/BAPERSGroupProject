@@ -253,23 +253,21 @@ namespace Bapers.GUI.officeManager
             custGrid.CommitEdit();
             foreach(System.Data.DataRowView dr in custGrid.ItemsSource)
             {
-                if (dr.Row.Field<string>("account_number").Equals(selectedAcc))
-                {
-                    await db.InQuery(
-                        "UPDATE Customer " +
-                        "SET first_name = @val0, " +
-                        "   last_name = @val1, " +
-                        "   phone_number = @val2, " +
-                        "   address = @val3, " +
-                        "   company_name = @val4 " +
-                        "WHERE account_number = @val5; "
-                        , dr.Row.Field<string>("first_name")
-                        , dr.Row.Field<string>("last_name")
-                        , dr.Row.Field<int>("phone_number")
-                        , dr.Row.Field<string>("address") 
-                        , dr.Row.Field<string>("company_name")
-                        , selectedAcc );  
-                }
+                await db.InQuery(
+                    "UPDATE Customer " +
+                    "SET first_name = @val0, " +
+                    "   last_name = @val1, " +
+                    "   phone_number = @val2, " +
+                    "   address = @val3, " +
+                    "   company_name = @val4 " +
+                    "WHERE account_number = @val5; "
+                    , dr.Row.Field<string>("first_name")
+                    , dr.Row.Field<string>("last_name")
+                    , dr.Row.Field<int>("phone_number")
+                    , dr.Row.Field<string>("address") 
+                    , dr.Row.Field<string>("company_name")
+                    , dr.Row.Field<string>("account_number"));  
+                
                 //account_number, first_name, last_name, phone_number, address, company_name
             }
 

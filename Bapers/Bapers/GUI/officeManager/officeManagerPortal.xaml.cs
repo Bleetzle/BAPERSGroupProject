@@ -33,16 +33,22 @@ namespace Bapers.GUI.officeManager
                 {
                     notification1 = notification1 + list1[i] + "   Due at: " + list2[i] + "\n";
                 }
-                var overdue = new List<string>();
-                await db.SelectLists(overdue, "select job_Number from job where job_status = 'Uncompleted' AND deadline < curdate()");
-                notification1 = notification1  + "\n" + "Current Jobs overdue payment are: " + "\n";
-                
-                for (int i = 0; i < overdue.Count(); i++)
-                {
-                    notification1 = notification1 + overdue[i] + "\n";
-                }
                 System.Windows.Forms.MessageBox.Show(notification1);
             }
+
+            string notification2 = "Current Jobs overdue payment are: " + "\n";
+            var overdue = new List<string>();
+            await db.SelectLists(overdue, "select job_Number from job where job_status = 'Completed' AND deadline < curdate()");
+
+            for (int i = 0; i < overdue.Count(); i++)
+            {
+                notification2 = notification2 + overdue[i] + "\n";
+            }
+            if (overdue.Count() > 0)
+            {
+                System.Windows.Forms.MessageBox.Show(notification2);
+            }
+            
 
             List<string> jobsToUrgent = new List<string>();
             await db.SelectLists(jobsToUrgent, "SELECT job_number FROM Job WHERE job_status = \"Uncompleted\";");
@@ -59,15 +65,15 @@ namespace Bapers.GUI.officeManager
                 }
             }
 
-            string notification = "Following Jobs are likely to be completed late:  \n";
+            string notification3 = "Following Jobs are likely to be completed late:  \n";
 
             for (int i = 0; i < jobsToUrgent.Count(); i++)
             {
-                notification = notification + jobsToUrgent[i] + "\n";
+                notification3 = notification3 + jobsToUrgent[i] + "\n";
             }
             if (jobsToUrgent.Count() > 0)
             {
-                System.Windows.Forms.MessageBox.Show(notification);
+                System.Windows.Forms.MessageBox.Show(notification3);
             }
         }
 

@@ -1,16 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Data;
 
 namespace Bapers.GUI.officeManager
 {
@@ -20,12 +12,21 @@ namespace Bapers.GUI.officeManager
     public partial class createUser : Window
     {
         DatabaseConnector db = new DatabaseConnector();
+        float selectedUserID = "";
+
         public createUser()
         {
             InitializeComponent();
             location_txtBox.Visibility = Visibility.Hidden;
             locName.Visibility = Visibility.Hidden;
+            Populate();
         }
+
+        private async void Populate()
+        {
+            await db.Select(userGrid, "SELECT UserID, username, first_name, last_name, role, shift_type, location FROM Users, staff WHERE userID = staff_ID");
+        }
+
 
         private void logOut_Click(object sender, RoutedEventArgs e)
         {
@@ -98,6 +99,7 @@ namespace Bapers.GUI.officeManager
                 username_txtBox.Text, db.StringToHash(password_txtBox.Text), firstname_txtBox.Text, lastname_txtBox.Text
                 );
             MessageBox.Show("Account created successfully");
+            Populate();
         }
 
         private void onChange(object sender, SelectionChangedEventArgs e)
@@ -114,6 +116,69 @@ namespace Bapers.GUI.officeManager
                 location_txtBox.Visibility = Visibility.Hidden;
                 locName.Visibility = Visibility.Hidden;
             }
+        }
+
+        private async void save_Click(object sender, RoutedEventArgs e)
+        {
+            //save the account details if changed
+            userGrid.CommitEdit();
+            foreach (System.Data.DataRowView dr in userGrid.ItemsSource)
+            {
+                //update user acc
+                await db.InQuery(
+                    "UPDATE Users " +
+                    "SET username = @val0 " +
+                    "WHERE userID = @val1; "
+                    , dr.Row.Field<string>("username")
+                    , dr.Row.Field<int>("userID")
+                );
+                //update staff
+                await db.InQuery(
+                    "UPDATE Staff " +
+                    "SET first_name = @val0, " +
+                    "last_name = @val1, " +
+                    "role = @val2, " +
+                    "shift_type = @val3, " +
+                    "location = @val4 " +
+                    "WHERE staff_ID = @val5; "
+                    , dr.Row.Field<string>("first_name")
+                    , dr.Row.Field<string>("last_name")
+                    , dr.Row.Field<string>("role")
+                    , dr.Row.Field<string>("shift_type")
+                    , dr.Row.Field<string>("location")
+                    , dr.Row.Field<int>("userID")
+                );
+            }
+            MessageBox.Show("Details saved");
+            Populate();
+        }
+
+        private void searchChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void delete_Click(object sender, RoutedEventArgs e)
+        {
+            if (selectedUserID.Equals(""))
+            {
+                MessageBox.Show("No user selected");
+            }
+
+            if (!selectedUserID.Equals(""))
+            {
+                MessageBoxResult confirmResult = MessageBox.Show("Are you sure you want to delete the account?", "Confirm Delete", MessageBoxButton.YesNo);
+                if (confirmResult == MessageBoxResult.No)
+                    return;
+            }
+            
+
+
+        }
+
+        private void gridSelectChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
