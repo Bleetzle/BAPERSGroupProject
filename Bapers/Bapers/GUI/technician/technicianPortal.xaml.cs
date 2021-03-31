@@ -24,11 +24,13 @@ namespace Bapers.GUI.technician
         string selectedJob = "";
         string selectedTaskID = "";
         string selectedTaskTime = "";
+        DataView data;
 
         public technicianPortal()
         {
             InitializeComponent();
             PopulateJobs();
+            data = (DataView)jobsGrid.ItemsSource;
 
         }
 
@@ -175,20 +177,26 @@ namespace Bapers.GUI.technician
             }
         }
 
-        private async void searchChanged(object sender, TextChangedEventArgs e)
+        private void searchChanged(object sender, TextChangedEventArgs e)
         {
-            if (searchbox.Text.Equals(""))
+            if (data != null)
             {
-                PopulateJobs();
-                return;
+                if (!searchbox.Text.Equals("") && !searchbox.Text.Equals("Search..."))
+                {
+                    string searchstring = searchbox.Text;
+                        data.RowFilter =
+                        "job_number LIKE '%" + searchstring.ToString()
+                        + "%' OR job_priority LIKE '%" + searchstring.ToString()
+                        + "%' OR special_instructions LIKE '%" + searchstring.ToString()
+                        + "%'";
+                    jobsGrid.ItemsSource = data;
+                }
+                else
+                {
+                    PopulateJobs();
+                }
             }
-            await db.Select(jobsGrid,
-                "SELECT DISTINCT(job_Number), job_priority, deadline, special_instructions " +
-                "FROM job, job_tasks " +
-                "WHERE job_number = Jobjob_number " +
-                "AND Staffstaff_ID = @val0 " +
-                "AND job_number = @val1"
-                , myVariables.num, searchbox.Text);
+            // DISTINCT(job_Number), job_priority, deadline, special_instructions
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)

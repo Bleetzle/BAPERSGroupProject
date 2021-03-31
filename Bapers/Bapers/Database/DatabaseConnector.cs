@@ -426,9 +426,20 @@ namespace Bapers
                         , startDate, endDate);
                     break;
                 case "Individual":
-                    // im using deadline to make the report cuz we dont have a initial date when jobs are made
-                    await this.Select(dg, "SELECT job_status, job_Number, job_priority, discounted_total ,deadline, special_instructions from job where Customerphone_number = '"+custID+"' AND deadline BETWEEN @val0 AND @val1; "
-                        , startDate, endDate) ;
+                    await this.Select(dg,
+                        "SELECT DISTINCT(job_number), job_priority, job_status, special_instructions AS instructions, job_completed, discounted_total AS price " +
+                        "FROM Job, Customer " +
+                        "WHERE CustomerAccount_number = account_number " +
+                        "AND Customerphone_number = @val0 " +
+                        "AND deadline BETWEEN @val1 AND @val2 " +
+                        "UNION " +
+                        "SELECT coalesce(NULL, 'Total Jobs Booked: '), COUNT(job_number), coalesce(NULL, '---'), coalesce(NULL, '----'), coalesce(NULL, 'Total Paid: '), SUM(discounted_Total) " +
+                        "FROM Job,customer " +
+                        "WHERE CustomerAccount_number = account_number " +
+                        "AND Customerphone_number = @val0 " +
+                        "AND deadline BETWEEN @val1 AND @val2 " +
+                        ";"
+                        , int.Parse(custID), startDate, endDate) ;
                     break;
                 default:
                     MessageBox.Show("There was an error");

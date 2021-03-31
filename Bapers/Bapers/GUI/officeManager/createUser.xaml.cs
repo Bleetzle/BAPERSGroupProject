@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Data;
+using System.Windows.Data;
+using System.ComponentModel;
 
 namespace Bapers.GUI.officeManager
 {
@@ -13,6 +15,7 @@ namespace Bapers.GUI.officeManager
     {
         DatabaseConnector db = new DatabaseConnector();
         string selectedUserID = "";
+        DataView data;
 
         public createUser()
         {
@@ -20,6 +23,7 @@ namespace Bapers.GUI.officeManager
             location_txtBox.Visibility = Visibility.Hidden;
             locName.Visibility = Visibility.Hidden;
             Populate();
+            data = (DataView)userGrid.ItemsSource;
         }
 
         private async void Populate()
@@ -155,7 +159,33 @@ namespace Bapers.GUI.officeManager
 
         private void searchChanged(object sender, TextChangedEventArgs e)
         {
-
+            if (data != null)
+            {
+                if (!searchbox.Text.Equals("") && !searchbox.Text.Equals("Search..."))
+                {
+                    string searchstring =  searchbox.Text;
+                    int convert;
+                    int.TryParse(searchstring, out convert);
+                    if (convert != 0)
+                        data.RowFilter = " UserID = " + searchstring + "";
+                    else
+                    {
+                        data.RowFilter =
+                        "first_name LIKE '%" + searchstring.ToString()
+                        + "%' OR last_name LIKE '%" + searchstring.ToString()
+                        + "%' OR role LIKE '%" + searchstring.ToString()
+                        + "%' OR shift_type LIKE '%" + searchstring.ToString()
+                        + "%' OR location LIKE '%" + searchstring.ToString()
+                        + "%'";
+                    }
+                    userGrid.ItemsSource = data;
+                }
+                else
+                {
+                    Populate();
+                }
+            }
+            // UserID, username, first_name, last_name, role, shift_type, location
         }
 
         private async void delete_Click(object sender, RoutedEventArgs e)

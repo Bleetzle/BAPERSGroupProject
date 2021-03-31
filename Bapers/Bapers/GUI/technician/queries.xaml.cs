@@ -23,11 +23,13 @@ namespace Bapers.GUI.technician
         DatabaseConnector db = new DatabaseConnector();
         string selectedQ = "";
         string selectedStatus = "";
+        DataView data;
 
         public queries()
         {
             InitializeComponent();
             PopulateQuestions();
+            data = (DataView)QGrid.ItemsSource;
         }
 
         private async void PopulateQuestions()
@@ -75,20 +77,37 @@ namespace Bapers.GUI.technician
             }
         }
 
-        private async void searchChanged(object sender, TextChangedEventArgs e)
+        private void searchChanged(object sender, TextChangedEventArgs e)
         {
-            if (searchbox.Text.Equals(""))
+            if (data != null)
             {
-                PopulateQuestions();
-                return;
+                if (!searchbox.Text.Equals("") && !searchbox.Text.Equals("Search..."))
+                {
+                    string searchstring = searchbox.Text;
+                    int convert;
+                    int.TryParse(searchstring, out convert);
+                    if (convert != 0)
+                        data.RowFilter = " question_id = " + searchstring +
+                            " OR Tasktask_ID = " + searchstring 
+                            + "";
+                    else
+                    {
+                        data.RowFilter =
+                        "Jobjob_number LIKE '%" + searchstring.ToString()
+                        + "%' OR description  LIKE '%" + searchstring.ToString()
+                        + "%' OR first_name LIKE '%" + searchstring.ToString()
+                        + "%' OR last_name LIKE '%" + searchstring.ToString()
+                        + "%' OR status LIKE '%" + searchstring.ToString()
+                        + "%'";
+                    }
+                    QGrid.ItemsSource = data;
+                }
+                else
+                {
+                    PopulateQuestions();
+                }
             }
-            await db.Select(QGrid,
-                "SELECT question_id, Jobjob_number, Tasktask_ID, description, COALESCE(null, ' ') AS \"--\", first_name, last_name status " +
-                "FROM Questions, Staff " +
-                "WHERE Jobjob_number = @val0 " +
-                "AND Questions.staff_ID = Staff.Staff_ID " +
-                "AND status != \"Archived\" ;"
-                , searchbox.Text);
+            // question_id, Jobjob_number, Tasktask_ID, description, COALESCE(null, ' ') AS \"--\", first_name, last_name, status
         }
 
         private void onQChange(object sender, SelectedCellsChangedEventArgs e)

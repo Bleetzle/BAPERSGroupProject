@@ -24,6 +24,7 @@ namespace Bapers.GUI.officeManager
     {
         DatabaseConnector db = new DatabaseConnector();
         string selectedAcc = "";
+        DataView data;
 
         public changeCustomer()
         {
@@ -33,11 +34,12 @@ namespace Bapers.GUI.officeManager
             standard_radioBtn.IsEnabled = false;
             discount_Dropdown.IsEnabled = false;
             changeDiscount_btn.IsEnabled = false;
+            data = (DataView)custGrid.ItemsSource;
         }
 
         private async void Populate()
         {
-            await db.Select(custGrid, "SELECT account_number, first_name, last_name, phone_number, address, company_name FROM Customer");
+            await db.Select(custGrid, "SELECT account_number, first_name, last_name, email_address, phone_number, address, company_name FROM Customer");
 
             await db.Select(variGrid, "SELECT task_id, task_description, NULLIF(discount_rate, discount_rate) AS discount_rate FROM variable_discount, tasks WHERE task_type = task_id");
 
@@ -80,14 +82,37 @@ namespace Bapers.GUI.officeManager
             this.Close();
         }
 
-        private async void searchChanged(object sender, TextChangedEventArgs e)
+        private void searchChanged(object sender, TextChangedEventArgs e)
         {
-            if (custGrid.ItemsSource != null) {
-                if (searchbox.Text .Equals(""))
-                    await db.Select(custGrid, "SELECT account_number, first_name, last_name, phone_number, address, company_name FROM Customer; ");
+            if (data != null)
+            {
+                if (!searchbox.Text.Equals("") && !searchbox.Text.Equals("Search..."))
+                {
+                    string searchstring = searchbox.Text;
+                    int convert;
+                    int.TryParse(searchstring, out convert);
+                    if (convert != 0)
+                        data.RowFilter = " phone_number = " + searchstring 
+                           + "";
+                    else
+                    {
+                        data.RowFilter =
+                        "account_number LIKE '%" + searchstring.ToString()
+                        + "%' OR first_name LIKE '%" + searchstring.ToString()
+                        + "%' OR last_name LIKE '%" + searchstring.ToString()
+                        + "%' OR address LIKE '%" + searchstring.ToString()
+                        + "%' OR email_address LIKE '%" + searchstring.ToString()
+                        + "%' OR company_name LIKE '%" + searchstring.ToString()
+                        + "%'";
+                    }
+                    custGrid.ItemsSource = data;
+                }
                 else
-                    await db.Select(custGrid, "SELECT account_number, first_name, last_name, phone_number, address, company_name FROM Customer WHERE account_number = @val0; ", searchbox.Text);
+                {
+                    Populate();
+                }
             }
+            // UserID, username, first_name, last_name, role, shift_type, location
         }
 
         /// <summary>
@@ -259,13 +284,15 @@ namespace Bapers.GUI.officeManager
                     "   last_name = @val1, " +
                     "   phone_number = @val2, " +
                     "   address = @val3, " +
-                    "   company_name = @val4 " +
-                    "WHERE account_number = @val5; "
+                    "   company_name = @val4, " +
+                    "   email_adress = @val5 " +
+                    "WHERE account_number = @val6; "
                     , dr.Row.Field<string>("first_name")
                     , dr.Row.Field<string>("last_name")
                     , dr.Row.Field<int>("phone_number")
                     , dr.Row.Field<string>("address") 
                     , dr.Row.Field<string>("company_name")
+                    , dr.Row.Field<string>("email_adress")
                     , dr.Row.Field<string>("account_number"));  
                 
                 //account_number, first_name, last_name, phone_number, address, company_name

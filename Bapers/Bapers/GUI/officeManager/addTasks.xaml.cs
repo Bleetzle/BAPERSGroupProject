@@ -22,11 +22,12 @@ namespace Bapers.GUI.officeManager
     {
         DatabaseConnector db = new DatabaseConnector();
         string selectedTask = "";
-
+        DataView data;
         public addTasks()
         {
             InitializeComponent();
             populate();
+            data = (DataView)taskGrid.ItemsSource;
         }
         private async void populate()
         {
@@ -65,10 +66,35 @@ namespace Bapers.GUI.officeManager
             loginWindow.Show();
             this.Close();
         }
- 
+
         private void searchChanged(object sender, TextChangedEventArgs e)
         {
-
+            if (data != null)
+            {
+                if (!searchbox.Text.Equals("") && !searchbox.Text.Equals("Search..."))
+                {
+                    string searchstring = searchbox.Text;
+                    int convert;
+                    int.TryParse(searchstring, out convert);
+                    if (convert != 0)
+                        data.RowFilter = " task_id = " + searchstring + 
+                            " OR task_duration = " + searchstring + 
+                            " OR price = " + searchstring + "";
+                    else
+                    {
+                        data.RowFilter =
+                        "task_description LIKE '%" + searchstring.ToString()
+                        + "%' OR location LIKE '%" + searchstring.ToString()
+                        + "%'";
+                    }
+                    taskGrid.ItemsSource = data;
+                }
+                else
+                {
+                    populate();
+                }
+            }
+            // task_id, task_description, location, task_duration, price
         }
 
         private void ontaskChange(object sender, SelectedCellsChangedEventArgs e)

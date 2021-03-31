@@ -16,7 +16,9 @@
         <TextBlock Margin="110,171,681,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Telephone No."/><Run Text=" "/><Run Text=": "/></TextBlock>
         <Button x:Name="login_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="845,545,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="45,545,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
-        <Button x:Name="search_btn" Content="SEARCH" HorizontalAlignment="Left" Height="25" Margin="760,215,0,0" VerticalAlignment="Top" Width="80" Click="search_click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <Button x:Name="search_btn" Content="SEARCH" HorizontalAlignment="Left" Height="25" Margin="760,262,0,0" VerticalAlignment="Top" Width="80" Click="search_click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
+        <TextBox x:Name="email_txtBox" HorizontalAlignment="Left" Height="25" Margin="296,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="544" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697"/>
+        <TextBlock Margin="111,212,680,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Text="Email:"/>
 
     </Grid>
 </Window>

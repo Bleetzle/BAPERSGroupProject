@@ -48,7 +48,7 @@ namespace Bapers.GUI
         private async void search_click(object sender, RoutedEventArgs e)
         {
             //check if any of the inputs are empty
-            if (firstname_txtBox.Text.Equals("") || surname_txtBox.Text.Equals("") ||telephone_txtBox.Text.Equals(""))
+            if (firstname_txtBox.Text.Equals("") || surname_txtBox.Text.Equals("") ||telephone_txtBox.Text.Equals("") || email_txtBox.Text.Equals(""))
             {
                 MessageBox.Show("Please fill in all boxes!");
                 return;
@@ -62,8 +62,9 @@ namespace Bapers.GUI
                 " WHERE first_name = @val0" +
                 " AND last_name = @val1" +
                 " AND phone_number = @val2 " +
+                " AND email_address = @val3 " +
                 ";"
-                , firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text
+                , firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text, email_txtBox.Text
                 );
 
             if (isfound)

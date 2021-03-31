@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PdfSharp.Drawing;
+using PdfSharp.Pdf;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -75,6 +77,7 @@ namespace Bapers.GUI
         
         private async void addJob_Click(object sender, RoutedEventArgs e)
         {
+
             List<string> selectedList = new List<string>();
             List<int> amount = new List<int>();
 
@@ -241,9 +244,11 @@ namespace Bapers.GUI
                 "WHERE Jobjob_number = @val0 " +
                 "AND Taskstask_id = task_id " +
                 "UNION " +
-                "SELECT coalesce(NULL, 'Total: '), coalesce(NULL, ' '), coalesce(NULL, ' '),coalesce(NULL, ' '), coalesce(NULL, ' '), discounted_total " +
+                "SELECT coalesce(NULL, 'Sub Total'), coalesce(NULL, '*'), coalesce(NULL, '*'),coalesce(NULL, '*'), coalesce(NULL, '*'), discounted_total " +
                 "FROM Job " +
-                "WHERE job_number = @val0; "
+                "WHERE job_number = @val0 " +
+                "UNION " +
+                "SELECT coalesce(NULL, 'Total: '), coalesce(NULL, ' '), coalesce(NULL, ' '), coalesce(NULL, 'Values Added Tax (20%)'), coalesce(NULL, 'tax'), coalesce(NULL, 'total'); "
                 , "J" + num);
 
             foreach (System.Data.DataRowView dr in jobsGrid.ItemsSource)
@@ -251,10 +256,16 @@ namespace Bapers.GUI
                 if (dr.Row.Field<string>(5).Equals("fill")){
                     dr.Row.SetField<string>(5, tasksCost[dr.Row.Field<string>("job_priority")].ToString() );
                 }
+                if (dr.Row.Field<string>(4).Equals("tax"))
+                {
+                    dr.Row.SetField<string>(4, (Math.Round(totalPrice * 0.2, 2)).ToString());
+                }
+                if (dr.Row.Field<string>(5).Equals("total"))
+                {
+                    dr.Row.SetField<string>(5, (Math.Round(totalPrice * 1.2, 2) ).ToString());
+                }
             }
-
             System.Windows.Forms.MessageBox.Show("Job has been added successfully");
-            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

@@ -9,22 +9,22 @@
     <Grid>
         <Button x:Name="logout_btn" Content="LOGOUT" HorizontalAlignment="Left" Height="25" Margin="782,350,0,0" VerticalAlignment="Top" Width="80" Click="logOut_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
         <TextBlock HorizontalAlignment="Left" Height="44" Margin="40,30,0,0" TextWrapping="Wrap" Text="Report Portal" VerticalAlignment="Top" Width="334" FontFamily="Global Serif" FontSize="36"/>
-        <TextBlock Margin="30,102,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Report Type"/><Run Text=" :"/></TextBlock>
-        <TextBlock Margin="75,223,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Timespan"/><Run Text=" (Days)"/><Run Text=" :"/></TextBlock>
-        <TextBlock Margin="110,180,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Text="Start date :"/>
-        <TextBlock Margin="110,263,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Auto Generate"/><Run Text=" :"/></TextBlock>
-        <CheckBox x:Name="autoGen_checkbox" Content="" HorizontalAlignment="Left" Margin="315,272,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.352,0" Checked="CheckBox_Checked" FontSize="6"/>
+        <TextBlock Margin="54,102,587,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Report Type"/><Run Text=" :"/></TextBlock>
+        <TextBlock Margin="99,223,587,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Timespan"/><Run Text=" (Days)"/><Run Text=" :"/></TextBlock>
+        <TextBlock Margin="134,180,587,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right" Text="Start date :"/>
+        <TextBlock Margin="134,263,587,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Auto Generate"/><Run Text=" :"/></TextBlock>
+        <CheckBox x:Name="autoGen_checkbox" Content="" HorizontalAlignment="Left" Margin="339,272,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.352,0" Checked="CheckBox_Checked" FontSize="6"/>
         <Button x:Name="viewReport_btn" Content="View Report" HorizontalAlignment="Left" Height="40" Margin="364,308,0,0" VerticalAlignment="Top" Width="158" Click="viewReport_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="22" Foreground="Black" FontWeight="Bold"/>
         <Button x:Name="back_btn" Content="BACK" HorizontalAlignment="Left" Height="25" Margin="45,350,0,0" VerticalAlignment="Top" Width="80" Click="back_Click" Background="#FF918F8B" FontFamily="Segoe UI Semibold" FontSize="16" Foreground="Black"/>
-        <TextBox x:Name="custNo_txtBox" HorizontalAlignment="Left" Height="25" Margin="295,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697" />
-        <TextBlock x:Name="custNo_txt" Margin="30,137,611,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Customer Number"/><Run Text=" :"/></TextBlock>
-        <ComboBox x:Name="reportType_comboBox" HorizontalAlignment="Left" Margin="295,109,0,0" VerticalAlignment="Top" Width="331" IsSynchronizedWithCurrentItem="True" Cursor="Hand" DropDownClosed="onChange" DataContextChanged="onChange">
+        <TextBox x:Name="custNo_txtBox" HorizontalAlignment="Left" Height="25" Margin="319,140,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="435" TextChanged="TextBox_TextChanged" FontSize="18" FontFamily="Verdana" Background="#FF959697" />
+        <TextBlock x:Name="custNo_txt" Margin="0,137,587,0" TextWrapping="Wrap" VerticalAlignment="Top" FontFamily="Global Serif" FontSize="24" TextAlignment="Right"><Run Text="Customer "/><Run Text="Phone "/><Run Text="Number"/><Run Text=" :"/></TextBlock>
+        <ComboBox x:Name="reportType_comboBox" HorizontalAlignment="Left" Margin="319,109,0,0" VerticalAlignment="Top" Width="331" IsSynchronizedWithCurrentItem="True" Cursor="Hand" DropDownClosed="onChange" DataContextChanged="onChange">
             <ListBoxItem Content="Individual"/>
             <ListBoxItem Content="Individual Performance"/>
             <ListBoxItem Content="Summary Performance"/>
         </ComboBox>
-        <DatePicker x:Name="start_date" HorizontalAlignment="Left" Margin="295,185,0,0" VerticalAlignment="Top" Width="122" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDate="2021-03-22" IsTodayHighlighted="True"/>
-        <ComboBox x:Name="timeSpan" HorizontalAlignment="Left" Margin="295,223,0,0" VerticalAlignment="Top" Width="122" IsSynchronizedWithCurrentItem="True" Cursor="Hand" DataContextChanged="onChange">
+        <DatePicker x:Name="start_date" HorizontalAlignment="Left" Margin="319,185,0,0" VerticalAlignment="Top" Width="122" FirstDayOfWeek="Monday" SelectedDateFormat="Short" DisplayDate="2021-03-22" IsTodayHighlighted="True"/>
+        <ComboBox x:Name="timeSpan" HorizontalAlignment="Left" Margin="319,223,0,0" VerticalAlignment="Top" Width="122" IsSynchronizedWithCurrentItem="True" Cursor="Hand" DataContextChanged="onChange">
             <ListBoxItem Content="7"/>
             <ListBoxItem Content="30"/>
             <ListBoxItem Content="60"/>
