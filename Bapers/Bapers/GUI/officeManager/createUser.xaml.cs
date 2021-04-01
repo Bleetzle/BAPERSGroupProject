@@ -13,7 +13,9 @@ namespace Bapers.GUI.officeManager
     /// </summary>
     public partial class createUser : Window
     {
+        //connects to the databse
         DatabaseConnector db = new DatabaseConnector();
+        //current selected user
         string selectedUserID = "";
         DataView data;
 
@@ -28,6 +30,7 @@ namespace Bapers.GUI.officeManager
 
         private async void Populate()
         {
+            //gets all the current users from the database
             await db.Select(userGrid, "SELECT UserID, username, first_name, last_name, role, shift_type, location FROM Users, staff WHERE userID = staff_ID");
         }
 
@@ -49,7 +52,9 @@ namespace Bapers.GUI.officeManager
 
         private async void createAccount_Click(object sender, RoutedEventArgs e)
         {
+
             bool shiftChecked = false;
+            //default shift if nothing is checked
             string shift_type = "Day Shift 1";
             string location = null;
             
@@ -68,6 +73,7 @@ namespace Bapers.GUI.officeManager
                 MessageBox.Show("Please fill in all areas");
                 return;
             }
+            //gets thr role from the drop down box
             var role = (role_Dropdown.SelectedItem as ListBoxItem).Content;
 
             //check if the location is empty, only done if technician as ther other roles do not hava a location
@@ -86,7 +92,7 @@ namespace Bapers.GUI.officeManager
 
             if (firstname_txtBox.Text.Equals("Night"))
                 shift_type = "Night Shift 1";
-            
+            //adds values from textbox if its a night shift
             await db.InQuery( 
                 "INSERT INTO staff (first_name, last_name, role, shift_type, location) " +
                 "VALUES (@val0, @val1, @val2, @val3, @val4)",
@@ -108,15 +114,18 @@ namespace Bapers.GUI.officeManager
 
         private void onChange(object sender, SelectionChangedEventArgs e)
         {
+            //gets role from dropdown bar
             var role = (role_Dropdown.SelectedItem as ListBoxItem).Content;
 
             if (role.Equals("Technician"))
             {
+                //location boxes for technician is needed when created
                 location_txtBox.Visibility = Visibility.Visible;
                 locName.Visibility = Visibility.Visible;
             }
             else
             {
+                //else hide the boxes
                 location_txtBox.Visibility = Visibility.Hidden;
                 locName.Visibility = Visibility.Hidden;
             }
@@ -128,7 +137,7 @@ namespace Bapers.GUI.officeManager
             userGrid.CommitEdit();
             foreach (System.Data.DataRowView dr in userGrid.ItemsSource)
             {
-                //update user acc
+                //update user account
                 await db.InQuery(
                     "UPDATE Users " +
                     "SET username = @val0 " +
@@ -136,7 +145,7 @@ namespace Bapers.GUI.officeManager
                     , dr.Row.Field<string>("username")
                     , dr.Row.Field<int>("userID")
                 );
-                //update staff
+                //update staff account
                 await db.InQuery(
                     "UPDATE Staff " +
                     "SET first_name = @val0, " +
@@ -159,10 +168,12 @@ namespace Bapers.GUI.officeManager
 
         private void searchChanged(object sender, TextChangedEventArgs e)
         {
+            //search box to search through the users
             if (data != null)
             {
                 if (!searchbox.Text.Equals("") && !searchbox.Text.Equals("Search..."))
                 {
+                    //updates database to show searched query
                     string searchstring =  searchbox.Text;
                     int convert;
                     int.TryParse(searchstring, out convert);
@@ -190,6 +201,8 @@ namespace Bapers.GUI.officeManager
 
         private async void delete_Click(object sender, RoutedEventArgs e)
         {
+            //deleting users from the database
+            //if no user is selected
             if (selectedUserID.Equals(""))
             {
                 MessageBox.Show("No user selected");
@@ -198,6 +211,7 @@ namespace Bapers.GUI.officeManager
 
             if (!selectedUserID.Equals(""))
             {
+                //confirm to delete user
                 MessageBoxResult confirmResult = MessageBox.Show("Are you sure you want to delete the account?", "Confirm Delete", MessageBoxButton.YesNo);
                 if (confirmResult == MessageBoxResult.No)
                     return;

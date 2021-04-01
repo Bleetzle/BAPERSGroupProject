@@ -39,6 +39,7 @@ namespace Bapers.GUI.officeManager
 
         private async void Populate()
         {
+            //populates the datagrid with all customer data
             await db.Select(custGrid, "SELECT account_number, first_name, last_name, email_address, phone_number, address, company_name FROM Customer");
 
             await db.Select(variGrid, "SELECT task_id, task_description, NULLIF(discount_rate, discount_rate) AS discount_rate FROM variable_discount, tasks WHERE task_type = task_id");
@@ -84,6 +85,7 @@ namespace Bapers.GUI.officeManager
 
         private void searchChanged(object sender, TextChangedEventArgs e)
         {
+            //code for searchbox to search through the datagrid
             if (data != null)
             {
                 if (!searchbox.Text.Equals("") && !searchbox.Text.Equals("Search..."))
@@ -122,6 +124,7 @@ namespace Bapers.GUI.officeManager
         /// <param name="e"></param>
         private async void onCustChange(object sender, SelectedCellsChangedEventArgs e)
         {
+            //when different customer is selected this method is executed
             if (!changeDiscount_btn.IsEnabled)
             {
                 valued_radioBtn.IsEnabled = true;
@@ -161,7 +164,9 @@ namespace Bapers.GUI.officeManager
                                 standard_radioBtn.IsChecked = true;
                                 break;
                             case "valued":
+                                //if customer if valued, diffrent discounts are applied
                                 valued_radioBtn.IsChecked = true;
+                                //switch statement for each stype of discount
                                 switch(await db.SelectSingle("SELECT discount_plan FROM discount WHERE Customeraccount_number = @val0", selectedAcc)){
                                     case "Fixed":
                                         discount_Dropdown.SelectedIndex = 0;
@@ -213,7 +218,7 @@ namespace Bapers.GUI.officeManager
             fixed_txtBox.Visibility = Visibility.Hidden;
             variGrid.Visibility = Visibility.Hidden;
             flexGrid.Visibility = Visibility.Hidden;
-
+            //in case of diffrent type of discount selected, diffrent datagrid / txt boxes are shown
             switch (discount_Dropdown.SelectedIndex)
             {
                 case 0:
@@ -234,6 +239,7 @@ namespace Bapers.GUI.officeManager
         //saves all changes to the data 
         private async void saveChanges(object sender, RoutedEventArgs e)
         {
+            //input validation for changing details on customer details
             if (selectedAcc.Equals(""))
             {
                 MessageBox.Show("Please select an account and change details to save");
@@ -349,10 +355,10 @@ namespace Bapers.GUI.officeManager
             }
             else
             {
-                //sets them to valued
+                //sets them to valued customer
                 await db.InQuery("UPDATE Customer SET customer_status = \"valued\" WHERE account_number = @val0;", selectedAcc);
                 await db.InQuery("INSERT INTO discount (discount_plan, Customeraccount_number)  VALUES (@val0, @val1)", discount_Dropdown.Text, selectedAcc);
-
+                //switching between the diffrent types of discounts
                 switch (discount_Dropdown.Text)
                 {
                     case "Fixed":

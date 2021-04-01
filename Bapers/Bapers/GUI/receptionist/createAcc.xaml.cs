@@ -47,7 +47,7 @@ namespace Bapers.GUI
 
         private async void create_Click(object sender, RoutedEventArgs e)
         {
-
+            //input validation
             if (firstname_txtBox.Text.Equals("") || surname_txtBox.Text.Equals("")||telephone_txtBox.Text.Equals("")||compName_txtBox.Text.Equals("")||address_txtBox.Text.Equals(""))
             {
                 MessageBox.Show("Please fill in all areas!");

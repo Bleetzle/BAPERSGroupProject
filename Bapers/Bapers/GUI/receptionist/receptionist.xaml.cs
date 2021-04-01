@@ -19,9 +19,11 @@ namespace Bapers.GUI
     /// </summary>
     public partial class receptionist : Window
     {
+        
         public receptionist()
         {
             InitializeComponent();
+            //checks if there is a history, if there is, backbutton is visible
             if (myVariables.myStack.Count ==0)
             {
                 back_btn.Visibility = Visibility.Hidden;           

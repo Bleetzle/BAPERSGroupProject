@@ -19,6 +19,7 @@ namespace Bapers.GUI.shiftManager
     /// </summary>
     public partial class shiftManager : Window
     {
+        //portal for when a shiftmanager logs in
         public shiftManager()
         {
             myVariables.myStack.Push("Shift Manager");
@@ -49,6 +50,7 @@ namespace Bapers.GUI.shiftManager
 
         private void assign_click(object sender, RoutedEventArgs e)
         {
+            //used for assigning tasks
             assign assignWindow = new assign();
             assignWindow.Show();
             this.Close();

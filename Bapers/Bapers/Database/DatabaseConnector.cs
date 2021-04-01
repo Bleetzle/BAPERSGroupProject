@@ -34,6 +34,7 @@ namespace Bapers
 
         private async Task<bool> OpenConnection()
         {
+            //connecting to the sql connector
             try
             {
                 if (connection.State != ConnectionState.Open)
@@ -77,6 +78,7 @@ namespace Bapers
         //runs a query and fills in a grid
         public async Task Select(DataGrid dg, string q, params object[] vals)
         {
+            //select query for sql
             DataTable dataTable = new DataTable();
             try
             { 
@@ -153,6 +155,7 @@ namespace Bapers
         //runs a query and selects a single item -- slightly quicker to run than the first method as there is no grid
         public async Task<string> SelectSingle(string q, params object[] vals)
         {
+            //this query returns a single row from a specified  sql query
             string value = "null";
             try
             {
@@ -258,6 +261,7 @@ namespace Bapers
         {
             try
             {
+                //all data used for creating a backup
                 string username = System.Configuration.ConfigurationManager.AppSettings.Get("USERNAME");
                 string password = System.Configuration.ConfigurationManager.AppSettings.Get("PASSWORD");
                 string server = System.Configuration.ConfigurationManager.AppSettings.Get("SERVER");
@@ -272,6 +276,7 @@ namespace Bapers
                 int second = time.Second;
                 int millisecond = time.Millisecond;
 
+                //path to the back up
                 path += @"\\MySqlBackup" + year + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + second + "-" + millisecond + ".sql";
                 StreamWriter file = new StreamWriter(path);
 
@@ -296,6 +301,7 @@ namespace Bapers
             }
             catch (Exception ex)
             {
+                //if making backup fails
                 MessageBox.Show(string.Format("Error, unable to Backup. {0}", ex.Message), "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -305,6 +311,7 @@ namespace Bapers
         {
             try
             {
+                //all data used for restoring from a .sql file
                 string username = System.Configuration.ConfigurationManager.AppSettings.Get("USERNAME");
                 string password = System.Configuration.ConfigurationManager.AppSettings.Get("PASSWORD");
                 string server = System.Configuration.ConfigurationManager.AppSettings.Get("SERVER");
@@ -347,7 +354,7 @@ namespace Bapers
                             //records generation
             else
                 await this.InQuery("INSERT INTO ReportHistory (report_date, report_type, automatically_generated, timespan,userID) VALUES (@val0, @val1, @val2,@val3, @val4)", DateTime.Now.Date, reportType, automatic, timespan, custID);
-
+            
             var endDate = startDate.AddDays(timespan);
 
             DateTime time = DateTime.Now;
@@ -361,6 +368,7 @@ namespace Bapers
 
             path += year + "-" + month + "-" + day + "-" + hour + "-" + minute + "-" + second + "-" + millisecond + ".pdf";
 
+            //query used to create diffrent report types
             switch (reportType)
             {
                 case "Individual Performance":
@@ -445,11 +453,12 @@ namespace Bapers
                     MessageBox.Show("There was an error");
                     break;
             }
-
+            //printing the query into a pdf document
             PdfDocument document = new PdfDocument();
             document.Info.Title = "Report";
             reportType += " Report:";
-
+            
+            // creates extra pages if query is too long
             PdfPage page = document.AddPage();
             page.Height = 842;//842
             page.Width = 590;
@@ -497,6 +506,7 @@ namespace Bapers
 
         private void CreateTable(PdfPage page, DataTable dt, XGraphics gfx, XStringFormat format, double lineHeight, int marginLeft, int marginTop, int el_height, int el_width)
         {
+            //how the printed output would looklike/ gui design for table
             XFont font = new XFont("Verdana", 10, XFontStyle.Bold);
 
             var tf = new XTextFormatter(gfx);
@@ -509,7 +519,7 @@ namespace Bapers
             XSolidBrush rect_style2 = new XSolidBrush(XColors.LightGray);
             XSolidBrush rect_style3 = new XSolidBrush(XColors.DarkGray);
 
-
+            //creating the rows and columns
             for (int i = 0; i <= dt.Rows.Count; i++)
             {
                 if (i == 0)

@@ -19,6 +19,8 @@ namespace Bapers.GUI
     /// </summary>
     public partial class accNotFound : Window
     {
+
+        //this popup box is used as an intermediary when account is not found through search
         public accNotFound()
         {
             InitializeComponent();

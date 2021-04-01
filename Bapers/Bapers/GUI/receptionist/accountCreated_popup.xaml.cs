@@ -19,6 +19,7 @@ namespace Bapers.GUI
     /// </summary>
     public partial class accountCreated_popup : Window
     {
+        //this popup is used when account is created and asks the user if they would like to add jobs to the current account
         public accountCreated_popup()
         {
             InitializeComponent();

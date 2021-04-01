@@ -31,12 +31,14 @@ namespace Bapers.GUI.officeManager
         }
         private async void populate()
         {
+            //populates the current datagrid with all the tasks there
              await db.Select(taskGrid, "SELECT task_id, task_description, location, task_duration, price FROM Tasks;");
         }
 
 
         private async void add_Click(object sender, RoutedEventArgs e)
         {
+            //adds new task into the database task when add button is clicked after filling out the information
             try
             {
                 await db.InQuery("INSERT INTO Tasks (task_description,location,task_duration, price,amount)VALUES(@val0, @val1, @val2,@val3,@val4)", description_txtBox.Text, location_txtBox.Text, duration_txtBox.Text, price_txtBox.Text,0);
@@ -69,8 +71,10 @@ namespace Bapers.GUI.officeManager
 
         private void searchChanged(object sender, TextChangedEventArgs e)
         {
+            //code for search box
             if (data != null)
             {
+                //validation check
                 if (!searchbox.Text.Equals("") && !searchbox.Text.Equals("Search..."))
                 {
                     string searchstring = searchbox.Text;
@@ -94,7 +98,6 @@ namespace Bapers.GUI.officeManager
                     populate();
                 }
             }
-            // task_id, task_description, location, task_duration, price
         }
 
         private void ontaskChange(object sender, SelectedCellsChangedEventArgs e)
@@ -141,18 +144,20 @@ namespace Bapers.GUI.officeManager
 
         private async void delete_Click(object sender, RoutedEventArgs e)
         {
+            //input validation
             if (selectedTask.Equals(""))
             {
                 MessageBox.Show("No task selected");
                 return;
             }
-
+            //runs when a task is being deleted from the datagrid
             if (!selectedTask.Equals(""))
             {
                 MessageBoxResult confirmResult = MessageBox.Show("Are you sure you want to delete the Task?", "Confirm Delete", MessageBoxButton.YesNo);
                 if (confirmResult == MessageBoxResult.No)
                     return;
             }
+            //uses a list format to get musltiple tasks to be deleted
             var qList = new List<String>();
             await db.SelectLists(qList,"SELECT question_ID FROM Questions WHERE Tasktask_ID = @val0;", selectedTask);
 

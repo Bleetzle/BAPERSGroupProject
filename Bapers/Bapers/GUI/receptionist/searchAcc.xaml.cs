@@ -66,7 +66,7 @@ namespace Bapers.GUI
                 ";"
                 , firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text, email_txtBox.Text
                 );
-
+            //if account is found
             if (isfound)
             {
                 //stores the customer deatails for use in the job adding or payment adding
@@ -87,7 +87,7 @@ namespace Bapers.GUI
                     "AND last_name = @val1 " +
                     "AND phone_number = @val2 " +
                     ";", firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text);
-
+                //creates window for customer thats found to be used
                 accountFound accountfoundwindow = new accountFound();
                 accountfoundwindow.Show();
                 this.Close();

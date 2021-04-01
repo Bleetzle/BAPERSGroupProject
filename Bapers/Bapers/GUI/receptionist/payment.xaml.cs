@@ -52,6 +52,7 @@ namespace Bapers.GUI
 
         }
 
+        //the next two functions are used so the correct gui shown when either of the two is selected
         private void card_Checked(object sender, RoutedEventArgs e)
         {
             cardType.Visibility = Visibility.Visible;
@@ -197,7 +198,7 @@ namespace Bapers.GUI
                     }
                 }
             }
-
+            //does it for each of the removed cells
             foreach (var item in e.RemovedCells)
             {
                 if (item.Column != null)

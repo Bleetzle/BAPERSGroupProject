@@ -15,6 +15,7 @@ namespace Bapers.GUI.reports
         public viewReport(string reportType, string userID, string timespan, DateTime startDate, bool automatic, string path)
         {
             InitializeComponent();
+            //populates the datagrid with the report given
             populateGrid(reportType, userID, timespan, startDate, automatic, path);
         }
 
@@ -24,7 +25,7 @@ namespace Bapers.GUI.reports
             filePath = path += "\\" + reportType.Replace(" ", "") + "Report";
 
             var startDate = srtDate.Date;
-
+            //lets the database to generate the report
             filePath = await db.generateReport(reportType, reportGrid, userID, int.Parse(timespan), startDate, automatic, path);
         }
 

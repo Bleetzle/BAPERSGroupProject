@@ -34,6 +34,7 @@ namespace Bapers.GUI.technician
 
         private async void PopulateQuestions()
         {
+            //adds all the questions from the question table for the respective technician
             await db.Select(QGrid,
                 "SELECT question_id, Jobjob_number, Tasktask_ID, description, COALESCE(null, ' ') AS \"--\", first_name, last_name, status " +
                 "FROM Questions, Staff " +
@@ -42,6 +43,7 @@ namespace Bapers.GUI.technician
         }
         private async void PopulateResponces()
         {
+            //used for submitting responses to queries
             await db.Select(QGrid,
                 "SELECT responces.description, COALESCE(null, ' ') AS \"--\", first_name, last_name " +
                 "FROM Responces, Questions, Staff " +
@@ -79,6 +81,7 @@ namespace Bapers.GUI.technician
 
         private void searchChanged(object sender, TextChangedEventArgs e)
         {
+            //code for the search box
             if (data != null)
             {
                 if (!searchbox.Text.Equals("") && !searchbox.Text.Equals("Search..."))
@@ -112,6 +115,7 @@ namespace Bapers.GUI.technician
 
         private void onQChange(object sender, SelectedCellsChangedEventArgs e)
         {
+            //when a question is changed
             foreach (var item in e.AddedCells)
             {
                 if (item.Column != null)
@@ -134,6 +138,7 @@ namespace Bapers.GUI.technician
 
         private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
         {
+            
             subTitle.Text = "Responces: ";
 
             searchbox.Visibility = Visibility.Hidden;
@@ -196,12 +201,13 @@ namespace Bapers.GUI.technician
 
         private async void addQ_click(object sender, RoutedEventArgs e)
         {
+            //input validation
             if (jobID_txtBox.Text.Equals("") || taskNumber_txtBox.Text.Equals("") || qDescription_textBox.Text.Equals(""))
             {
                 MessageBox.Show("Please fill in all areas");
                 return;
             }
-
+            //adding a new question into the questions table
             await db.InQuery("INSERT INTO Questions (Jobjob_number, Tasktask_id, description, staff_ID, status) VALUES (@val0, @val1, @val2, @val3, \"Pending\");", jobID_txtBox.Text, taskNumber_txtBox.Text,qDescription_textBox.Text, myVariables.num);
             MessageBox.Show("Question Added Successfully!");
         }

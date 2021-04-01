@@ -37,6 +37,7 @@ namespace Bapers.GUI.technician
 
         private async void PopulateJobs()
         {
+            //shows all jobs onto the datagrid that the technician needs to complete
             await db.Select(jobsGrid,
                 "SELECT DISTINCT(job_Number), job_priority, deadline, special_instructions " +
                 "FROM job, job_tasks " +
@@ -48,6 +49,7 @@ namespace Bapers.GUI.technician
         {
             if ((bool)showComplete.IsChecked)
             {
+                //gets all the current tasks
                 await db.Select(tasksGrid,
                     "SELECT Taskstask_ID, task_description, start_time, time_taken " +
                     "FROM Job_Tasks, Tasks, Job " +
@@ -179,6 +181,7 @@ namespace Bapers.GUI.technician
 
         private void searchChanged(object sender, TextChangedEventArgs e)
         {
+            //for searchbox
             if (data != null)
             {
                 if (!searchbox.Text.Equals("") && !searchbox.Text.Equals("Search..."))

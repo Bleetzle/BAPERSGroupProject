@@ -24,6 +24,7 @@ namespace Bapers
         DatabaseConnector db = new DatabaseConnector();
         public Login()
         {
+            //clears history for portal when going from office manager or shiftmanager to receptionist or report portal 
             myVariables.myStack.Clear();
             InitializeComponent();
         }
@@ -42,17 +43,17 @@ namespace Bapers
 
         private async void credentialChecker(string username, string password)
         {
+            //checks if username / password if filled out properly
             if (username_txtBox.Text.Equals("") || password_txtBox.Password.Equals(""))
             {
                 MessageBox.Show("Please fill in all areas");
                 return;
             }
             //code for searching database for the username and password
-
             var num = await db.SelectSingle("SELECT userID FROM users WHERE username = @val0 AND pass = @val1", username_txtBox.Text, db.StringToHash(password_txtBox.Password));
             myVariables.num = num;
 
-            //need to change this to also store the information of whos logged in
+            
             if (!num.Equals("null"))
             {
                 string role = await db.SelectSingle("SELECT role FROM staff WHERE staff_ID = @val0", num); ;
@@ -67,10 +68,11 @@ namespace Bapers
                         receptionistwindow.Show();
                         break;
                     case "Technician":
-                        //need to check with the id if there is any quesries to remove
+                        //list used to find questions and resolved questions for technician
                         List<string> qs= new List<string>();
                         await db.SelectLists(qs, "select question_id FROM resolvedQuestions where staff_id = @val0;", myVariables.num);
                         await db.SelectLists(qs, "DELETE FROM resolvedQuestions where staff_id = @val0;", myVariables.num);
+                        //updates technician queries
                         foreach (string s in qs)
                             await db.InQuery("UPDATE Questions SET status = \"Archived\" WHERE question_id = @val0 ", int.Parse(s));
                         GUI.technician.technicianPortal technicianWindow = new GUI.technician.technicianPortal();
@@ -87,6 +89,7 @@ namespace Bapers
                         {
                             var val = await db.SelectSingle("SELECT id, MAX(DateOfNext) FROM BackupHistory GROUP BY id ORDER BY  DateOfNext DESC;");
                             List<string> BUinfo = new List<string>();
+                            //query for backup
                             await db.SelectLists(BUinfo,
                                 "SELECT backup_date FROM BackupHistory WHERE id = @val0 " +
                                 "UNION SELECT automatically_backed FROM BackupHistory WHERE id = @val0  " +

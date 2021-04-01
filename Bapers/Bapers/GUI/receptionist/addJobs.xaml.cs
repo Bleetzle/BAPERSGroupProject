@@ -77,20 +77,12 @@ namespace Bapers.GUI
         
         private async void addJob_Click(object sender, RoutedEventArgs e)
         {
-
+            //lists used to hold data on all added tasks and amount
             List<string> selectedList = new List<string>();
             List<int> amount = new List<int>();
 
-            //get the Selected tasks on drop down 
-            //for (int i = 1; i < tasks_dropDown.Items.Count; i++)
-            //{
-            //    CheckBox cb = (tasks_dropDown.Items[i] as CheckBox);
-            //    if ((bool)cb.IsChecked)
-            //        selectedList.Add(cb.Content.ToString());
-            //}
-
             int amountChanged = 0;
-
+            
             //finds all the rows which has more than 0 in the amount
 
             foreach (System.Data.DataRowView dr in taskGrid.ItemsSource)

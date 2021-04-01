@@ -14,6 +14,7 @@ namespace Bapers.GUI.reports
         public reportPortal()
         {
             InitializeComponent();
+            //back button is only visible since its accessed by two accounts
             if (myVariables.myStack.Count == 0)
             {
                 back_btn.Visibility = Visibility.Hidden;
@@ -52,6 +53,7 @@ namespace Bapers.GUI.reports
         {
             bool automatic = false;
             string path = "";
+            //input validation
             if (reportType_comboBox.Text.Equals("") || timeSpan.Text.Equals("") || start_date.SelectedDate == null)
             {
                 System.Windows.MessageBox.Show("Please fill in all areas");
