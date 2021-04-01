@@ -63,7 +63,7 @@ namespace Bapers.GUI
             //uses the input and the created id to create a new account
             await db.InQuery(
                 "INSERT INTO Customer (account_number, first_name, last_name, phone_number, company_name, address, email_address, customer_status)" +
-                "VALUES (@val0, @val1, @val2, @val3, @val4, @val5, @val6)"
+                "VALUES (@val0, @val1, @val2, @val3, @val4, @val5, @val6, @val7)"
                 ,"ACC" + num, firstname_txtBox.Text, surname_txtBox.Text, telephone_txtBox.Text, compName_txtBox.Text, address_txtBox.Text,email_txtBox.Text, "standard"
                 );
 

@@ -285,14 +285,14 @@ namespace Bapers.GUI.officeManager
                     "   phone_number = @val2, " +
                     "   address = @val3, " +
                     "   company_name = @val4, " +
-                    "   email_adress = @val5 " +
+                    "   email_address = @val5 " +
                     "WHERE account_number = @val6; "
                     , dr.Row.Field<string>("first_name")
                     , dr.Row.Field<string>("last_name")
                     , dr.Row.Field<int>("phone_number")
-                    , dr.Row.Field<string>("address") 
+                    , dr.Row.Field<string>("address")
                     , dr.Row.Field<string>("company_name")
-                    , dr.Row.Field<string>("email_adress")
+                    , dr.Row.Field<string>("email_address")
                     , dr.Row.Field<string>("account_number"));  
                 
                 //account_number, first_name, last_name, phone_number, address, company_name
