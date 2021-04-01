@@ -153,7 +153,16 @@ namespace Bapers.GUI.officeManager
                 if (confirmResult == MessageBoxResult.No)
                     return;
             }
+            var qList = new List<String>();
+            await db.SelectLists(qList,"SELECT question_ID FROM Questions WHERE Tasktask_ID = @val0;", selectedTask);
 
+            //remove all responces
+            foreach(string s in qList)
+            {
+                await db.InQuery("DELETE FROM Responces WHERE question_id = @val0;", int.Parse(s));
+            }
+            //remove the questions
+            await db.InQuery("DELETE FROM Questions WHERE Tasktask_id = @val0;", selectedTask);
             //all remove all job tasks with this task id
             await db.InQuery("DELETE FROM Job_tasks WHERE Taskstask_ID = @val0;", int.Parse(selectedTask) );
             //remove the task

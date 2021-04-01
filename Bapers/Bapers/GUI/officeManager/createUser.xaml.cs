@@ -208,10 +208,11 @@ namespace Bapers.GUI.officeManager
             await db.InQuery("DELETE FROM Responces WHERE staff_id = @val0;", int.Parse(selectedUserID));
             //remove any responces
             await db.InQuery("DELETE FROM Questions WHERE staff_id = @val0;", int.Parse(selectedUserID));
+             //remove user account
+            await db.InQuery("DELETE FROM Users WHERE userId = @val0;", int.Parse(selectedUserID));
             //remove the staff 
             await db.InQuery("DELETE FROM staff WHERE staff_id = @val0;", int.Parse(selectedUserID));
-            //remove user account
-            await db.InQuery("DELETE FROM Users WHERE userId = @val0;", int.Parse(selectedUserID));
+           
 
             Populate();
 
