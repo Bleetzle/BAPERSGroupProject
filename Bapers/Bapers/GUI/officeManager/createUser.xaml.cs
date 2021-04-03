@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Data;
-using System.Windows.Data;
-using System.ComponentModel;
 
 namespace Bapers.GUI.officeManager
 {
